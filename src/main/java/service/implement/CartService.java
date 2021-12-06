@@ -10,8 +10,8 @@ import java.util.List;
 
 public class CartService implements ICartService {
 
-    private final String SQL_EMPTY_CART = "{CALL empty_cart()}";
-    private final String SQL_DELETE_PRODUCT_FROM_CART = "{CALL delete_product_from_cart(?)}";
+    private final String SQL_EMPTY_CART = "delete from carts where userId = ?;";
+    private final String SQL_DELETE_PRODUCT_FROM_CART = "delete from carts where userId = ? and productId = ?;";
     private final String SQL_GET_PRODUCTS_FROM_CART = "{CALL get_my_cart(?)}";
     private final String SQL_INCREASE_QUANTITY = "{CALL increase_quantity_cart(?,?)}";
     private final String SQL_DECREASE_QUANTITY = "{CALL decrease_quantity_cart(?,?)}";
@@ -38,9 +38,11 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public boolean deleteProduct(int id) {
+    public boolean deleteProduct(int id, int usId) {
         try (Connection connection = getConnection();
              CallableStatement callableStatement = connection.prepareCall( SQL_DELETE_PRODUCT_FROM_CART);) {
+            callableStatement.setInt(1,id);
+            callableStatement.setInt(2,usId);
             int result = callableStatement.executeUpdate();
             return result >= 1;
         } catch (SQLException e) {
@@ -50,9 +52,10 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public boolean deleteAllProducts() {
+    public boolean deleteAllProducts(int usId) {
         try (Connection connection = getConnection();
              CallableStatement callableStatement = connection.prepareCall(SQL_EMPTY_CART);) {
+            callableStatement.setInt(1,usId);
             int result = callableStatement.executeUpdate();
             return result >= 1;
         } catch (SQLException e) {

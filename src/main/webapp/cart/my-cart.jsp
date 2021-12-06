@@ -21,23 +21,25 @@
             <th>No.</th>
             <th>Product</th>
             <th>Quantity</th>
+            <th>Price</th>
             <%--            <th>Description</th>--%>
             <%--            <th>image</th>--%>
             <%--            <th>rate</th>--%>
             <%--            <th>sold</th>--%>
         </tr>
-        <c:forEach var="product" items="${myCart}">
+        <c:forEach var="i" begin="0" end="${myCart.size()-1}">
             <tr>
                 <td></td>
-                <td>${product.productId}</td>
-                <td>${product.quantity}</td>
+                <td>${productList.get(i).name}</td>
+                <td>${myCart.get(i).quantity}</td>
+                <td>x ${priceList.get(i)}</td>
                     <%--                <td>${product.description}</td>--%>
                     <%--                <td>${product.image}</td>--%>
                     <%--                <td>${product.sold}</td>--%>
                 <td>
-                    <a href="/carts?action=increase&id=${product.productId}">+1</a>
-                    <a href="/carts?action=decrease&id=${product.productId}">-1</a>
-                    <a href="/carts?action=delete&id=${product.productId}">Delete</a>
+                    <a href="/carts?action=increase&id=${productList.get(i).id}">+1</a>
+                    <a href="/carts?action=decrease&id=${productList.get(i).id}">-1</a>
+                    <a href="/carts?action=delete&id=${productList.get(i).id}">Delete</a>
                 </td>
             </tr>
         </c:forEach>

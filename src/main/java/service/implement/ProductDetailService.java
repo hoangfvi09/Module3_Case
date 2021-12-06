@@ -130,4 +130,30 @@ public class ProductDetailService implements IProductDetailService {
         }
 
     }
+
+    @Override
+    public Double findPriceByProductId(int id) {
+        double price = 0;
+        try (Connection connection = getConnection();
+             CallableStatement callableStatement = connection.prepareCall("select price from productDetails where productId = ?");) {
+            callableStatement.setInt(1, id);
+            ResultSet rs = callableStatement.executeQuery();
+            rs.next();
+            price = rs.getDouble("price");
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return price;
+    }
+
+    public List <Double> findPriceListByProductList(List <Product> products){
+        List <Double> priceList = new ArrayList<>();
+        for (Product product:products
+             ) {
+            double price = findPriceByProductId(product.getId());
+            priceList.add(price);
+
+        }
+        return priceList;
+    }
 }
