@@ -153,14 +153,24 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User verifyLogin(String email, String password) throws SQLException {
-        List <User> users = findAll();
-        for ( User user: users) {
-            if (user.getEmail().equals(email)){
-                if (user.getPassword().equals(password)){
-                    return user;
-                }
+    public User verifyLogin(String username, String password) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(LOGIN_USER_SQL);){
+            System.out.println(preparedStatement);
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                return new User(resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getInt(5),
+                        resultSet.getString(6));
             }
+        }
+        catch (SQLException e) {
+
         }
         return null;
     }
