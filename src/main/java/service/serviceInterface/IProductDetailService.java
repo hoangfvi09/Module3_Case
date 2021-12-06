@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface IProductDetailService extends IService <ProductDetailUpdated> {
     List<ProductDetailUpdated> findByProductList(List<Product> products) throws SQLException;
+    void updateStatus(int id, int status);
 }

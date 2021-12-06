@@ -12,6 +12,12 @@ public class ProductDetailUpdated {
     public ProductDetailUpdated() {
     }
 
+    public ProductDetailUpdated(int inStock, double price, int status) {
+        this.inStock = inStock;
+        this.price = price;
+        this.status = status;
+    }
+
     public ProductDetailUpdated(int productId, int inStock, double price, int status) {
         this.productId = productId;
         this.inStock = inStock;

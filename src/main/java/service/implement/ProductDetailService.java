@@ -49,6 +49,15 @@ public class ProductDetailService implements IProductDetailService {
 
     @Override
     public void save(ProductDetailUpdated productDetailUpdated) throws SQLException {
+        try (
+                Connection connection = getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO productDetails (inStock,price,status) VALUES (?,?,?);")) {
+            preparedStatement.setInt(1, productDetailUpdated.getInStock());
+            preparedStatement.setDouble(2,productDetailUpdated.getPrice());
+            preparedStatement.setInt(3, productDetailUpdated.getStatus());
+            preparedStatement.executeUpdate();
+        } catch (SQLException ignored) {
+        }
 
     }
 
@@ -107,5 +116,18 @@ public class ProductDetailService implements IProductDetailService {
             productDetailList.add(productDetail);
         }
         return productDetailList;
+    }
+
+    @Override
+    public void updateStatus(int id, int status) {
+        try (
+                Connection connection = getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement("update productDetails set status = ? where productId = ?;")) {
+            preparedStatement.setInt(1,status);
+            preparedStatement.setInt(2,id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException ignored) {
+        }
+
     }
 }
