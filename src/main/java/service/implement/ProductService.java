@@ -211,6 +211,7 @@ public class ProductService implements IProductService {
              CallableStatement callableStatement = connection.prepareCall(SQL_GET_PRODUCT_BY_ID);) {
             callableStatement.setInt(1,id);
             ResultSet rs = callableStatement.executeQuery();
+            rs.next();
                 String productName = rs.getString("name");
                 String description = rs.getString("description");
                 int categoryId = rs.getInt("categoryId");

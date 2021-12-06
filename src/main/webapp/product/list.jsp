@@ -20,23 +20,23 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Category</th>
             <th>Description</th>
             <th>image</th>
             <th>rate</th>
             <th>sold</th>
             <th>price</th>
+            <th>category</th>
         </tr>
         <c:forEach var="i" begin="0" end="${productList.size()-1}">
             <tr>
                 <td>${productList.get(i).getId()}</td>
                 <td>${productList.get(i).getName()}</td>
-                <td>${productList.get(i).getCategoryId()}</td>
                 <td>${productList.get(i).getDescription()}</td>
                 <td>${productList.get(i).getImage()}</td>
                 <td></td>
                 <td>${productList.get(i).getSold()}</td>
                 <td>${productDetailList.get(i).getPrice()}</td>
+                <td>${categoryList.get(i).getName()}</td>
                 <td> <a onclick="return confirm('Are you sure?')"
                         href="/products?action=delete&id=${productList.get(i).getId()}">delete</a>
                 </td>

@@ -1,9 +1,12 @@
 package controller;
 
+import model.Category;
 import model.Product;
 import model.ProductDetailUpdated;
+import service.implement.CategoryService;
 import service.implement.ProductDetailService;
 import service.implement.ProductService;
+import service.serviceInterface.ICategoryService;
 import service.serviceInterface.IProductDetailService;
 import service.serviceInterface.IProductService;
 
@@ -20,8 +23,10 @@ import java.util.List;
 @WebServlet(name = "ProductServlet", value = "/products")
 public class ProductServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private IProductService productService = new ProductService();
-    private IProductDetailService productDetailService = new ProductDetailService();
+    private final IProductService productService = new ProductService();
+    private final IProductDetailService productDetailService = new ProductDetailService();
+    private final ICategoryService categoryService = new CategoryService();
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -97,6 +102,8 @@ public class ProductServlet extends HttpServlet {
         String info = request.getParameter("info");
         List<Product> productList = productService.find(info);
         request.setAttribute("productList", productList);
+        List<Category>categoryList = categoryService.findByProductList(productList);
+        request.setAttribute("categoryList", categoryList);
         List<ProductDetailUpdated> productDetailList = productDetailService.findByProductList(productList);
         request.setAttribute("productDetailList", productDetailList);
         request.setAttribute("listName", "Products related to " + info);
@@ -107,6 +114,8 @@ public class ProductServlet extends HttpServlet {
     private void showListPriceDesc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         List<Product> productList = productService.findAllPriceDesc();
         request.setAttribute("productList", productList);
+        List<Category>categoryList = categoryService.findByProductList(productList);
+        request.setAttribute("categoryList", categoryList);
         List<ProductDetailUpdated> productDetailList = productDetailService.findByProductList(productList);
         request.setAttribute("productDetailList", productDetailList);
         request.setAttribute("listName", "Product List with Descending Price");
@@ -115,8 +124,11 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void showListPriceAsc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+
         List<Product> productList = productService.findAllPriceAsc();
         request.setAttribute("productList", productList);
+        List<Category>categoryList = categoryService.findByProductList(productList);
+        request.setAttribute("categoryList", categoryList);
         List<ProductDetailUpdated> productDetailList = productDetailService.findByProductList(productList);
         request.setAttribute("productDetailList", productDetailList);
         request.setAttribute("listName", "Product List with Ascending Price");
@@ -127,6 +139,8 @@ public class ProductServlet extends HttpServlet {
     private void showList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         List<Product> productList = productService.findAll();
         request.setAttribute("productList", productList);
+        List<Category>categoryList = categoryService.findByProductList(productList);
+        request.setAttribute("categoryList", categoryList);
         List<ProductDetailUpdated> productDetailList = productDetailService.findByProductList(productList);
         request.setAttribute("productDetailList", productDetailList);
         request.setAttribute("listName", "Product List");
