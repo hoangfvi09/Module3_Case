@@ -64,20 +64,20 @@ public class ProductDetailService implements IProductDetailService {
 
     @Override
     public ProductDetailUpdated findById(int proId) throws SQLException {
-        ProductDetailUpdated productDetails = new ProductDetailUpdated();
         try (Connection connection = getConnection();
              CallableStatement callableStatement = connection.prepareCall(SQL_GET_PRO_DETAIL_BY_ID);) {
+            callableStatement.setInt(1, proId);
             ResultSet rs = callableStatement.executeQuery();
-
+            rs.next();
             int productId = rs.getInt("productId");
             int inStock = rs.getInt("inStock");
             double price = rs.getDouble("price");
             int status = rs.getInt("status");
-            productDetails = new ProductDetailUpdated(productId, inStock, price, status);
+            return new ProductDetailUpdated(productId, inStock, price, status);
         } catch (SQLException e) {
             printSQLException(e);
         }
-        return productDetails;
+        return null;
     }
 
 
@@ -102,7 +102,9 @@ public class ProductDetailService implements IProductDetailService {
         List<ProductDetailUpdated> productDetailList = new ArrayList<>();
         for (Product product : products
         ) {
-            productDetailList.add(findById(product.getId()));
+            int id = product.getId();
+            ProductDetailUpdated productDetail = findById(id);
+            productDetailList.add(productDetail);
         }
         return productDetailList;
     }

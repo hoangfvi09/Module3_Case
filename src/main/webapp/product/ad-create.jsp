@@ -10,6 +10,8 @@
     <input type="text" name="description" placeholder="description">
     <input type="text" name="image" placeholder="image">
     <input type="number" name="sold" placeholder="sold">
+    <input type="number" name="inStock" placeholder="inStock">
+    <input type="number" name="price" placeholder="price">
     <button>Create</button>
 </form>
 </body>

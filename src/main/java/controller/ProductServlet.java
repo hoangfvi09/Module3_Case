@@ -1,6 +1,7 @@
 package controller;
 
 import model.Product;
+import model.ProductDetailUpdated;
 import service.implement.ProductDetailService;
 import service.implement.ProductService;
 import service.serviceInterface.IProductDetailService;
@@ -50,13 +51,25 @@ public class ProductServlet extends HttpServlet {
                 }
                 break;
             case "list-price-asc":
-                showListPriceAsc(request, response);
+                try {
+                    showListPriceAsc(request, response);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 break;
             case "list-price-desc":
-                showListPriceDesc(request, response);
+                try {
+                    showListPriceDesc(request, response);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 break;
             case "find":
-                showResult(request, response);
+                try {
+                    showResult(request, response);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 break;
 
 
@@ -80,34 +93,42 @@ public class ProductServlet extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 
-    private void showResult(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showResult(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         String info = request.getParameter("info");
-        List<Product> listProduct = productService.find(info);
-        request.setAttribute("productList", listProduct);
+        List<Product> productList = productService.find(info);
+        request.setAttribute("productList", productList);
+        List<ProductDetailUpdated> productDetailList = productDetailService.findByProductList(productList);
+        request.setAttribute("productDetailList", productDetailList);
         request.setAttribute("listName", "Products related to " + info);
         RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
         dispatcher.forward(request, response);
     }
 
-    private void showListPriceDesc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Product> listProduct = productService.findAllPriceDesc();
-        request.setAttribute("productList", listProduct);
+    private void showListPriceDesc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        List<Product> productList = productService.findAllPriceDesc();
+        request.setAttribute("productList", productList);
+        List<ProductDetailUpdated> productDetailList = productDetailService.findByProductList(productList);
+        request.setAttribute("productDetailList", productDetailList);
         request.setAttribute("listName", "Product List with Descending Price");
         RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
         dispatcher.forward(request, response);
     }
 
-    private void showListPriceAsc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Product> listProduct = productService.findAllPriceAsc();
-        request.setAttribute("productList", listProduct);
+    private void showListPriceAsc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        List<Product> productList = productService.findAllPriceAsc();
+        request.setAttribute("productList", productList);
+        List<ProductDetailUpdated> productDetailList = productDetailService.findByProductList(productList);
+        request.setAttribute("productDetailList", productDetailList);
         request.setAttribute("listName", "Product List with Ascending Price");
         RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
         dispatcher.forward(request, response);
     }
 
     private void showList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        List<Product> listProduct = productService.findAll();
-        request.setAttribute("productList", listProduct);
+        List<Product> productList = productService.findAll();
+        request.setAttribute("productList", productList);
+        List<ProductDetailUpdated> productDetailList = productDetailService.findByProductList(productList);
+        request.setAttribute("productDetailList", productDetailList);
         request.setAttribute("listName", "Product List");
         RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
         dispatcher.forward(request, response);

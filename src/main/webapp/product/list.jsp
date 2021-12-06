@@ -25,20 +25,23 @@
             <th>image</th>
             <th>rate</th>
             <th>sold</th>
+            <th>price</th>
         </tr>
-        <c:forEach var="product" items="${productList}">
+        <c:forEach var="i" begin="0" end="${productList.size()-1}">
             <tr>
-                <td>${product.id}</td>
-                <td>${product.name}</td>
-                <td>${product.categoryId}</td>
-                <td>${product.description}</td>
-                <td>${product.image}</td>
-                <td>${product.sold}</td>
+                <td>${productList.get(i).getId()}</td>
+                <td>${productList.get(i).getName()}</td>
+                <td>${productList.get(i).getCategoryId()}</td>
+                <td>${productList.get(i).getDescription()}</td>
+                <td>${productList.get(i).getImage()}</td>
+                <td></td>
+                <td>${productList.get(i).getSold()}</td>
+                <td>${productDetailList.get(i).getPrice()}</td>
                 <td> <a onclick="return confirm('Are you sure?')"
-                        href="/products?action=delete&id=${product.id}">delete</a>
+                        href="/products?action=delete&id=${productList.get(i).getId()}">delete</a>
                 </td>
                 <td>
-                    <a href="/products?action=edit&id=${product.id}">Edit</a>,
+                    <a href="/products?action=edit&id=${productList.get(i).getId()}">Edit</a>,
                 </td>
             </tr>
         </c:forEach>
