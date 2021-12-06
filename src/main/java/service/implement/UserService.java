@@ -91,6 +91,7 @@ public class UserService implements IUserService {
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            printSQLException(e);
         }
     }
 
@@ -101,6 +102,7 @@ public class UserService implements IUserService {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            printSQLException(e);
         }
 
     }
@@ -122,6 +124,7 @@ public class UserService implements IUserService {
                 user = new User(id, name, email, password, role, image);
             }
         } catch (SQLException e) {
+            printSQLException(e);
         }
         return user;
     }
@@ -144,6 +147,7 @@ public class UserService implements IUserService {
                 users.add(new User(id, name, email, password, role, image));
             }
         } catch (SQLException e) {
+            printSQLException(e);
         }
         return users;
     }
