@@ -10,9 +10,9 @@ public interface ICartService extends IService<Cart> {
 
     boolean deleteAllProducts();
 
-    boolean increaseQuantity(Product product);
+    boolean increaseQuantity(int proId, int usId);
 
-    boolean decreaseQuantity(Product product);
+    boolean decreaseQuantity(int proId, int usId);
 
     double calTotal(int userId);
 }

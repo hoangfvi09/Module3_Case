@@ -13,6 +13,9 @@ public class CartService implements ICartService {
     private final String SQL_EMPTY_CART = "{CALL empty_cart()}";
     private final String SQL_DELETE_PRODUCT_FROM_CART = "{CALL delete_product_from_cart(?)}";
     private final String SQL_GET_PRODUCTS_FROM_CART = "{CALL get_my_cart(?)}";
+    private final String SQL_INCREASE_QUANTITY = "{CALL increase_quantity_cart(?,?)}";
+    private final String SQL_DECREASE_QUANTITY = "{CALL decrease_quantity_cart(?,?)}";
+
 
     public CartService() {
     }
@@ -23,7 +26,6 @@ public class CartService implements ICartService {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/product_management?useSSL=false", "root", "123456");
         } catch (SQLException | ClassNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return connection;
@@ -60,12 +62,30 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public boolean increaseQuantity(Product product) {
+    public boolean increaseQuantity(int proId, int usId) {
+        try (Connection connection = getConnection();
+             CallableStatement callableStatement = connection.prepareCall( SQL_INCREASE_QUANTITY);) {
+            callableStatement.setInt(1,proId);
+            callableStatement.setInt(2,usId);
+            int result = callableStatement.executeUpdate();
+            return result >= 1;
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
         return false;
     }
 
     @Override
-    public boolean decreaseQuantity(Product product) {
+    public boolean decreaseQuantity(int proId, int usId) {
+        try (Connection connection = getConnection();
+             CallableStatement callableStatement = connection.prepareCall( SQL_DECREASE_QUANTITY);) {
+            callableStatement.setInt(1,proId);
+            callableStatement.setInt(2,usId);
+            int result = callableStatement.executeUpdate();
+            return result >= 1;
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
         return false;
     }
 

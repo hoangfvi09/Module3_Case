@@ -1,6 +1,7 @@
 package controller;
 
 import model.User;
+import service.implement.CartService;
 import service.implement.UserService;
 
 import javax.servlet.RequestDispatcher;
@@ -16,6 +17,7 @@ import java.sql.SQLException;
 @WebServlet(name = "LoginServlet", value = "/login")
 public class LoginServlet extends HttpServlet {
     UserService userService = new UserService();
+    CartService cartService = new CartService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -51,6 +53,7 @@ public class LoginServlet extends HttpServlet {
             requestDispatcher.forward(request,response);
         } else {
             session.setAttribute("currentUser", user);
+            session.setAttribute("cart", cartService.findByUserId(user.getId()));
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
             requestDispatcher.forward(request,response);
         }

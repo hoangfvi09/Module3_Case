@@ -1,7 +1,9 @@
 package controller;
 
 import model.Product;
+import service.implement.ProductDetailService;
 import service.implement.ProductService;
+import service.serviceInterface.IProductDetailService;
 import service.serviceInterface.IProductService;
 
 import javax.servlet.RequestDispatcher;
@@ -18,6 +20,7 @@ import java.util.List;
 public class ProductServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private IProductService productService = new ProductService();
+    private IProductDetailService productDetailService = new ProductDetailService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -155,4 +158,7 @@ public class ProductServlet extends HttpServlet {
         productService.save(new Product(name,categoryId,description,image,sold));
         response.sendRedirect("/products?action=list");
     }
+
+
+
 }

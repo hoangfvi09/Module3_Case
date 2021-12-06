@@ -1,15 +1,19 @@
 package service.implement;
 
 import model.Order;
+import model.Product;
 import model.User;
 import service.serviceInterface.IOrderService;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderService implements IOrderService {
+
+    private final String SQL_GET_ORDERS_BY_USER = "{CALL get_orders_by_users(?)}";
+    private final String SQL_GET_ALL_ORDERS = "{CALL get_all_orders()}";
+
 
     public OrderService() {
     }
@@ -27,8 +31,25 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public List<Order> findByUser(User user) {
-        return null;
+    public List<Order> findByUserId(int userId) {
+        List<Order> orders = new ArrayList<>();
+        try (Connection connection = getConnection();
+             CallableStatement callableStatement = connection.prepareCall(SQL_GET_ORDERS_BY_USER);) {
+            callableStatement.setInt(1,userId);
+            ResultSet rs = callableStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String time = rs.getString("time");
+                String address = rs.getString("address");
+                String phoneNo = rs.getString("phoneNo");
+                int status = rs.getInt("status");
+                orders.add(new Order(id, userId, time, address, phoneNo, status));
+            }
+
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return orders;
     }
 
     @Override
@@ -58,7 +79,24 @@ public class OrderService implements IOrderService {
 
     @Override
     public List<Order> findAll() throws SQLException {
-        return null;
+        List<Order> orders = new ArrayList<>();
+        try (Connection connection = getConnection();
+             CallableStatement callableStatement = connection.prepareCall(SQL_GET_ALL_ORDERS);) {
+            ResultSet rs = callableStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int userId = rs.getInt("userId");
+                String time = rs.getString("time");
+                String address = rs.getString("address");
+                String phoneNo = rs.getString("phoneNo");
+                int status = rs.getInt("status");
+                orders.add(new Order(id, userId, time, address, phoneNo, status));
+            }
+
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return orders;
     }
 
     @Override

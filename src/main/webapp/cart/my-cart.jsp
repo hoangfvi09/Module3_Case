@@ -35,11 +35,14 @@
                     <%--                <td>${product.image}</td>--%>
                     <%--                <td>${product.sold}</td>--%>
                 <td>
-                    <a href="/carts?action=increase&proId=${product.productId}">+1</a>
-                    <a href="/carts?action=decrease&proId=${product.productId}">-1</a>
+                    <a href="/carts?action=increase&id=${product.productId}">+1</a>
+                    <a href="/carts?action=decrease&id=${product.productId}">-1</a>
+                    <a href="/carts?action=delete&id=${product.productId}">Delete</a>
                 </td>
             </tr>
         </c:forEach>
+        <a href="/carts?action=empty-cart">Delete All</a>
     </table>
+    </div>
 </body>
 </html>
