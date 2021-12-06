@@ -79,8 +79,8 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
                         <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item">Login</a>
-                            <a href="#" class="dropdown-item">Register</a>
+                            <a href="/login" class="dropdown-item">Login</a>
+                            <a href="/users?action=create" class="dropdown-item">Register</a>
                         </div>
                     </div>
                 </div>
@@ -128,9 +128,9 @@
 <div class="breadcrumb-wrap">
     <div class="container-fluid">
         <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Products</a></li>
-            <li class="breadcrumb-item active">Login & Register</li>
+            <li class="breadcrumb-item active">Login</li>
         </ul>
     </div>
 </div>
@@ -140,53 +140,18 @@
 <div class="login">
     <div class="container-fluid">
         <div class="row">
-                <div class="col-lg-6">
-                    <form method="post">
-                    <div class="register-form">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label>Name</label>
-                                <input class="form-control" type="text" name="name" placeholder="Name">
-                            </div>
-<%--                            <div class="col-md-6">--%>
-<%--                                <label>Last Name"</label>--%>
-<%--                                <input class="form-control" type="text" placeholder="Last Name">--%>
-<%--                            </div>--%>
-                            <div class="col-md-12">
-                                <label>E-mail</label>
-                                <input class="form-control" type="text" name="email" placeholder="E-mail">
-                            </div>
-<%--                            <div class="col-md-6">--%>
-<%--                                <label>Mobile No</label>--%>
-<%--                                <input class="form-control" type="text" placeholder="Mobile No">--%>
-<%--                            </div>--%>
-                            <div class="col-md-12">
-                                <label>Password</label>
-                                <input class="form-control" type="text" name="password" placeholder="Password">
-                            </div>
-<%--                            <div class="col-md-6">--%>
-<%--                                <label>Retype Password</label>--%>
-<%--                                <input class="form-control" type="text" placeholder="Password">--%>
-<%--                            </div>--%>
-                            <div class="col-md-12">
-                                <button class="btn">Register</button>
-                            </div>
-                        </div>
-                    </div>
-            </form>
-                </div>
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <form method="post">
                     <div class="login-form">
                         <div class="row">
                             <div class="col-md-12">
                                 <p class="text-danger">${mess}</p>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <label>E-mail / Username</label>
                                 <input class="form-control" type="text" name="email" placeholder="E-mail / Username">
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <label>Password</label>
                                 <input class="form-control" type="text" name="password" placeholder="Password">
                             </div>

@@ -60,7 +60,7 @@ public class UserServlet extends HttpServlet {
     }
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("login/login.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("user/create_user.jsp");
         dispatcher.forward(request, response);
     }
 
