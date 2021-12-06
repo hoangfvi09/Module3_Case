@@ -151,8 +151,7 @@ public class ProductServlet extends HttpServlet {
         int categoryId = Integer.parseInt(request.getParameter("categoryId"));
         String description = request.getParameter("description");
         String image = request.getParameter("image");
-        int sold = Integer.parseInt(request.getParameter("sold"));
-        productService.save(new Product(name,categoryId,description,image,sold));
+        productService.save(new Product(name,categoryId,description,image));
         response.sendRedirect("/products?action=list");
     }
 }

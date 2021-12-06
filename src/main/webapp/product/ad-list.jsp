@@ -24,7 +24,6 @@ pp
             <th>Category</th>
             <th>Description</th>
             <th>image</th>
-            <th>rate</th>
             <th>sold</th>
         </tr>
         <c:forEach var="product" items="${productList}">

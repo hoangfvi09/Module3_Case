@@ -23,7 +23,6 @@
             <th>Category</th>
             <th>Description</th>
             <th>image</th>
-            <th>rate</th>
             <th>sold</th>
         </tr>
         <c:forEach var="product" items="${productList}">
@@ -38,7 +37,7 @@
                         href="/products?action=delete&id=${product.id}">delete</a>
                 </td>
                 <td>
-                    <a href="/products?action=edit&id=${product.id}">Edit</a>,
+                    <a href="/products?action=edit&id=${product.id}">Edit</a>,po
                 </td>
             </tr>
         </c:forEach>

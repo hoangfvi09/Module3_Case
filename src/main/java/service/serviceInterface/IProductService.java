@@ -14,6 +14,8 @@ public interface IProductService extends IService<Product> {
 
     List<Product> findByPrice(double max, double min);
 
+    List<Product> findByCategory(String name);
+
 
 
 }

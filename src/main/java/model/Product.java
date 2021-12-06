@@ -29,6 +29,13 @@ public class Product {
         this.sold = sold;
     }
 
+    public Product(String name, int categoryId, String description, String image) {
+        this.name = name;
+        this.categoryId = categoryId;
+        this.description = description;
+        this.image = image;
+    }
+
     public int getId() {
         return id;
     }

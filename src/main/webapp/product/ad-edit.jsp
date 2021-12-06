@@ -19,7 +19,8 @@
         <input type="text" name="image" placeholder="image">
         <input type="number" name="sold" placeholder="sold">
     </label>
-    <button>Edit</button>
+    <button  onclick="return confirm('Added')"
+               > >Edit</button>
 </form>
 </body>
 </html>
