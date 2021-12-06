@@ -1,6 +1,7 @@
 package service.implement;
 
 import model.Order;
+import model.Product;
 import model.ProductDetailUpdated;
 import service.serviceInterface.IProductDetailService;
 
@@ -37,7 +38,7 @@ public class ProductDetailService implements IProductDetailService {
                 int inStock = rs.getInt("inStock");
                 double price = rs.getDouble("price");
                 int status = rs.getInt("status");
-                productDetails.add(new ProductDetailUpdated(productId, inStock, price,status));
+                productDetails.add(new ProductDetailUpdated(productId, inStock, price, status));
             }
 
         } catch (SQLException e) {
@@ -72,7 +73,7 @@ public class ProductDetailService implements IProductDetailService {
             int inStock = rs.getInt("inStock");
             double price = rs.getDouble("price");
             int status = rs.getInt("status");
-            productDetails = new ProductDetailUpdated(productId, inStock, price,status);
+            productDetails = new ProductDetailUpdated(productId, inStock, price, status);
         } catch (SQLException e) {
             printSQLException(e);
         }
@@ -96,4 +97,13 @@ public class ProductDetailService implements IProductDetailService {
         }
     }
 
+    @Override
+    public List<ProductDetailUpdated> findByProductList(List<Product> products) throws SQLException {
+        List<ProductDetailUpdated> productDetailList = new ArrayList<>();
+        for (Product product : products
+        ) {
+            productDetailList.add(findById(product.getId()));
+        }
+        return productDetailList;
+    }
 }
