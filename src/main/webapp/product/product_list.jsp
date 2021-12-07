@@ -166,7 +166,7 @@
                         <div class="col-md-4">
                             <div class="product-item">
                                 <div class="product-title">
-                                    <a href="#">${productList.get(i).name}</a>
+                                    <a style="-ms-text-size-adjust: 10" href="">${productList.get(i).name}</a>
                                     <div class="ratting">
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>

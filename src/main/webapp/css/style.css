@@ -684,6 +684,7 @@ h2 {
 /******** Product Item CSS ********/
 /**********************************/
 .product-item {
+    height: 600px;
     position: relative;
 }
 

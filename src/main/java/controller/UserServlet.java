@@ -116,7 +116,7 @@ public class UserServlet extends HttpServlet {
                 }else {
                     User newUser = new User(name, email, password);
                     userService.save(newUser);
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("user/login.jsp");
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/login");
                     request.setAttribute("verifyResult", "Sign-up Success . You can login");
                     requestDispatcher.forward(request,response);
                 }
