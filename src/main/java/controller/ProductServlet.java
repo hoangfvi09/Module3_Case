@@ -260,19 +260,19 @@ public class ProductServlet extends HttpServlet {
     private void showList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         String category = request.getParameter("category");
 
-        List<Product> listProduct = productService.findAll();
+        List<Product> productList = productService.findAll();
         if (category == null) {
-            listProduct = productService.findAll();
+            productList = productService.findAll();
         } else {
-            listProduct = productService.findByCategory(Integer.parseInt(category));
+            productList = productService.findByCategory(Integer.parseInt(category));
         }
-        request.setAttribute("productList", listProduct);
+        request.setAttribute("productList", productList);
 //        List<Product> productList = productService.findAll();
 //        request.setAttribute("productList", filterDisplayedProducts(productList));
-//        List<Category> categoryList = categoryService.findByProductList(productList);
-//        request.setAttribute("categoryList", categoryList);
-//        List<ProductDetailUpdated> productDetailList = productDetailService.findByProductList(productList);
-//        request.setAttribute(setAttribute"productDetailList", productDetailList);
+        List<Category> categoryList = categoryService.findByProductList(productList);
+        request.setAttribute("categoryList", categoryList);
+        List<ProductDetailUpdated> productDetailList = productDetailService.findByProductList(productList);
+        request.setAttribute("productDetailList", productDetailList);
         request.setAttribute("listName", "Product List");
         RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
         dispatcher.forward(request, response);
