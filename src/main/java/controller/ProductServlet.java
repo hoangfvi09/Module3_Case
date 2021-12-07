@@ -34,27 +34,34 @@ public class ProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        int role = getRole(request,response);
-        switch (role){
+        int role = getRole(request, response);
+        switch (role) {
             case 0:
-                handleGuest(request,response);
+                handleGuest(request, response);
                 break;
             case 1:
-                handleAdmin(request,response);
+                handleAdmin(request, response);
                 break;
             case 2:
-                handleUser(request,response);
+                try {
+                    handleUser(request, response);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
 
     }
 
-    private void handleUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void handleUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         String action = request.getParameter("action");
         if (action == null) {
             action = "";
         }
         switch (action) {
+            case "purchased":
+                showPurchased(request, response);
+                break;
             case "list":
                 try {
                     showList(request, response);
@@ -84,6 +91,23 @@ public class ProductServlet extends HttpServlet {
                 }
                 break;
         }
+    }
+
+    private void showPurchased(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        User currentUser = (User) session.getAttribute("currentUser");
+        List<Product> productList = productService.findPurchasedProducts(currentUser.getId());
+        request.setAttribute("productList", productList);
+        List<Category> categoryList = categoryService.findByProductList(productList);
+        request.setAttribute("categoryList", categoryList);
+        List<ProductDetailUpdated> productDetailList = productDetailService.findByProductList(productList);
+        request.setAttribute("productDetailList", productDetailList);
+        request.setAttribute("listName", "Products you have already bought");
+        RequestDispatcher dispatcher;
+
+        dispatcher = request.getRequestDispatcher("product/list.jsp");
+
+        dispatcher.forward(request, response);
     }
 
     private void handleAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -176,18 +200,18 @@ public class ProductServlet extends HttpServlet {
 
     }
 
-    private int getRole(HttpServletRequest request, HttpServletResponse response){
+    private int getRole(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(false);
         int role;
-        if (session != null){
+        if (session != null) {
             User currentUser = (User) session.getAttribute("currentUser");
-            if (currentUser == null){
+            if (currentUser == null) {
                 role = 0;
-            }else {
+            } else {
                 role = currentUser.getRole();
             }
-        }else{
-            role =0;
+        } else {
+            role = 0;
         }
         return role;
     }
@@ -211,7 +235,7 @@ public class ProductServlet extends HttpServlet {
 
     private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         int id = Integer.parseInt(request.getParameter("id"));
-        productDetailService.updateStatus(id,0);
+        productDetailService.updateStatus(id, 0);
         response.sendRedirect("/products?action=list");
     }
 
@@ -229,7 +253,12 @@ public class ProductServlet extends HttpServlet {
         List<ProductDetailUpdated> productDetailList = productDetailService.findByProductList(productList);
         request.setAttribute("productDetailList", productDetailList);
         request.setAttribute("listName", "Products related to " + info);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
+        RequestDispatcher dispatcher;
+        if (getRole(request, response) == 1) {
+            dispatcher = request.getRequestDispatcher("product/ad-list.jsp");
+        } else {
+            dispatcher = request.getRequestDispatcher("product/list.jsp");
+        }
         dispatcher.forward(request, response);
     }
 
@@ -272,7 +301,7 @@ public class ProductServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int role = getRole(request,response);
+        int role = getRole(request, response);
         if (role == 1) {
             String action = request.getParameter("action");
             if (action == null) {
@@ -307,10 +336,10 @@ public class ProductServlet extends HttpServlet {
         Product product = new Product(name, categoryId, description, image, sold);
         productService.update(id, product);
 
-        int inStock =Integer.parseInt(request.getParameter("inStock"));
+        int inStock = Integer.parseInt(request.getParameter("inStock"));
         double price = Double.parseDouble(request.getParameter("price"));
         int status = Integer.parseInt(request.getParameter("status"));
-        productDetailService.update(id,new ProductDetailUpdated(inStock,price,status));
+        productDetailService.update(id, new ProductDetailUpdated(inStock, price, status));
         response.sendRedirect("/products?action=list");
     }
 
@@ -322,25 +351,24 @@ public class ProductServlet extends HttpServlet {
         int sold = Integer.parseInt(request.getParameter("sold"));
         productService.save(new Product(name, categoryId, description, image, sold));
 
-        int inStock =Integer.parseInt(request.getParameter("inStock"));
+        int inStock = Integer.parseInt(request.getParameter("inStock"));
         double price = Double.parseDouble(request.getParameter("price"));
         int status = Integer.parseInt(request.getParameter("status"));
-        productDetailService.save(new ProductDetailUpdated(inStock,price,status));
+        productDetailService.save(new ProductDetailUpdated(inStock, price, status));
         response.sendRedirect("/products?action=list");
     }
 
-    private List <Product> filterDisplayedProducts(List <Product> products) throws SQLException {
-        List <Product> displayedProducts = new ArrayList<>();
-        for (Product product:products
-             ) {
+    private List<Product> filterDisplayedProducts(List<Product> products) throws SQLException {
+        List<Product> displayedProducts = new ArrayList<>();
+        for (Product product : products
+        ) {
             boolean isDisplayed = productDetailService.findById(product.getId()).getStatus() == 1;
-            if(isDisplayed){
+            if (isDisplayed) {
                 displayedProducts.add(product);
             }
         }
         return displayedProducts;
     }
-
 
 
 }

@@ -21,15 +21,26 @@
 <br>
 <c:if test="${sessionScope.currentUser.role== 2}">
     <a href="/orders">My orders</a>
+    <br>
+    <a href="/carts" >My cart</a>
+</c:if>
+<c:if test="${sessionScope.currentUser.role== 1}">
+    <a href="/orders">view all orders</a>
 </c:if>
 <c:if test="${sessionScope.currentUser!= null}">
     welcome ${sessionScope.currentUser.name}
     <a href="/logout"
        onclick="return confirm('Are you sure to log out?')">Log out</a>
 </c:if>
-<br>
-<a href="/carts" >My cart</a>
+
 <br>
 <a href="/products?action=list">product list</a>
+<form action="products">
+    <input name="action" type="hidden" value="find" >
+    <input name="info" type="text" > <button>find</button>
+
+</form>
+
+<a href="/categories"> Categories</a>
 </body>
 </html>

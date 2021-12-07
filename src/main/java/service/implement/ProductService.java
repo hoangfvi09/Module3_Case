@@ -160,6 +160,28 @@ public class ProductService implements IProductService {
         }
         return products;
     }
+    public List<Product> findPurchasedProducts(int usId) throws SQLException {
+        List<Product> products = new ArrayList<>();
+        try (Connection connection = getConnection();
+             CallableStatement callableStatement = connection.prepareCall("{call get_purchases_product(?)}");) {
+           callableStatement.setInt(1,usId);
+            ResultSet rs = callableStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String productName = rs.getString("name");
+                String description = rs.getString("description");
+                int categoryId = rs.getInt("categoryId");
+                String image = rs.getString("image");
+                int sold = rs.getInt("sold");
+                products.add(new Product(id, productName, categoryId, description, image, sold));
+            }
+
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return products;
+    }
+
 
     @Override
     public void save(Product product) throws SQLException {
@@ -224,6 +246,8 @@ public class ProductService implements IProductService {
         }
         return product;
     }
+
+
 
     private void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
