@@ -76,7 +76,6 @@
                         <a href="/users?action=edit&id=${sessionScope.currentUser.id }" class="nav-item nav-link">Edit
                             MyAccount</a>
                     </c:if>
-
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
                         <div class="dropdown-menu">
@@ -87,6 +86,11 @@
                     </div>
                 </div>
                 <div class="navbar-nav ml-auto">
+                    <div class="nav-item dropdown">
+                        <c:if test="${sessionScope.currentUser != null}">
+                            <img src="${sessionScope.currentUser.image}" alt="avatar" height="50" width="50">
+                        </c:if>
+                    </div>
                     <div class="nav-item dropdown">
                         <c:if test="${sessionScope.currentUser != null}">
                             <a href="#" class="nav-link dropdown-toggle"

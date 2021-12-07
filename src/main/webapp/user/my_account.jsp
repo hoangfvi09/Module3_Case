@@ -236,27 +236,21 @@
           </div>
           <div class="tab-pane fade" id="account-tab" role="tabpanel" aria-labelledby="account-nav">
             <h4>Account Details</h4>
-            <div class="row">
-              <div class="col-md-6">
-                <input class="form-control" type="text" placeholder="First Name">
+            <form method="post">
+              <div class="row">
+                <div class="col-md-4">
+                  <img  src="${sessionScope.currentUser.image}" alt="avatar" height="250" width="250" >
+                </div>
+                <div class="col-md-8">
+                  <input class="form-control" type="text" name="name" value="<c:out value=' Name: ${sessionScope.currentUser.name}' />">
+                  <input class="form-control" type="text" name="email"  value="<c:out value='Email: ${sessionScope.currentUser.email}' />">
+                </div>
+                <div class="col-md-12">
+                  <button class="btn"><a href="/users?action=edit&id=${sessionScope.currentUser.id}">Update Account</a></button>
+                  <br><br>
+                </div>
               </div>
-              <div class="col-md-6">
-                <input class="form-control" type="text" placeholder="Last Name">
-              </div>
-              <div class="col-md-6">
-                <input class="form-control" type="text" placeholder="Mobile">
-              </div>
-              <div class="col-md-6">
-                <input class="form-control" type="text" placeholder="Email">
-              </div>
-              <div class="col-md-12">
-                <input class="form-control" type="text" placeholder="Address">
-              </div>
-              <div class="col-md-12">
-                <button class="btn">Update Account</button>
-                <br><br>
-              </div>
-            </div>
+            </form>
             <h4>Password change</h4>
             <div class="row">
               <div class="col-md-12">

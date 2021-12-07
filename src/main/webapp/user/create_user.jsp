@@ -166,11 +166,11 @@
                             <%--                            </div>--%>
                             <div class="col-md-12">
                                 <label>Password</label>
-                                <input class="form-control" type="text" name="password" placeholder="Password">
+                                <input class="form-control" type="password" name="password" placeholder="Password">
                             </div>
                             <div class="col-md-12">
                                 <label>Retype Password</label>
-                                <input class="form-control" type="text" name="repass" placeholder="Password">
+                                <input class="form-control" type="password" name="repass" placeholder="Password">
                             </div>
                             <div class="col-md-12">
                                 <button class="btn">Register</button>
