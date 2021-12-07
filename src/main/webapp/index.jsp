@@ -92,7 +92,7 @@
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav mr-auto">
-                    <a href="index.jsp" class="nav-item nav-link active">Home</a>
+                    <a href="/home" class="nav-item nav-link active">Home</a>
                     <a href="product-list.html" class="nav-item nav-link">Products</a>
                     <a href="product-detail.html" class="nav-item nav-link">Product Detail</a>
                     <a href="cart.html" class="nav-item nav-link">Cart</a>
@@ -151,7 +151,7 @@
         <div class="row align-items-center">
             <div class="col-md-3">
                 <div class="logo">
-                    <a href="index.html">
+                    <a href="/home">
                         <img src="img/logo.png" alt="Logo">
                     </a>
                 </div>
@@ -187,7 +187,7 @@
                 <nav class="navbar bg-light">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.jsp"><i class="fa fa-home"></i>Home</a>
+                            <a class="nav-link" href="/home"><i class="fa fa-home"></i>Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#"><i class="fa fa-shopping-bag"></i>Best Selling</a>

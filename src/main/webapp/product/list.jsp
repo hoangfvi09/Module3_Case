@@ -124,10 +124,26 @@
                 </div>
                 <div class="navbar-nav ml-auto">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+                        <c:if test="${sessionScope.currentUser != null}">
+                            <img src="${sessionScope.currentUser.image}" alt="avatar" height="50" width="50">
+                        </c:if>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <c:if test="${sessionScope.currentUser != null}">
+                            <a href="#" class="nav-link dropdown-toggle"
+                               data-toggle="dropdown">Hello ${sessionScope.currentUser.name}</a>
+                        </c:if>
+                        <c:if test="${sessionScope.currentUser == null}">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+                        </c:if>
                         <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item">Login</a>
-                            <a href="#" class="dropdown-item">Register</a>
+                            <c:if test="${sessionScope.currentUser != null}">
+                                <a href="/logout" class="dropdown-item">Logout</a>
+                            </c:if>
+                            <c:if test="${sessionScope.currentUser == null}">
+                                <a href="/login" class="dropdown-item">Login</a>
+                                <a href="/users?action=create" class="dropdown-item">Register</a>
+                            </c:if>
                         </div>
                     </div>
                 </div>
