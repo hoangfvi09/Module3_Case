@@ -19,7 +19,8 @@
     <link href="img/favicon.ico" rel="icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap"
+          rel="stylesheet">
 
     <!-- CSS Libraries -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -167,10 +168,10 @@
                                 <label>Password</label>
                                 <input class="form-control" type="text" name="password" placeholder="Password">
                             </div>
-                            <%--                            <div class="col-md-6">--%>
-                            <%--                                <label>Retype Password</label>--%>
-                            <%--                                <input class="form-control" type="text" placeholder="Password">--%>
-                            <%--                            </div>--%>
+                            <div class="col-md-12">
+                                <label>Retype Password</label>
+                                <input class="form-control" type="text" name="repass" placeholder="Password">
+                            </div>
                             <div class="col-md-12">
                                 <button class="btn">Register</button>
                             </div>
@@ -240,15 +241,15 @@
             <div class="col-md-6">
                 <div class="payment-method">
                     <h2>We Accept:</h2>
-                    <img src="img/payment-method.png" alt="Payment Method" />
+                    <img src="img/payment-method.png" alt="Payment Method"/>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="payment-security">
                     <h2>Secured By:</h2>
-                    <img src="img/godaddy.svg" alt="Payment Security" />
-                    <img src="img/norton.svg" alt="Payment Security" />
-                    <img src="img/ssl.svg" alt="Payment Security" />
+                    <img src="img/godaddy.svg" alt="Payment Security"/>
+                    <img src="img/norton.svg" alt="Payment Security"/>
+                    <img src="img/ssl.svg" alt="Payment Security"/>
                 </div>
             </div>
         </div>
