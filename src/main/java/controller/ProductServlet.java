@@ -103,10 +103,17 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void showList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String category = request.getParameter("category");
+
         List<Product> listProduct = productService.findAll();
+        if (category == null) {
+            listProduct = productService.findAll();
+        } else {
+            listProduct = productService.findByCategory(Integer.parseInt(category));
+        }
         request.setAttribute("productList", listProduct);
         request.setAttribute("listName", "Product List");
-        RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("product/product_list.jsp");
         dispatcher.forward(request, response);
     }
 

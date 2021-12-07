@@ -1,6 +1,10 @@
 /**********************************/
 /********** General CSS ***********/
 /**********************************/
+
+.sneackes{
+    border-radius: 50%;
+}
 body {
     color: #353535;
     font-family: 'Open Sans', sans-serif;

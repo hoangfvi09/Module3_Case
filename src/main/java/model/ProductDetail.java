@@ -12,20 +12,11 @@ public class ProductDetail {
     }
 
     public ProductDetail(int size, int productId, int inStock, double price, String color) {
-        this.size = size;
         this.productId = productId;
         this.inStock = inStock;
         this.price = price;
-        this.color = color;
     }
 
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
 
     public int getProductId() {
         return productId;
@@ -51,11 +42,4 @@ public class ProductDetail {
         this.price = price;
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
 }

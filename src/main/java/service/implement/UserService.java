@@ -90,7 +90,7 @@ public class UserService implements IUserService {
             preparedStatement.setInt(6, user.getId());
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
+        } catch (SQLException ignored) {
         }
     }
 
@@ -100,7 +100,7 @@ public class UserService implements IUserService {
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USERS_SQL);) {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
+        } catch (SQLException ignored) {
         }
 
     }
@@ -121,7 +121,7 @@ public class UserService implements IUserService {
                 String image = resultSet.getString("image");
                 user = new User(id, name, email, password, role, image);
             }
-        } catch (SQLException e) {
+        } catch (SQLException ignored) {
         }
         return user;
     }

@@ -14,6 +14,7 @@ public class ProductService implements IProductService {
     private final String SQL_GET_ALL_PRODUCTS_PRICE_DESC = "{CALL get_all_products_price_desc()}";
     private final String SQL_GET_ALL_PRODUCTS = "{CALL get_all_products()}";
     private final String SQL_GET_PRODUCT_BY_ID = "{CALL get_product_by_id(?)}";
+    private final String SQL_GET_PRODUCT_BY_CID = "select * from products where categoryId = ? ";
 
 
     private static final String INSERT_PRODUCTS_SQL = "INSERT INTO products (name,categoryId,description,image) VALUES (?,?,?,?);";
@@ -21,8 +22,6 @@ public class ProductService implements IProductService {
     private static final String SELECT_ALL_PRODUCTS = "select * from products";
     private static final String DELETE_PRODUCTS_SQL = "delete from products where id = ?;";
     private static final String UPDATE_PRODUCTS_SQL = "update products set name=?,categoryId=?,description=?,image=?,sold=? where id = ?;";
-
-
 
 
     public ProductService() {
@@ -39,7 +38,6 @@ public class ProductService implements IProductService {
         }
         return connection;
     }
-
 
 
     @Override
@@ -139,28 +137,6 @@ public class ProductService implements IProductService {
         return products;
     }
 
-    @Override
-    public List<Product> findByCategory(String name) {
-        List<Product> products = new ArrayList<>();
-        try (Connection connection = getConnection();
-             CallableStatement callableStatement = connection.prepareCall("select ");) {
-            ResultSet rs = callableStatement.executeQuery();
-
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String productName = rs.getString("name");
-                String description = rs.getString("description");
-                int categoryId = rs.getInt("categoryId");
-                String image = rs.getString("image");
-                int sold = rs.getInt("sold");
-                products.add(new Product(id, productName, categoryId, description, image, sold));
-            }
-
-        } catch (SQLException e) {
-            printSQLException(e);
-        }
-        return products;
-    }
 
     @Override
     public List<Product> findAll() throws SQLException {
@@ -190,9 +166,9 @@ public class ProductService implements IProductService {
                 Connection connection = getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(INSERT_PRODUCTS_SQL)) {
             preparedStatement.setString(1, product.getName());
-            preparedStatement.setInt(2,product.getCategoryId());
-            preparedStatement.setString(3,product.getDescription());
-            preparedStatement.setString(4,product.getImage());
+            preparedStatement.setInt(2, product.getCategoryId());
+            preparedStatement.setString(3, product.getDescription());
+            preparedStatement.setString(4, product.getImage());
             preparedStatement.executeUpdate();
         } catch (SQLException ignored) {
         }
@@ -205,11 +181,11 @@ public class ProductService implements IProductService {
                 Connection connection = getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PRODUCTS_SQL);) {
             preparedStatement.setString(1, product.getName());
-          preparedStatement.setInt(2,product.getCategoryId());
-          preparedStatement.setString(3,product.getDescription());
-          preparedStatement.setString(4,product.getImage());
-          preparedStatement.setInt(5,product.getSold());
-            preparedStatement.setInt(6,id);
+            preparedStatement.setInt(2, product.getCategoryId());
+            preparedStatement.setString(3, product.getDescription());
+            preparedStatement.setString(4, product.getImage());
+            preparedStatement.setInt(5, product.getSold());
+            preparedStatement.setInt(6, id);
             preparedStatement.executeUpdate();
         } catch (SQLException ignored) {
         }
@@ -231,14 +207,14 @@ public class ProductService implements IProductService {
         Product product = null;
         try (Connection connection = getConnection();
              CallableStatement callableStatement = connection.prepareCall(SQL_GET_PRODUCT_BY_ID);) {
-            callableStatement.setInt(1,id);
+            callableStatement.setInt(1, id);
             ResultSet rs = callableStatement.executeQuery();
-                String productName = rs.getString("name");
-                String description = rs.getString("description");
-                int categoryId = rs.getInt("categoryId");
-                String image = rs.getString("image");
-                int sold = rs.getInt("sold");
-                product = new Product(id, productName, categoryId, description, image, sold);
+            String productName = rs.getString("name");
+            String description = rs.getString("description");
+            int categoryId = rs.getInt("categoryId");
+            String image = rs.getString("image");
+            int sold = rs.getInt("sold");
+            product = new Product(id, productName, categoryId, description, image, sold);
 
         } catch (SQLException e) {
             printSQLException(e);
@@ -260,5 +236,26 @@ public class ProductService implements IProductService {
                 }
             }
         }
+    }
+
+    public List<Product> findByCategory(int categoryId) {
+        List<Product> products = new ArrayList<>();
+        try (Connection connection = getConnection();
+             CallableStatement callableStatement = connection.prepareCall(SQL_GET_PRODUCT_BY_CID);) {
+            callableStatement.setInt(1, categoryId);
+            ResultSet rs = callableStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String productName = rs.getString("name");
+                String description = rs.getString("description");
+                String image = rs.getString("image");
+                int sold = rs.getInt("sold");
+                products.add(new Product(id, productName, categoryId, description, image, sold));
+            }
+
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return products;
     }
 }
