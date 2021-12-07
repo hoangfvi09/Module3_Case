@@ -93,11 +93,11 @@
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav mr-auto">
                     <a href="index.jsp" class="nav-item nav-link active">Home</a>
-                    <a href="product-list.html" class="nav-item nav-link">Products</a>
-                    <a href="product-detail.html" class="nav-item nav-link">Product Detail</a>
-                    <a href="cart.html" class="nav-item nav-link">Cart</a>
-                    <a href="checkout.html" class="nav-item nav-link">Checkout</a>
-                    <a href="/myAccount" class="nav-item nav-link">My Account</a>
+                    <a href="/products?action=list" class="nav-item nav-link">Products</a>
+<%--                    <a href="product-detail.html" class="nav-item nav-link">Product Detail</a>--%>
+                    <a href="/carts" class="nav-item nav-link">Cart</a>
+<%--                    <a href="checkout.html" class="nav-item nav-link">Checkout</a>--%>
+<%--                    <a href="/myAccount" class="nav-item nav-link">My Account</a>--%>
                     <c:if test="${sessionScope.currentUser.role == 1}">
                         <a href="/users" class="nav-item nav-link">Account Management(Admin)</a>
                     </c:if>
@@ -151,7 +151,7 @@
         <div class="row align-items-center">
             <div class="col-md-3">
                 <div class="logo">
-                    <a href="index.html">
+                    <a href="index.jsp">
                         <img src="img/logo.png" alt="Logo">
                     </a>
                 </div>

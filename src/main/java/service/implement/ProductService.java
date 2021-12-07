@@ -13,7 +13,7 @@ public class ProductService implements IProductService {
     private final String SQL_GET_ALL_PRODUCTS_PRICE_ASC = "{CALL get_all_products_price_asc()}";
     private final String SQL_GET_ALL_PRODUCTS_PRICE_DESC = "{CALL get_all_products_price_desc()}";
     private final String SQL_GET_ALL_PRODUCTS = "{CALL get_all_products()}";
-    private final String SQL_GET_PRODUCT_BY_ID = "{CALL get_product_by_id(?)}";
+    private final String SQL_GET_PRODUCT_BY_ID = "select * from products where id = ?;";
     private final String SQL_GET_PRODUCT_BY_CID = "select * from products where categoryId = ? ";
 
 
