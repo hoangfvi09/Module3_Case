@@ -21,6 +21,7 @@ public class UserService implements IUserService {
     private final String DELETE_USERS_SQL = "delete from users where id = ?;";
     private final String UPDATE_USERS_SQL = "update users set name = ?, email= ?, password = ?, role =?, image = ? where id = ?";
     private final String LOGIN_USER_SQL = "select * from users where email = ? and password = ?";
+    private final String CHECK_ACCOUNT_BY_EMAIL = "select * from users where email = ?";
 
     private final String SELECT_USER_BY_USERNAME_PASS = "select * from user where username like ? and password like ?";
     private final String SELECT_USER_BY_USERNAME = "select id, username, password, email, address, avatar from user where username like ?";
@@ -156,6 +157,27 @@ public class UserService implements IUserService {
     public User verifyLogin(String username, String password) {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(LOGIN_USER_SQL);){
+            System.out.println(preparedStatement);
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                return new User(resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getInt(5),
+                        resultSet.getString(6));
+            }
+        }
+        catch (SQLException e) {
+
+        }
+        return null;
+    }
+    public User checkAccountExist(String username, String password) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(CHECK_ACCOUNT_BY_EMAIL);){
             System.out.println(preparedStatement);
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
