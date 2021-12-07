@@ -36,7 +36,7 @@
                 <td>
                     <a href="/carts?action=increase&id=${productList.get(i).id}">+1</a>
                     <a href="/carts?action=decrease&id=${productList.get(i).id}">-1</a>
-                    <a href="/carts?action=delete&id=${productList.get(i).id}">Delete</a>
+                    <a onclick="return confirm('Are you sure?')" href="/carts?action=delete&id=${productList.get(i).id}">Delete</a>
                 </td>
             </tr>
         </c:forEach>

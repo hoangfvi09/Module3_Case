@@ -25,4 +25,6 @@ public interface ICartService extends IService<Cart> {
     boolean increaseQuantity(int proId, List<Cart> cartList);
 
     double calTotal(int userId);
+
+    int alreadyInCart(int productId, List<Cart> cartList);
 }

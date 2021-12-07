@@ -42,8 +42,8 @@ public class CartService implements ICartService {
     public boolean deleteProduct(int id, int usId) {
         try (Connection connection = getConnection();
              CallableStatement callableStatement = connection.prepareCall(SQL_DELETE_PRODUCT_FROM_CART);) {
-            callableStatement.setInt(1, id);
-            callableStatement.setInt(2, usId);
+            callableStatement.setInt(1, usId);
+            callableStatement.setInt(2, id);
             int result = callableStatement.executeUpdate();
             return result >= 1;
         } catch (SQLException e) {
@@ -150,13 +150,31 @@ public class CartService implements ICartService {
     }
 
     @Override
+    public int alreadyInCart(int productId, List<Cart> cartList) {
+        for (int i = 0;i<cartList.size();i++){
+            if(cartList.get(i).getProductId()==productId){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    @Override
     public List<Cart> findAll() throws SQLException {
         return null;
     }
 
     @Override
     public void save(Cart cart) throws SQLException {
-
+        try (Connection connection = getConnection();
+             CallableStatement callableStatement = connection.prepareCall("insert into carts (productId, userId, quantity) values (?,?,?);");) {
+            callableStatement.setInt(1, cart.getProductId());
+            callableStatement.setInt(2, cart.getUserId());
+            callableStatement.setInt(2, cart.getQuantity());
+            int result = callableStatement.executeUpdate();
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
     }
 
     @Override

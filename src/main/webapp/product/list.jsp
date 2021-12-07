@@ -43,6 +43,7 @@
                 <td>
                     <a href="/products?action=edit&id=${productList.get(i).getId()}">Edit</a>,
                 </td>
+                <td><a href="/carts?action=add-product&id=${productList.get(i).getId()}&quantity=1">Add to cart</a></td>
             </tr>
         </c:forEach>
     </table>
