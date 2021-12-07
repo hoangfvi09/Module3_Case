@@ -166,6 +166,26 @@ public class UserService implements IUserService {
         }
         return null;
     }
+    @Override
+    public User checkAccountExist(String username) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(CHECK_ACCOUNT_BY_EMAIL);) {
+            System.out.println(preparedStatement);
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                return new User(resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getInt(5),
+                        resultSet.getString(6));
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return null;
+    }
 
     private void printSQLException(SQLException ex) {
         for (Throwable e : ex) {

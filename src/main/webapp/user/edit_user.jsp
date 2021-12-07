@@ -54,14 +54,19 @@
                     />
                 </td>
             </tr>
-            <tr>
-                <th>Role:</th>
-                <td>
-                    <input type="text" name="role" size="15"
-                           value="<c:out value='${user.role}' />"
-                    />
-                </td>
-            </tr>
+            <c:if test="${sessionScope.currentUser.role == 1}">
+                <tr>
+                    <th>Role:</th>
+                    <td>
+                        <input type="text" name="role" size="15"
+                               value="<c:out value='${user.role}' />"
+                        />
+                    </td>
+                </tr>
+            </c:if>
+            <c:if test="${sessionScope.currentUser.role != 1}">
+                <input type="hidden" name="role" value="<c:out value='${user.role}' />"/>
+            </c:if>
             <tr>
                 <th>Avatar:</th>
                 <td>

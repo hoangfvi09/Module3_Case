@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: hoangfvi
-  Date: 06/12/2021
-  Time: 10:34
+  User: vieth
+  Date: 12/6/2021
+  Time: 10:54 AM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -60,7 +60,7 @@
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav mr-auto">
-                    <a href="index.jsp" class="nav-item nav-link">Home</a>
+                    <a href="/home" class="nav-item nav-link">Home</a>
                     <a href="product-list.html" class="nav-item nav-link">Products</a>
                     <a href="product-detail.html" class="nav-item nav-link">Product Detail</a>
                     <a href="cart.html" class="nav-item nav-link">Cart</a>
@@ -96,7 +96,7 @@
         <div class="row align-items-center">
             <div class="col-md-3">
                 <div class="logo">
-                    <a href="index.html">
+                    <a href="/home">
                         <img src="img/logo.png" alt="Logo">
                     </a>
                 </div>
@@ -128,7 +128,7 @@
 <div class="breadcrumb-wrap">
     <div class="container-fluid">
         <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
+            <li class="breadcrumb-item"><a href="/home">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Products</a></li>
             <li class="breadcrumb-item active">Login</li>
         </ul>
@@ -153,7 +153,7 @@
                             </div>
                             <div class="col-md-12">
                                 <label>Password</label>
-                                <input class="form-control" type="text" name="password" placeholder="Password">
+                                <input class="form-control" type="password" name="password" placeholder="Password">
                             </div>
                             <div class="col-md-12">
                                 <div class="custom-control custom-checkbox">
@@ -276,30 +276,3 @@
 <script src="js/main.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-<%--<%@ page language="java" contentType="text/html; charset=UTF-8"--%>
-<%--         pageEncoding="UTF-8" %>--%>
-<%--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>--%>
-<%--<html>--%>
-<%--<head>--%>
-<%--    <title>Title</title>--%>
-<%--</head>--%>
-<%--<body>--%>
-<%--<form action ="login" method="post">--%>
-<%--    <input type="email" name="email">--%>
-<%--    <input type="password" name="password">--%>
-<%--    <button> Login</button>--%>
-<%--</form>--%>
-
-<%--<c:if test="${verifyResult!= null}" >--%>
-<%--    ${verifyResult}--%>
-<%--</c:if>--%>
-
-
-<%--</body>--%>
-<%--</html>--%>

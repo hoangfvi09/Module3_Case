@@ -149,7 +149,7 @@
                             </div>
                             <div class="col-md-12">
                                 <label>E-mail / Username</label>
-                                <input class="form-control" type="password" name="email" placeholder="E-mail / Username">
+                                <input class="form-control" type="text" name="email" placeholder="E-mail / Username">
                             </div>
                             <div class="col-md-12">
                                 <label>Password</label>
