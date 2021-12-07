@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
     }
 
     private void showForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("git/login.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("user/login.jsp");
         dispatcher.forward(request, response);
 
     }
