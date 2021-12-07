@@ -34,16 +34,15 @@ public class OrderService implements IOrderService {
     public List<Order> findByUserId(int userId) {
         List<Order> orders = new ArrayList<>();
         try (Connection connection = getConnection();
-             CallableStatement callableStatement = connection.prepareCall(SQL_GET_ORDERS_BY_USER);) {
-            callableStatement.setInt(1,userId);
+             CallableStatement callableStatement = connection.prepareCall("select * from orders where userId = ?;");) {
+            callableStatement.setInt(1, userId);
             ResultSet rs = callableStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
-                String time = rs.getString("time");
                 String address = rs.getString("address");
                 String phoneNo = rs.getString("phoneNo");
                 int status = rs.getInt("status");
-                orders.add(new Order(id, userId, time, address, phoneNo, status));
+                orders.add(new Order(id, userId, address, phoneNo, status));
             }
 
         } catch (SQLException e) {
@@ -58,12 +57,23 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public boolean changeStatus(int status) {
+    public boolean changeStatus(int id, int status) {
+        try (Connection connection = getConnection();
+             CallableStatement callableStatement = connection.prepareCall("update orders set status = ? where id = ?;");) {
+            callableStatement.setInt(1, status);
+            callableStatement.setInt(2, id);
+            int result = callableStatement.executeUpdate();
+            return result >= 1;
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
         return false;
     }
 
     @Override
-    public boolean checkStatus(Order order) {
+    public boolean checkStatus(int id) {
+
+
         return false;
     }
 

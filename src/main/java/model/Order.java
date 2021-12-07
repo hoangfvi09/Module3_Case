@@ -21,6 +21,13 @@ public class Order {
         this.phoneNo = phoneNo;
         this.status = status;
     }
+    public Order(int id, int userId,  String address, String phoneNo, int status) {
+        this.id = id;
+        this.userId = userId;
+        this.address = address;
+        this.phoneNo = phoneNo;
+        this.status = status;
+    }
 
     public int getStatus() {
         return status;

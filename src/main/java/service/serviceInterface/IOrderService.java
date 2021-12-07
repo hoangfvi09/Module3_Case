@@ -8,11 +8,12 @@ import java.util.List;
 public interface IOrderService extends IService<Order> {
     List<Order> findByUserId(int id);
 
+
     List<Order> findByStatus(int status);
 
-    boolean changeStatus(int status);
+    boolean changeStatus(int id, int status);
 
-    boolean checkStatus(Order order);
+    boolean checkStatus(int id);
 
     boolean changeAddress(Order order, String address);
 

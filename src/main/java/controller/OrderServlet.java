@@ -27,6 +27,9 @@ public class OrderServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
+            case "cancel":
+                cancelOrder(request,response);
+                break;
             default:
                 try {
                     show(request,response);
@@ -35,6 +38,13 @@ public class OrderServlet extends HttpServlet {
                 }
                 break;
         }
+    }
+
+    private void cancelOrder(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int orderId = Integer.parseInt(request.getParameter("id"));
+        orderService.changeStatus(orderId,0);
+        response.sendRedirect("/orders");
+
     }
 
     private void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
