@@ -18,6 +18,10 @@
     <a href="/login">Login</a>
     <a href="/sign-in">Sign in</a>
 </c:if>
+<br>
+<c:if test="${sessionScope.currentUser.role== 2}">
+    <a href="/orders">My orders</a>
+</c:if>
 <c:if test="${sessionScope.currentUser!= null}">
     welcome ${sessionScope.currentUser.name}
     <a href="/logout"

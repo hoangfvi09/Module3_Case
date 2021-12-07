@@ -8,6 +8,8 @@ public class Order {
     private String phoneNo;
     private int status;
 
+    // status: 1:cho xac nhan, 2:da xac nhan, 2: dang van chuyen, 4:giao thanh cong
+// 0: da huy
     public Order() {
     }
 
