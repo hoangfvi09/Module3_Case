@@ -1,12 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: UyLe
-  Date: 12/7/2021
-  Time: 10:16 AM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,7 +90,7 @@
         <div class="row align-items-center">
             <div class="col-md-3">
                 <div class="logo">
-                    <a href="../../index.html">
+                    <a href="index.jsp">
                         <img src="../../img/logo.png" alt="Logo">
                     </a>
                 </div>
@@ -202,7 +194,7 @@
                                     </div>
                                 </div>
                                 <div class="product-image">
-                                    <a href="product-detail.html">
+                                    <a href="product_detail.jsp">
                                         <img src="${productList.get(i).image}" alt="Product Image">
                                     </a>
                                     <div class="product-action">
@@ -283,7 +275,7 @@
                                 </div>
                             </div>
                             <div class="product-image">
-                                <a href="product-detail.html">
+                                <a href="product_detail.jsp">
                                     <img src="https://lakbay.vn/cdn/images/Nike/Blog%20Nike/Sneaker%20gia%20re/Edit/air-force-1-candy.jpg" alt="Product Image">
                                 </a>
                                 <div class="product-action">
@@ -309,7 +301,7 @@
                                 </div>
                             </div>
                             <div class="product-image">
-                                <a href="product-detail.html">
+                                <a href="product_detail.jsp">
                                     <img src="https://cdn.elly.vn/uploads/2021/06/05215849/top-nhung-doi-giay-adidas-nam-ma-ban-khong-nen-bo-lo-nam-2021.6-768x576.jpg" alt="Product Image">
                                 </a>
                                 <div class="product-action">
@@ -335,7 +327,7 @@
                                 </div>
                             </div>
                             <div class="product-image">
-                                <a href="product-detail.html">
+                                <a href="product_detail.jsp">
                                     <img src="https://cdn.under.vn/wp-content/uploads/2021/05/7_optimized-1.png" alt="Product Image">
                                 </a>
                                 <div class="product-action">
@@ -454,6 +446,7 @@
 
 <!-- Template Javascript -->
 <script src="../../js/main.js"></script>
+</div>
 </body>
 </html>
 
