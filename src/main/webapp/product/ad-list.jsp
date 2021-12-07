@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: hoangfvi
   Date: 06/12/2021
-  Time: 08:18
+  Time: 09:30
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -13,7 +13,8 @@
     <title>Title</title>
 </head>
 <body>
-<a href="/products?action=create">Create product</a><br><br>
+pp
+
 <div align="center">
     <table border="1" cellpadding="5">
         <caption><h2>${listName}</h2></caption>
@@ -23,6 +24,7 @@
             <th>Status</th>
             <th>Description</th>
             <th>image</th>
+            <th>rate</th>
             <th>sold</th>
             <th>price</th>
             <th>category</th>

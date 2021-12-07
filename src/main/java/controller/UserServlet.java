@@ -99,17 +99,32 @@ public class UserServlet extends HttpServlet {
         String image = request.getParameter("image");
         User user = new User( id, name, email, password,role, image);
         userService.update(id,user);
-        response.sendRedirect("/users");
+        response.sendRedirect("/home");
     }
 
     private void insertUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        User newUser = new User(name, email, password);
-        userService.save(newUser);
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("user/create_user.jsp");
-//        dispatcher.forward(request, response);
-        response.sendRedirect("/users");
+        String re_password = request.getParameter("repass");
+         User a = userService.checkAccountExist(email);
+            if (a == null){
+                if (!password.equals(re_password)){
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("user/create_user.jsp");
+                    request.setAttribute("verifyResult", "Confirm password do not match. Please try again");
+                    requestDispatcher.forward(request,response);
+                }else {
+                    User newUser = new User(name, email, password);
+                    userService.save(newUser);
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("user/login.jsp");
+                    request.setAttribute("verifyResult", "Sign-up Success . You can login");
+                    requestDispatcher.forward(request,response);
+                }
+            } else {
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("user/create_user.jsp");
+                request.setAttribute("verifyResult", "Account already exists. Please try again");
+                requestDispatcher.forward(request,response);
+            }
+
     }
 }

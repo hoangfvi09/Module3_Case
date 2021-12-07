@@ -17,11 +17,13 @@ public class ProductService implements IProductService {
     private final String SQL_GET_PRODUCT_BY_CID = "select * from products where categoryId = ? ";
 
 
-    private static final String INSERT_PRODUCTS_SQL = "INSERT INTO products (name,categoryId,description,image) VALUES (?,?,?,?);";
+    private static final String INSERT_PRODUCTS_SQL = "INSERT INTO products (name,categoryId,description,image,sold) VALUES (?,?,?,?,?);";
     private static final String SELECT_PRODUCTS_BY_ID = "select id,name,categoryId,description,image,sold from products where id =?";
     private static final String SELECT_ALL_PRODUCTS = "select * from products";
     private static final String DELETE_PRODUCTS_SQL = "delete from products where id = ?;";
     private static final String UPDATE_PRODUCTS_SQL = "update products set name=?,categoryId=?,description=?,image=?,sold=? where id = ?;";
+
+
 
 
     public ProductService() {
