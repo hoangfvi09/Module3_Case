@@ -79,16 +79,20 @@
                 </div>
                 <div class="navbar-nav ml-auto">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+                        <c:if test="${sessionScope.currentUser != null}">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Hello ${sessionScope.currentUser.name}</a>
+                        </c:if>
+                        <c:if test="${sessionScope.currentUser == null}">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+                        </c:if>
                         <div class="dropdown-menu">
                             <c:if test="${sessionScope.currentUser != null}">
                                 <a href="/logout" class="dropdown-item">Logout</a>
                             </c:if>
                             <c:if test="${sessionScope.currentUser == null}">
                                 <a href="/login" class="dropdown-item">Login</a>
+                                <a href="/users?action=create" class="dropdown-item">Register</a>
                             </c:if>
-
-                            <a href="/users?action=create" class="dropdown-item">Register</a>
                         </div>
                     </div>
                 </div>

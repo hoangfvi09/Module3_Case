@@ -60,7 +60,7 @@
 
       <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
         <div class="navbar-nav mr-auto">
-          <a href="../../index.html" class="nav-item nav-link">Home</a>
+          <a href="../..//home" class="nav-item nav-link">Home</a>
           <a href="../../product-list.html" class="nav-item nav-link">Products</a>
           <a href="../../product-detail.html" class="nav-item nav-link">Product Detail</a>
           <a href="../../cart.html" class="nav-item nav-link">Cart</a>
@@ -96,7 +96,7 @@
     <div class="row align-items-center">
       <div class="col-md-3">
         <div class="logo">
-          <a href="../../index.html">
+          <a href="../..//home">
             <img src="../../img/logo.png" alt="Logo">
           </a>
         </div>
@@ -128,7 +128,7 @@
 <div class="breadcrumb-wrap">
   <div class="container-fluid">
     <ul class="breadcrumb">
-      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item"><a href="/home">Home</a></li>
       <li class="breadcrumb-item"><a href="#">Products</a></li>
       <li class="breadcrumb-item active">My Account</li>
     </ul>
