@@ -63,22 +63,8 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body>
+<body style="background: #f0f8ff" >
 <!-- Top bar Start -->
-<div class="top-bar">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-6">
-                <i class="fa fa-envelope"></i>
-                support@email.com
-            </div>
-            <div class="col-sm-6">
-                <i class="fa fa-phone-alt"></i>
-                +012-345-6789
-            </div>
-        </div>
-    </div>
-</div>
 <!-- Top bar End -->
 
 <!-- Nav Bar Start -->
@@ -93,7 +79,7 @@
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav mr-auto">
                     <a href="index.jsp" class="nav-item nav-link active">Home</a>
-                    <a href="product-list.html" class="nav-item nav-link">Products</a>
+                    <a href="/products?action=list" class="nav-item nav-link">Products</a>
                     <a href="product-detail.html" class="nav-item nav-link">Product Detail</a>
                     <a href="cart.html" class="nav-item nav-link">Cart</a>
                     <a href="checkout.html" class="nav-item nav-link">Checkout</a>
@@ -151,7 +137,7 @@
         <div class="row align-items-center">
             <div class="col-md-3">
                 <div class="logo">
-                    <a href="index.html">
+                    <a href="index.jsp">
                         <img src="img/logo.png" alt="Logo">
                     </a>
                 </div>
@@ -214,23 +200,23 @@
                 </nav>
             </div>
             <div class="col-md-6">
-                <div class="header-slider normal-slider">
+                <div style="height: 450px" class="header-slider normal-slider">
                     <div class="header-slider-item">
-                        <img src="img/slider-1.jpg" alt="Slider Image"/>
+                        <img width="100%"height="400px" src="https://f48-zpg.zdn.vn/8858870016585865246/720c19ef326bf935a07a.jpg" alt="Slider Image"/>
                         <div class="header-slider-caption">
                             <p>Some text goes here that describes the image</p>
                             <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Shop Now</a>
                         </div>
                     </div>
                     <div class="header-slider-item">
-                        <img src="img/slider-2.jpg" alt="Slider Image"/>
+                        <img  width="100%" height="400px" src="https://f55-zpg.zdn.vn/7850414313046660269/b6c2f53bdebf15e14cae.jpg" alt="Slider Image"/>
                         <div class="header-slider-caption">
                             <p>Some text goes here that describes the image</p>
                             <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Shop Now</a>
                         </div>
                     </div>
                     <div class="header-slider-item">
-                        <img src="img/slider-3.jpg" alt="Slider Image"/>
+                        <img  width="100%" height="400px" src="https://f36-zpg.zdn.vn/8336791738500185749/3283850aae8e65d03c9f.jpg" alt="Slider Image"/>
                         <div class="header-slider-caption">
                             <p>Some text goes here that describes the image</p>
                             <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Shop Now</a>
@@ -241,13 +227,13 @@
             <div class="col-md-3">
                 <div class="header-img">
                     <div class="img-item">
-                        <img src="img/category-1.jpg"/>
+                        <img src="https://photo-cms-kienthuc.zadn.vn/zoom/800/uploaded/nguyenanhson/2020_12_24/1/dang-anh-khoe-giay-gai-xinh-lo-voc-dang-cuc-xin-hinh-2.jpeg"/>
                         <a class="img-text" href="">
                             <p>Some text goes here that describes the image</p>
                         </a>
                     </div>
                     <div class="img-item">
-                        <img src="img/category-2.jpg"/>
+                        <img src="https://gamek.mediacdn.vn/133514250583805952/2020/2/1/photo-1-1580529782917695541729.jpg"/>
                         <a class="img-text" href="">
                             <p>Some text goes here that describes the image</p>
                         </a>
@@ -325,7 +311,7 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="category-item ch-400">
-                    <img src="img/category-3.jpg"/>
+                    <img src="https://2sao.vietnamnetjsc.vn/images/2021/06/09/11/54/b4.jpg"/>
                     <a class="category-name" href="">
                         <p>Some text goes here that describes the image</p>
                     </a>
@@ -333,13 +319,13 @@
             </div>
             <div class="col-md-3">
                 <div class="category-item ch-250">
-                    <img src="img/category-4.jpg"/>
+                    <img src="https://i.pinimg.com/originals/1c/ed/06/1ced067bbc7d63808f2018c34f4ad10b.jpg"/>
                     <a class="category-name" href="">
                         <p>Some text goes here that describes the image</p>
                     </a>
                 </div>
                 <div class="category-item ch-150">
-                    <img src="img/category-5.jpg"/>
+                    <img src="https://minsu.com.vn/wp-content/uploads/2021/05/tiep-noi-hot-girl-bap-can-bo-xoai-non-trang-pham-phat-ngon-soc-ve-viec-hoc-hinh-2-e1620804638897.jpg"/>
                     <a class="category-name" href="">
                         <p>Some text goes here that describes the image</p>
                     </a>
@@ -347,13 +333,13 @@
             </div>
             <div class="col-md-3">
                 <div class="category-item ch-150">
-                    <img src="img/category-6.jpg"/>
+                    <img src="https://vcdn1-ione.vnecdn.net/2020/09/04/118322725-386151272388892-9294-6169-4105-1599153481.jpg?w=0&h=0&q=100&dpr=1&fit=crop&s=Tc-zJ65dczSQ3rUwRoNpdQ"/>
                     <a class="category-name" href="">
                         <p>Some text goes here that describes the image</p>
                     </a>
                 </div>
                 <div class="category-item ch-250">
-                    <img src="img/category-7.jpg"/>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNZ6w5d_yrhIto83Q_-Wuc1ELXQMebgcTSQQ&usqp=CAU" alt="">
                     <a class="category-name" href="">
                         <p>Some text goes here that describes the image</p>
                     </a>
@@ -361,7 +347,7 @@
             </div>
             <div class="col-md-3">
                 <div class="category-item ch-400">
-                    <img src="img/category-8.jpg"/>
+                    <img src="https://vcdn1-ione.vnecdn.net/2020/09/04/giay-the-thao-dep-re-4-1246-1599153481.jpg?w=0&h=0&q=100&dpr=1&fit=crop&s=qV3WyaMZGIn7NqDYr-Lc_w"/>
                     <a class="category-name" href="">
                         <p>Some text goes here that describes the image</p>
                     </a>
@@ -370,176 +356,6 @@
         </div>
     </div>
 </div>
-<!-- Category End-->
-
-<!-- Call to Action Start -->
-<div class="call-to-action">
-    <div class="container-fluid">
-        <div class="row align-items-center">
-            <div class="col-md-6">
-                <h1>call us for any queries</h1>
-            </div>
-            <div class="col-md-6">
-                <a href="tel:0123456789">+012-345-6789</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Call to Action End -->
-
-<!-- Featured Product Start -->
-<div class="featured-product product">
-    <div class="container-fluid">
-        <div class="section-header">
-            <h1>Featured Product</h1>
-        </div>
-        <div class="row align-items-center product-slider product-slider-4">
-            <div class="col-lg-3">
-                <div class="product-item">
-                    <div class="product-title">
-                        <a href="#">Product Name</a>
-                        <div class="ratting">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                    </div>
-                    <div class="product-image">
-                        <a href="product-detail.html">
-                            <img src="img/product-1.jpg" alt="Product Image">
-                        </a>
-                        <div class="product-action">
-                            <a href="#"><i class="fa fa-cart-plus"></i></a>
-                            <a href="#"><i class="fa fa-heart"></i></a>
-                            <a href="#"><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="product-price">
-                        <h3><span>$</span>99</h3>
-                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="product-item">
-                    <div class="product-title">
-                        <a href="#">Product Name</a>
-                        <div class="ratting">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                    </div>
-                    <div class="product-image">
-                        <a href="product-detail.html">
-                            <img src="img/product-2.jpg" alt="Product Image">
-                        </a>
-                        <div class="product-action">
-                            <a href="#"><i class="fa fa-cart-plus"></i></a>
-                            <a href="#"><i class="fa fa-heart"></i></a>
-                            <a href="#"><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="product-price">
-                        <h3><span>$</span>99</h3>
-                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="product-item">
-                    <div class="product-title">
-                        <a href="#">Product Name</a>
-                        <div class="ratting">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                    </div>
-                    <div class="product-image">
-                        <a href="product-detail.html">
-                            <img src="img/product-3.jpg" alt="Product Image">
-                        </a>
-                        <div class="product-action">
-                            <a href="#"><i class="fa fa-cart-plus"></i></a>
-                            <a href="#"><i class="fa fa-heart"></i></a>
-                            <a href="#"><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="product-price">
-                        <h3><span>$</span>99</h3>
-                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="product-item">
-                    <div class="product-title">
-                        <a href="#">Product Name</a>
-                        <div class="ratting">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                    </div>
-                    <div class="product-image">
-                        <a href="product-detail.html">
-                            <img src="img/product-4.jpg" alt="Product Image">
-                        </a>
-                        <div class="product-action">
-                            <a href="#"><i class="fa fa-cart-plus"></i></a>
-                            <a href="#"><i class="fa fa-heart"></i></a>
-                            <a href="#"><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="product-price">
-                        <h3><span>$</span>99</h3>
-                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="product-item">
-                    <div class="product-title">
-                        <a href="#">Product Name</a>
-                        <div class="ratting">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                    </div>
-                    <div class="product-image">
-                        <a href="product-detail.html">
-                            <img src="img/product-5.jpg" alt="Product Image">
-                        </a>
-                        <div class="product-action">
-                            <a href="#"><i class="fa fa-cart-plus"></i></a>
-                            <a href="#"><i class="fa fa-heart"></i></a>
-                            <a href="#"><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="product-price">
-                        <h3><span>$</span>99</h3>
-                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Featured Product End -->
-
-<!-- Newsletter Start -->
 <div class="newsletter">
     <div class="container-fluid">
         <div class="row">
@@ -567,7 +383,7 @@
             <div class="col-lg-3">
                 <div class="product-item">
                     <div class="product-title">
-                        <a href="#">Product Name</a>
+                        <a href="#">Nike</a>
                         <div class="ratting">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -578,7 +394,7 @@
                     </div>
                     <div class="product-image">
                         <a href="product-detail.html">
-                            <img src="img/product-6.jpg" alt="Product Image">
+                            <img src="https://bizweb.dktcdn.net/thumb/large/100/413/756/products/e3229940-b0f5-4e69-8491-203ca12a5953.jpg?v=1638527796000" alt="Product Image">
                         </a>
                         <div class="product-action">
                             <a href="#"><i class="fa fa-cart-plus"></i></a>
@@ -595,7 +411,7 @@
             <div class="col-lg-3">
                 <div class="product-item">
                     <div class="product-title">
-                        <a href="#">Product Name</a>
+                        <a href="#">Puma Nova Pop</a>
                         <div class="ratting">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -606,7 +422,7 @@
                     </div>
                     <div class="product-image">
                         <a href="product-detail.html">
-                            <img src="img/product-7.jpg" alt="Product Image">
+                            <img src="https://cdn.shopify.com/s/files/1/0456/5070/6581/products/371723_02-1_360x.jpg?v=1603255337" alt="Product Image">
                         </a>
                         <div class="product-action">
                             <a href="#"><i class="fa fa-cart-plus"></i></a>
@@ -623,7 +439,7 @@
             <div class="col-lg-3">
                 <div class="product-item">
                     <div class="product-title">
-                        <a href="#">Product Name</a>
+                        <a href="#">Puma Muse X-2 Shimmer</a>
                         <div class="ratting">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -634,7 +450,7 @@
                     </div>
                     <div class="product-image">
                         <a href="product-detail.html">
-                            <img src="img/product-8.jpg" alt="Product Image">
+                            <img src="https://cdn.shopify.com/s/files/1/0456/5070/6581/products/372101_02-1_360x.jpg?v=1603255338" alt="Product Image">
                         </a>
                         <div class="product-action">
                             <a href="#"><i class="fa fa-cart-plus"></i></a>
@@ -651,7 +467,7 @@
             <div class="col-lg-3">
                 <div class="product-item">
                     <div class="product-title">
-                        <a href="#">Product Name</a>
+                        <a href="#"> Puma Rs-X³ Millenium White-Gray Violet</a>
                         <div class="ratting">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -662,7 +478,7 @@
                     </div>
                     <div class="product-image">
                         <a href="product-detail.html">
-                            <img src="img/product-9.jpg" alt="Product Image">
+                            <img src="https://cdn.shopify.com/s/files/1/0456/5070/6581/products/373236_02-1_360x.jpg?v=1604303353" alt="Product Image">
                         </a>
                         <div class="product-action">
                             <a href="#"><i class="fa fa-cart-plus"></i></a>
@@ -679,7 +495,7 @@
             <div class="col-lg-3">
                 <div class="product-item">
                     <div class="product-title">
-                        <a href="#">Product Name</a>
+                        <a href="#"> Puma Ascend</a>
                         <div class="ratting">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -690,7 +506,7 @@
                     </div>
                     <div class="product-image">
                         <a href="product-detail.html">
-                            <img src="img/product-10.jpg" alt="Product Image">
+                            <img src="https://cdn.shopify.com/s/files/1/0456/5070/6581/products/371313_03-1_ccb6fbbb-bb98-471a-b41f-15240b80df2f_360x.jpg?v=1615270486" alt="Product Image">
                         </a>
                         <div class="product-action">
                             <a href="#"><i class="fa fa-cart-plus"></i></a>
@@ -837,43 +653,6 @@
             </div>
         </div>
 
-        <div class="row payment align-items-center">
-            <div class="col-md-6">
-                <div class="payment-method">
-                    <h2>We Accept:</h2>
-                    <img src="img/payment-method.png" alt="Payment Method"/>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="payment-security">
-                    <h2>Secured By:</h2>
-                    <img src="img/godaddy.svg" alt="Payment Security"/>
-                    <img src="img/norton.svg" alt="Payment Security"/>
-                    <img src="img/ssl.svg" alt="Payment Security"/>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Footer End -->
-
-<!-- Footer Bottom Start -->
-<div class="footer-bottom">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 copyright">
-                <p>Copyright &copy; <a href="https://htmlcodex.com">HTML Codex</a>. All Rights Reserved</p>
-            </div>
-
-            <div class="col-md-6 template-by">
-                <p>Template By <a href="https://htmlcodex.com">HTML Codex</a></p>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Footer Bottom End -->
-
-<!-- Back to Top -->
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
 <!-- JavaScript Libraries -->
@@ -884,5 +663,7 @@
 
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
+    </div>
+</div>
 </body>
 </html>

@@ -167,6 +167,11 @@ public class UserService implements IUserService {
         return null;
     }
 
+    @Override
+    public User checkAccountExist(String username) throws SQLException {
+        return null;
+    }
+
     private void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
             if (e instanceof SQLException) {
