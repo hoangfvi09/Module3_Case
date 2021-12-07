@@ -145,6 +145,9 @@
                     <div class="register-form">
                         <div class="row">
                             <div class="col-md-12">
+                                <p class="text-danger">${verifyResult}</p>
+                            </div>
+                            <div class="col-md-12">
                                 <label>Name</label>
                                 <input class="form-control" type="text" name="name" placeholder="Name">
                             </div>

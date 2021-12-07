@@ -106,10 +106,18 @@ public class UserServlet extends HttpServlet {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        User newUser = new User(name, email, password);
-        userService.save(newUser);
+         User a = userService.checkAccountExist(email);
+            if (a == null){
+                User newUser = new User(name, email, password);
+                userService.save(newUser);
+                response.sendRedirect("/users");
+            } else {
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("user/create_user.jsp");
+                request.setAttribute("verifyResult", "Incorrect password or email. Please try again");
+                requestDispatcher.forward(request,response);
+            }
+
 //        RequestDispatcher dispatcher = request.getRequestDispatcher("user/create_user.jsp");
 //        dispatcher.forward(request, response);
-        response.sendRedirect("/users");
     }
 }

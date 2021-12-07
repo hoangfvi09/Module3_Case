@@ -26,6 +26,7 @@ public class UserService implements IUserService {
     private final String SELECT_USER_BY_USERNAME_PASS = "select * from user where username like ? and password like ?";
     private final String SELECT_USER_BY_USERNAME = "select id, username, password, email, address, avatar from user where username like ?";
     private final String SQL_GET_ALL_USERS = "{call get_all_users()}";
+
     public UserService() {
     }
 
@@ -156,7 +157,7 @@ public class UserService implements IUserService {
     @Override
     public User verifyLogin(String username, String password) {
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(LOGIN_USER_SQL);){
+             PreparedStatement preparedStatement = connection.prepareStatement(LOGIN_USER_SQL);) {
             System.out.println(preparedStatement);
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
@@ -169,18 +170,18 @@ public class UserService implements IUserService {
                         resultSet.getInt(5),
                         resultSet.getString(6));
             }
-        }
-        catch (SQLException e) {
-
+        } catch (SQLException e) {
+            printSQLException(e);
         }
         return null;
     }
-    public User checkAccountExist(String username, String password) {
+
+    @Override
+    public User checkAccountExist(String username) {
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(CHECK_ACCOUNT_BY_EMAIL);){
+             PreparedStatement preparedStatement = connection.prepareStatement(CHECK_ACCOUNT_BY_EMAIL);) {
             System.out.println(preparedStatement);
             preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 return new User(resultSet.getInt(1),
@@ -190,9 +191,8 @@ public class UserService implements IUserService {
                         resultSet.getInt(5),
                         resultSet.getString(6));
             }
-        }
-        catch (SQLException e) {
-
+        } catch (SQLException e) {
+            printSQLException(e);
         }
         return null;
     }

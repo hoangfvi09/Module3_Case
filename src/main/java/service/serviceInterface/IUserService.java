@@ -10,6 +10,7 @@ public interface IUserService extends IService<User> {
 
     User verifyLogin(String username, String password) throws SQLException;
 
-//    public boolean updateUser(User user) throws SQLException;
+    User checkAccountExist(String username) throws SQLException;
+
 
 }
