@@ -23,7 +23,6 @@
             <th>Status</th>
             <th>Description</th>
             <th>image</th>
-            <th>rate</th>
             <th>sold</th>
             <th>price</th>
             <th>category</th>

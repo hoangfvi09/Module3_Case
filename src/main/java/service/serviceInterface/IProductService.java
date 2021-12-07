@@ -14,6 +14,6 @@ public interface IProductService extends IService<Product> {
 
     List<Product> findByPrice(double max, double min);
 
-
+    public List<Product> findByCategory(int categoryId);
 
 }

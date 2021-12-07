@@ -91,7 +91,6 @@ public class ProductServlet extends HttpServlet {
         if (action == null) {
             action = "";
         }
-
         switch (action) {
             case "create":
                 showCreateForm(request, response);
@@ -259,12 +258,21 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void showList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        List<Product> productList = productService.findAll();
-        request.setAttribute("productList", filterDisplayedProducts(productList));
-        List<Category> categoryList = categoryService.findByProductList(productList);
-        request.setAttribute("categoryList", categoryList);
-        List<ProductDetailUpdated> productDetailList = productDetailService.findByProductList(productList);
-        request.setAttribute("productDetailList", productDetailList);
+        String category = request.getParameter("category");
+
+        List<Product> listProduct = productService.findAll();
+        if (category == null) {
+            listProduct = productService.findAll();
+        } else {
+            listProduct = productService.findByCategory(Integer.parseInt(category));
+        }
+        request.setAttribute("productList", listProduct);
+//        List<Product> productList = productService.findAll();
+//        request.setAttribute("productList", filterDisplayedProducts(productList));
+//        List<Category> categoryList = categoryService.findByProductList(productList);
+//        request.setAttribute("categoryList", categoryList);
+//        List<ProductDetailUpdated> productDetailList = productDetailService.findByProductList(productList);
+//        request.setAttribute(setAttribute"productDetailList", productDetailList);
         request.setAttribute("listName", "Product List");
         RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
         dispatcher.forward(request, response);

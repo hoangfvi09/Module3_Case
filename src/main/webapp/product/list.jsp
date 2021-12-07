@@ -13,13 +13,14 @@
     <title>Title</title>
 </head>
 <body>
-<%--<a href="/products?action=create">Create product</a><br><br>--%>
+<a href="/products?action=create">Create product</a><br><br>
 <div align="center">
     <table border="1" cellpadding="5">
         <caption><h2>${listName}</h2></caption>
         <tr>
             <th>ID</th>
             <th>Name</th>
+            <th>Category</th>
             <th>Description</th>
             <th>image</th>
             <th>rate</th>
@@ -47,7 +48,6 @@
             </tr>
         </c:forEach>
     </table>
-
 </div>
 </body>
 </html>
