@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         User user = userService.verifyLogin(email, password);
         if (user == null) {
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("user/login.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("login/login.jsp");
             request.setAttribute("verifyResult", "Incorrect password or email. Please try again");
             requestDispatcher.forward(request,response);
         } else {

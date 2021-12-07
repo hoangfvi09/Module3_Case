@@ -96,6 +96,9 @@
                     <c:if test="${sessionScope.currentUser != null}">
                         <a href="/orders" class="nav-item nav-link">Order</a>
                     </c:if>
+                    <c:if test="${sessionScope.currentUser.role == 1}">
+                        <a href="/products?action=create" class="nav-item nav-link">Add products</a>
+                    </c:if>
                 </div>
                 <div class="navbar-nav ml-auto">
                     <div class="nav-item dropdown">
@@ -230,7 +233,7 @@
                                         </div>
                                     </div>
                                     <div class="product-price">
-                                        <h3 style="color: white">${productDetailList.get(i).getPrice()}</h3>
+                                        <h3 style="color: white">$ ${productDetailList.get(i).getPrice()}</h3>
                                         <br>
                                         <c:if test="${sessionScope.currentUser.role == 1}">
                                             <center>
@@ -283,6 +286,20 @@
                     <a href="/products?action=list&category=4">Converse</a>
                 </div>
 
+
+                <div class="sidebar-widget brands">
+                    <h2 class="title">Category</h2>
+                    <ul>
+                        <li><a href="/products?action=list">ALL</a></li>
+                        <li><a href="/products?action=list&category=1">NIKE</a></li>
+                        <li><a href="/products?action=list&category=2">ADIDDAS</a></li>
+                        <li><a href="/products?action=list&category=3">PUMA</a></li>
+                        <li><a href="/products?action=list&category=4">CONVERSE</a></li>
+                        <c:if test="${sessionScope.currentUser.role == 1}">
+                            <li><a href="/products?action=deleted-list">DELETED PRODUCTS</a></li>
+                        </c:if>
+                    </ul>
+                </div>
             </div>
             <!-- Side Bar End -->
         </div>
@@ -290,20 +307,20 @@
 </div>
 <!-- Product List End -->
 
-<!-- Brand Start -->
-<div class="brand">
-    <div class="container-fluid">
-        <div class="brand-slider">
-            <div class="brand-item"><img src="../../img/brand-1.png" alt=""></div>
-            <div class="brand-item"><img src="../../img/brand-2.png" alt=""></div>
-            <div class="brand-item"><img src="../../img/brand-3.png" alt=""></div>
-            <div class="brand-item"><img src="../../img/brand-4.png" alt=""></div>
-            <div class="brand-item"><img src="../../img/brand-5.png" alt=""></div>
-            <div class="brand-item"><img src="../../img/brand-6.png" alt=""></div>
-        </div>
-    </div>
-</div>
-<!-- Brand End -->
+<%--<!-- Brand Start -->--%>
+<%--<div class="brand">--%>
+<%--    <div class="container-fluid">--%>
+<%--        <div class="brand-slider">--%>
+<%--            <div class="brand-item"><img src="../../img/brand-1.png" alt=""></div>--%>
+<%--            <div class="brand-item"><img src="../../img/brand-2.png" alt=""></div>--%>
+<%--            <div class="brand-item"><img src="../../img/brand-3.png" alt=""></div>--%>
+<%--            <div class="brand-item"><img src="../../img/brand-4.png" alt=""></div>--%>
+<%--            <div class="brand-item"><img src="../../img/brand-5.png" alt=""></div>--%>
+<%--            <div class="brand-item"><img src="../../img/brand-6.png" alt=""></div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
+<%--<!-- Brand End -->--%>
 
 <!-- Footer Start -->
 <div class="footer">

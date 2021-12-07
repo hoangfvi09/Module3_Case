@@ -1,3 +1,41 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: hoangfvi
+  Date: 07/12/2021
+  Time: 21:37
+  To change this template use File | Settings | File Templates.
+--%>
+<%--<%@ page contentType="text/html;charset=UTF-8" language="java" %>--%>
+<%--<html>--%>
+<%--<head>--%>
+<%--    <title>&lt;%&ndash;--%>
+<%--  Created by IntelliJ IDEA.--%>
+<%--  User: UyLe--%>
+<%--  Date: 12/6/2021--%>
+<%--  Time: 11:32 AM--%>
+<%--  To change this template use File | Settings | File Templates.--%>
+<%--&ndash;%&gt;--%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%--<html>--%>
+<%--<head>--%>
+<%--    <title>Title</title>--%>
+<%--</head>--%>
+<%--<body>--%>
+<%--<form method="post">--%>
+<%--    <label>--%>
+<%--        <input type="text" name="name" placeholder="name">--%>
+<%--        <input type="number" name="categoryId" placeholder="categoryId">--%>
+<%--        <input type="text" name="description" placeholder="description">--%>
+<%--        <input type="text" name="image" placeholder="image">--%>
+<%--        <input type="number" name="sold" placeholder="sold">--%>
+<%--    </label>--%>
+<%--    <button  onclick="return confirm('Added')"> Edit</button>--%>
+<%--</form>--%>
+<%--</body>--%>
+<%--</html>--%>
+
 <%--<%@ page contentType="text/html;charset=UTF-8" language="java" %>--%>
 <%--<html>--%>
 <%--<head>--%>
@@ -18,8 +56,6 @@
 <%--</body>--%>
 <%--</html>--%>
 
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +69,8 @@
     <link href="img/favicon.ico" rel="icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap"
+          rel="stylesheet">
 
     <!-- CSS Libraries -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -124,67 +161,63 @@
         <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="/home">Home</a></li>
             <li class="breadcrumb-item"><a href="/products">Products</a></li>
-            <li class="breadcrumb-item active">Create</li>
+            <li class="breadcrumb-item active">Edit products</li>
         </ul>
     </div>
 </div>
 <!-- Breadcrumb End -->
 
 <!-- Login Start -->
-<div class="login">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12">
-                <form method="post">
-                    <div class="login-form">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label>Name: </label>
-                                <input class="form-control" type="text" name="name" placeholder="product name">
-                            </div>
-                            <div class="col-md-12">
-                                <label>Category Id: </label>
-                                <input class="form-control" type="number" name="categoryId" placeholder="category id">
-                            </div>
-                            <div class="col-md-12">
-                                <label>Image Address:  </label>
-                                <input class="form-control" type="text" name="image" placeholder="image address">
-                            </div>
-                            <div class="col-md-12">
-                                <label>Description: </label>
-                                <input class="form-control" type="text" name="description" placeholder="product's description">
-                            </div>
-                            <div class="col-md-12">
-                                <label>Sold quantity: </label>
-                                <input class="form-control" type="number" name="sold" value="0">
-                            </div>
-                            <div class="col-md-12">
-                                <label>In Stock Quantity: </label>
-                                <input class="form-control" type="number" name="inStock" placeholder="in stock quantity">
-                            </div>
-                            <div class="col-md-12">
-                                <label>Price: </label>
-                                <input class="form-control" type="number" name="price" placeholder="price">
-                            </div>
-                            <div class="col-md-12">
-                                <label>Status: </label>
-                                <input class="form-control" type="number" name="status" value="1">
-                            </div>
-                            <div class="col-md-12">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="login-form">
+                <div class="row">
+                    <br><br><br>
+                    You've successfully edited the product!
+                    <br><br><br>
 
-                                <button type="submit" class="btn">Add</button>
-                            </div>
-                        </div>
+                    <div class="col-md-12">
+                        <label><h4>Name:                ${product.name}</h4></label><br>
+
                     </div>
-                </form>
-            </div>
+                    <div class="col-md-12">
+                        <label>Id:                      ${product.id}</label>
 
+                    </div>
+                    <div class="col-md-12">
+                        <label>Category Id:             ${product.categoryId}</label>
+
+                    </div>
+                    <div class="col-md-12">
+                        <label>Description:             ${product.description}</label>
+
+                    </div>
+                    <div class="col-md-12">
+                        <label>Sold quantity:           ${product.sold}</label>
+
+                    </div>
+                    <div class="col-md-12">
+                        <label>In Stock Quantity:       ${productDetail.inStock}</label>
+
+                    </div>
+                    <div class="col-md-12">
+                        <label>Price:                   ${productDetail.price}</label>
+
+                    </div>
+                    <div class="col-md-12">
+                        <label>Status:                  ${productDetail.status}</label>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <img src="${product.image}" style="width: 70%">
         </div>
     </div>
 </div>
 <!-- Login End -->
-
-
 <!-- Back to Top -->
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
@@ -199,3 +232,10 @@
 </body>
 </html>
 
+
+</title>
+</head>
+<body>
+
+</body>
+</html>

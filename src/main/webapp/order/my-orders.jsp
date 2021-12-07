@@ -79,7 +79,12 @@
                     <a href="/" class="nav-item nav-link">Home</a>
                     <a href="/products" class="nav-item nav-link">Products</a>
                     <a href="/carts" class="nav-item nav-link ">Cart</a>
-                    <a href="/carts" class="nav-item nav-link active">Orders</a>
+                    <c:if test="${sessionScope.currentUser != null}">
+                        <a href="/orders" class="nav-item nav-link">Order</a>
+                    </c:if>
+                    <c:if test="${sessionScope.currentUser.role == 1}">
+                        <a href="/products?action=create" class="nav-item nav-link">Add products</a>
+                    </c:if>
                 </div>
                 <div class="navbar-nav ml-auto">
                     <div class="nav-item dropdown">
@@ -197,7 +202,7 @@
                                         <td>${myOrders.get(i).address}</td>
                                         <td>${myOrders.get(i).phoneNo}</td>
                                         <td><c:if test="${myOrders.get(i).status == 0}">
-                                            Canceled
+                                            Cancelled
                                         </c:if>
                                             <c:if test="${myOrders.get(i).status == 1}">
                                                 Ordered
@@ -214,8 +219,7 @@
                                             <c:if test="${(myOrders.get(i).status != 0)&&(myOrders.get(i).status != 3)}">
                                                 <a onclick="return confirm('Are you sure to cancel this order?')"
                                                    href="/orders?action=cancel&id=${myOrders.get(i).id}">
-                                                    Cancel<i
-                                                        class="fa fa-trash"></i></a>
+                                                    Cancel</a>
                                             </c:if>
                                         </td>
                                     </tr>

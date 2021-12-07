@@ -91,6 +91,9 @@
                     <c:if test="${sessionScope.currentUser != null}">
                         <a href="/orders" class="nav-item nav-link">Order</a>
                     </c:if>
+                    <c:if test="${sessionScope.currentUser.role == 1}">
+                        <a href="/products?action=create" class="nav-item nav-link">Add products</a>
+                    </c:if>
                 </div>
                 <div class="navbar-nav ml-auto">
                     <div class="nav-item dropdown">
@@ -251,7 +254,7 @@
                                 </div>
                                 <div class="cart-btn">
                                     <c:if test="${myCart != null}">
-                                        <a type="btn" href="/carts?action=empty-cart">
+                                        <a onclick="return confirm('Are you sure?')" type="btn" href="/carts?action=empty-cart">
                                             <button>Empty Cart</button>
                                         </a>
                                     </c:if>

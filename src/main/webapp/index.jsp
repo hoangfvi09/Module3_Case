@@ -82,16 +82,19 @@
                     <c:if test="${sessionScope.currentUser != null}">
                         <a href="/orders" class="nav-item nav-link">Order</a>
                     </c:if>
+                    <c:if test="${sessionScope.currentUser.role == 1}">
+                        <a href="/products?action=create" class="nav-item nav-link">Add products</a>
+                    </c:if>
 
                     <%--                    <a href="checkout.html" class="nav-item nav-link">Checkout</a>--%>
                     <%--                    <a href="/myAccount" class="nav-item nav-link">My Account</a>--%>
-                    <c:if test="${sessionScope.currentUser.role == 1}">
-                        <a href="/users" class="nav-item nav-link">Account Management(Admin)</a>
-                    </c:if>
-                    <c:if test="${(sessionScope.currentUser.role != 1)&&(sessionScope.currentUser.role != null) }">
-                        <a href="/users?action=edit&id=${sessionScope.currentUser.id }" class="nav-item nav-link">Edit
-                            MyAccount</a>
-                    </c:if>
+<%--                    <c:if test="${sessionScope.currentUser.role == 1}">--%>
+<%--                        <a href="/users" class="nav-item nav-link">Account Management(Admin)</a>--%>
+<%--                    </c:if>--%>
+<%--                    <c:if test="${(sessionScope.currentUser.role != 1)&&(sessionScope.currentUser.role != null) }">--%>
+<%--                        <a href="/users?action=edit&id=${sessionScope.currentUser.id }" class="nav-item nav-link">Edit--%>
+<%--                            MyAccount</a>--%>
+<%--                    </c:if>--%>
                 </div>
                 <div class="navbar-nav ml-auto">
                     <div class="nav-item dropdown">
