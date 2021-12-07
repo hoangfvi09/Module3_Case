@@ -34,9 +34,8 @@ public class CartService implements ICartService {
     }
 
 
-
     @Override
-    public boolean addProduct(int proId,int usId, int quantity) {
+    public boolean addProduct(int proId, int usId, int quantity) {
         try (Connection connection = getConnection();
              CallableStatement callableStatement = connection.prepareCall("insert into carts (productId,userId,quantity) values (?,?,?);");) {
             callableStatement.setInt(1, proId);
@@ -81,7 +80,6 @@ public class CartService implements ICartService {
         for (int i = 0; i < cartList.size(); i++
         ) {
             cartList.remove(i);
-
         }
 
         return true;
@@ -111,6 +109,7 @@ public class CartService implements ICartService {
         } catch (SQLException e) {
             printSQLException(e);
         }
+
         return false;
     }
 
@@ -125,6 +124,10 @@ public class CartService implements ICartService {
         } catch (SQLException e) {
             printSQLException(e);
         }
+//        int quantity = getQuantity(proId, usId);
+//        if (quantity < 1) {
+//            deleteProduct(proId, usId);
+//        }
         return false;
     }
 
@@ -136,7 +139,11 @@ public class CartService implements ICartService {
                 int quantity = cart.getQuantity();
                 quantity--;
                 cart.setQuantity(quantity);
+                if (cart.getQuantity() < 1) {
+                    deleteProduct(proId, cartList);
+                }
                 return true;
+
             }
         }
         return false;
@@ -163,12 +170,29 @@ public class CartService implements ICartService {
 
     @Override
     public int alreadyInCart(int productId, List<Cart> cartList) {
-        for (int i = 0;i<cartList.size();i++){
-            if(cartList.get(i).getProductId()==productId){
+        for (int i = 0; i < cartList.size(); i++) {
+            if (cartList.get(i).getProductId() == productId) {
                 return i;
             }
         }
         return -1;
+    }
+
+    @Override
+    public int getQuantity(int proId, int usId) {
+        int quantity = 0;
+        try (Connection connection = getConnection();
+             CallableStatement callableStatement = connection.prepareCall("select quantity from carts where userId = ? and productId = ?;");) {
+            callableStatement.setInt(1, usId);
+            callableStatement.setInt(2, proId);
+
+            ResultSet result = callableStatement.executeQuery();
+            result.next();
+            quantity = result.getInt("quantity");
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return quantity;
     }
 
     @Override
@@ -191,12 +215,10 @@ public class CartService implements ICartService {
 
     @Override
     public void update(int id, Cart cart) throws SQLException {
-
     }
 
     @Override
     public void delete(int id) throws SQLException {
-
     }
 
     @Override
@@ -215,7 +237,11 @@ public class CartService implements ICartService {
                 int userId = rs.getInt("userId");
                 int productId = rs.getInt("productId");
                 int quantity = rs.getInt("quantity");
-                myCart.add(new Cart(userId, productId, quantity));
+                if (quantity < 1) {
+                    deleteProduct(productId, userId);
+                } else {
+                    myCart.add(new Cart(userId, productId, quantity));
+                }
             }
         } catch (SQLException e) {
             printSQLException(e);

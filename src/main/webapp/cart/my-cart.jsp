@@ -73,22 +73,6 @@
 </head>
 
 <body>
-<!-- Top bar Start -->
-<div class="top-bar">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-6">
-                <i class="fa fa-envelope"></i>
-                support@email.com
-            </div>
-            <div class="col-sm-6">
-                <i class="fa fa-phone-alt"></i>
-                +012-345-6789
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Top bar End -->
 
 <!-- Nav Bar Start -->
 <div class="nav">
@@ -101,27 +85,35 @@
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav mr-auto">
-                    <a href="index.html" class="nav-item nav-link">Home</a>
-                    <a href="lib/test/product-list.html" class="nav-item nav-link">Products</a>
-                    <a href="lib/test/product-detail.html" class="nav-item nav-link">Product Detail</a>
-                    <a href="cart.html" class="nav-item nav-link active">Cart</a>
-                    <a href="checkout.html" class="nav-item nav-link">Checkout</a>
-                    <a href="my-account.html" class="nav-item nav-link">My Account</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
-                        <div class="dropdown-menu">
-                            <a href="wishlist.html" class="dropdown-item">Wishlist</a>
-                            <a href="login.html" class="dropdown-item">Login & Register</a>
-                            <a href="contact.html" class="dropdown-item">Contact Us</a>
-                        </div>
-                    </div>
+                    <a href="/" class="nav-item nav-link">Home</a>
+                    <a href="/products" class="nav-item nav-link">Products</a>
+                    <a href="/carts" class="nav-item nav-link active">Cart</a>
+                    <c:if test="${sessionScope.currentUser != null}">
+                        <a href="/orders" class="nav-item nav-link">Order</a>
+                    </c:if>
                 </div>
                 <div class="navbar-nav ml-auto">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+                        <c:if test="${sessionScope.currentUser != null}">
+                            <img src="${sessionScope.currentUser.image}" alt="avatar" height="50" width="50">
+                        </c:if>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <c:if test="${sessionScope.currentUser != null}">
+                            <a href="#" class="nav-link dropdown-toggle"
+                               data-toggle="dropdown">Hello ${sessionScope.currentUser.name}</a>
+                        </c:if>
+                        <c:if test="${sessionScope.currentUser == null}">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+                        </c:if>
                         <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item">Login</a>
-                            <a href="#" class="dropdown-item">Register</a>
+                            <c:if test="${sessionScope.currentUser != null}">
+                                <a href="/logout" class="dropdown-item">Logout</a>
+                            </c:if>
+                            <c:if test="${sessionScope.currentUser == null}">
+                                <a href="/login" class="dropdown-item">Login</a>
+                                <a href="/users?action=create" class="dropdown-item">Register</a>
+                            </c:if>
                         </div>
                     </div>
                 </div>
@@ -137,26 +129,25 @@
         <div class="row align-items-center">
             <div class="col-md-3">
                 <div class="logo">
-                    <a href="index.html">
+                    <a href="/">
                         <img src="img/logo.png" alt="Logo">
                     </a>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="search">
-                    <input type="text" placeholder="Search">
-                    <button><i class="fa fa-search"></i></button>
+                    <form action="/products">
+                        <input type="text" name="info" placeholder="Search">
+                        <input type="hidden" name="action" value="find">
+                        <button><i class="fa fa-search"></i></button>
+                    </form>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="user">
-                    <a href="wishlist.html" class="btn wishlist">
-                        <i class="fa fa-heart"></i>
-                        <span>(0)</span>
-                    </a>
-                    <a href="cart.html" class="btn cart">
+
+                    <a href="/carts" class="btn cart">
                         <i class="fa fa-shopping-cart"></i>
-                        <span>(0)</span>
                     </a>
                 </div>
             </div>
@@ -169,8 +160,8 @@
 <div class="breadcrumb-wrap">
     <div class="container-fluid">
         <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Products</a></li>
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/products">Products</a></li>
             <li class="breadcrumb-item active">Cart</li>
         </ul>
     </div>
@@ -186,6 +177,10 @@
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead class="thead-dark">
+                            <c:if test="${myCart == null}">
+                                Your cart is empty!
+                            </c:if>
+                            <c:if test="${myCart != null}">
                             <tr>
                                 <th>Product</th>
                                 <th>Price</th>
@@ -196,18 +191,6 @@
                             </thead>
                             <tbody class="align-middle">
 
-                            <%--            <tr>--%>
-                            <%--                <td></td>--%>
-                            <%--                <td>${productList.get(i).name}</td>--%>
-                            <%--                <td>${myCart.get(i).quantity}</td>--%>
-                            <%--                <td>x ${priceList.get(i)}</td>--%>
-                            <%--                <td>--%>
-                            <%--                    <a href="/carts?action=increase&id=${productList.get(i).id}">+1</a>--%>
-                            <%--                    <a href="/carts?action=decrease&id=${productList.get(i).id}">-1</a>--%>
-                            <%--                    <a onclick="return confirm('Are you sure?')" href="/carts?action=delete&id=${productList.get(i).id}">Delete</a>--%>
-                            <%--                </td>--%>
-                            <%--            </tr>--%>
-                            <%--        </c:forEach>--%>
                             <c:forEach var="i" begin="0" end="${myCart.size()-1}">
                                 <tr>
                                     <td>
@@ -224,7 +207,7 @@
                                                 <button class="btn-minus"><i
                                                         class="fa fa-minus" onclick></i></button>
                                             </a>
-                                                    <input type="text" value="${myCart.get(i).quantity}">
+                                            <input type="text" value="${myCart.get(i).quantity}">
 
                                             <a href="/carts?action=increase&id=${productList.get(i).id}">
                                                 <button class="btn-plus"><i
@@ -232,12 +215,13 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td>${priceList.get(i)}</td>
+                                    <td>${priceList.get(i)*myCart.get(i).quantity}</td>
                                     <td><a onclick="return confirm('Are you sure?')"
                                            href="/carts?action=delete&id=${productList.get(i).id}"><i
                                             class="fa fa-trash"></i></a></td>
                                 </tr>
                             </c:forEach>
+                            </c:if>
                             </tbody>
                         </table>
                     </div>
@@ -252,13 +236,25 @@
                         <div class="col-md-12">
                             <div class="cart-summary">
                                 <div class="cart-content">
-                                    <h1>Cart Summary</h1>
-                                    <p>Sub Total<span>.....</span></p>
-                                    <p>Shipping Cost<span>$100</span></p>
-                                    <h2>Grand Total<span>....</span></h2>
+                                    <c:if test="${myCart != null}">
+                                        <h1>Cart Summary</h1>
+                                        <p>Sub Total<span>${total}</span></p>
+                                        <p>Shipping Cost<span>$100</span></p>
+                                        <h2>Grand Total<span>${total+100}</span></h2>
+                                    </c:if>
+                                    <c:if test="${myCart == null}">
+                                        <h1>Cart Summary</h1>
+                                        <p>Sub Total<span>0</span></p>
+                                        <p>Shipping Cost<span>0</span></p>
+                                        <h2>Grand Total<span>0</span></h2>
+                                    </c:if>
                                 </div>
                                 <div class="cart-btn">
-                                    <a type ="btn" href="/carts?action=empty-cart">Empty Cart</a>
+                                    <c:if test="${myCart != null}">
+                                        <a type="btn" href="/carts?action=empty-cart">
+                                            <button>Empty Cart</button>
+                                        </a>
+                                    </c:if>
                                     <button>Checkout</button>
                                 </div>
                             </div>
@@ -271,94 +267,7 @@
 </div>
 <!-- Cart End -->
 
-<!-- Footer Start -->
-<div class="footer">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-widget">
-                    <h2>Get in Touch</h2>
-                    <div class="contact-info">
-                        <p><i class="fa fa-map-marker"></i>123 E Store, Los Angeles, USA</p>
-                        <p><i class="fa fa-envelope"></i>email@example.com</p>
-                        <p><i class="fa fa-phone"></i>+123-456-7890</p>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-widget">
-                    <h2>Follow Us</h2>
-                    <div class="contact-info">
-                        <div class="social">
-                            <a href=""><i class="fab fa-twitter"></i></a>
-                            <a href=""><i class="fab fa-facebook-f"></i></a>
-                            <a href=""><i class="fab fa-linkedin-in"></i></a>
-                            <a href=""><i class="fab fa-instagram"></i></a>
-                            <a href=""><i class="fab fa-youtube"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-widget">
-                    <h2>Company Info</h2>
-                    <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms & Condition</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-widget">
-                    <h2>Purchase Info</h2>
-                    <ul>
-                        <li><a href="#">Pyament Policy</a></li>
-                        <li><a href="#">Shipping Policy</a></li>
-                        <li><a href="#">Return Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="row payment align-items-center">
-            <div class="col-md-6">
-                <div class="payment-method">
-                    <h2>We Accept:</h2>
-                    <img src="img/payment-method.png" alt="Payment Method"/>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="payment-security">
-                    <h2>Secured By:</h2>
-                    <img src="img/godaddy.svg" alt="Payment Security"/>
-                    <img src="img/norton.svg" alt="Payment Security"/>
-                    <img src="img/ssl.svg" alt="Payment Security"/>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Footer End -->
-
-<!-- Footer Bottom Start -->
-<div class="footer-bottom">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 copyright">
-                <p>Copyright &copy; <a href="https://htmlcodex.com">HTML Codex</a>. All Rights Reserved</p>
-            </div>
-
-            <div class="col-md-6 template-by">
-                <p>Template By <a href="https://htmlcodex.com">HTML Codex</a></p>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Footer Bottom End -->
 
 <!-- Back to Top -->
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>

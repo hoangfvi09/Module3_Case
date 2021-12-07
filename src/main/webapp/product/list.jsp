@@ -38,12 +38,12 @@
 <%--                <td>${productList.get(i).getSold()}</td>--%>
 <%--                <td>${productDetailList.get(i).getPrice()}</td>--%>
 <%--                <td>${categoryList.get(i).getName()}</td>--%>
-<%--&lt;%&ndash;                <td> <a onclick="return confirm('Are you sure?')"&ndash;%&gt;--%>
-<%--&lt;%&ndash;                        href="/products?action=delete&id=${productList.get(i).getId()}">delete</a>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                </td>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                <td>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                    <a href="/products?action=edit&id=${productList.get(i).getId()}">Edit</a>,&ndash;%&gt;--%>
-<%--&lt;%&ndash;                </td>&ndash;%&gt;--%>
+<%--                <td> <a onclick="return confirm('Are you sure?')"--%>
+<%--                        href="/products?action=delete&id=${productList.get(i).getId()}">delete</a>--%>
+<%--                </td>--%>
+<%--                <td>--%>
+<%--                    <a href="/products?action=edit&id=${productList.get(i).getId()}">Edit</a>,--%>
+<%--                </td>--%>
 <%--                <td><a href="/carts?action=add-product&id=${productList.get(i).getId()}&quantity=1">Add to cart</a></td>--%>
 <%--            </tr>--%>
 <%--        </c:forEach>--%>
@@ -79,23 +79,6 @@
 </head>
 
 <body>
-<!-- Top bar Start -->
-<div class="top-bar">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-6">
-                <i class="fa fa-envelope"></i>
-                support@email.com
-            </div>
-            <div class="col-sm-6">
-                <i class="fa fa-phone-alt"></i>
-                +012-345-6789
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Top bar End -->
-
 <!-- Nav Bar Start -->
 <div class="nav">
     <div class="container-fluid">
@@ -107,27 +90,35 @@
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav mr-auto">
-                    <a href="index.jsp" class="nav-item nav-link">Home</a>
-                    <a href="product_list.jsp" class="nav-item nav-link active">Products</a>
-                    <a href="product_detail.jsp" class="nav-item nav-link">Product Detail</a>
-                    <a href="../../cart.html" class="nav-item nav-link">Cart</a>
-                    <a href="../../checkout.html" class="nav-item nav-link">Checkout</a>
-                    <a href="../../my-account.html" class="nav-item nav-link">My Account</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
-                        <div class="dropdown-menu">
-                            <a href="../../wishlist.html" class="dropdown-item">Wishlist</a>
-                            <a href="../../login.jsp" class="dropdown-item">Login & Register</a>
-                            <a href="../../contact.html" class="dropdown-item">Contact Us</a>
-                        </div>
-                    </div>
+                    <a href="/" class="nav-item nav-link">Home</a>
+                    <a href="/products" class="nav-item nav-link active">Products</a>
+                    <a href="carts" class="nav-item nav-link">Cart</a>
+                    <c:if test="${sessionScope.currentUser != null}">
+                        <a href="/orders" class="nav-item nav-link">Order</a>
+                    </c:if>
                 </div>
                 <div class="navbar-nav ml-auto">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+                        <c:if test="${sessionScope.currentUser != null}">
+                            <img src="${sessionScope.currentUser.image}" alt="avatar" height="50" width="50">
+                        </c:if>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <c:if test="${sessionScope.currentUser != null}">
+                            <a href="#" class="nav-link dropdown-toggle"
+                               data-toggle="dropdown">Hello ${sessionScope.currentUser.name}</a>
+                        </c:if>
+                        <c:if test="${sessionScope.currentUser == null}">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+                        </c:if>
                         <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item">Login</a>
-                            <a href="#" class="dropdown-item">Register</a>
+                            <c:if test="${sessionScope.currentUser != null}">
+                                <a href="/logout" class="dropdown-item">Logout</a>
+                            </c:if>
+                            <c:if test="${sessionScope.currentUser == null}">
+                                <a href="/login" class="dropdown-item">Login</a>
+                                <a href="/users?action=create" class="dropdown-item">Register</a>
+                            </c:if>
                         </div>
                     </div>
                 </div>
@@ -149,20 +140,14 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="search">
-                    <input type="text" placeholder="Search">
-                    <button><i class="fa fa-search"></i></button>
-                </div>
+
             </div>
             <div class="col-md-3">
                 <div class="user">
-                    <a href="../../wishlist.html" class="btn wishlist">
-                        <i class="fa fa-heart"></i>
-                        <span>(0)</span>
-                    </a>
-                    <a href="../../cart.html" class="btn cart">
+
+                    <a href="carts" class="btn cart">
                         <i class="fa fa-shopping-cart"></i>
-                        <span>(0)</span>
+
                     </a>
                 </div>
             </div>
@@ -175,9 +160,8 @@
 <div class="breadcrumb-wrap">
     <div class="container-fluid">
         <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Products</a></li>
-            <li class="breadcrumb-item active">Product List</li>
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/products">Products</a></li>
         </ul>
     </div>
 </div>
@@ -194,93 +178,97 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="product-search">
-                                        <input type="email" value="Search">
-                                        <button><i class="fa fa-search"></i></button>
+                                        <form action="/products">
+                                            <input type="text" name="info" placeholder="Search">
+                                            <input type="hidden" name="action" value="find">
+                                            <button><i class="fa fa-search"></i></button>
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="product-short">
                                         <div class="dropdown">
-                                            <div class="dropdown-toggle" data-toggle="dropdown">Product short by</div>
+                                            <div class="dropdown-toggle" data-toggle="dropdown">Product sort by</div>
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="#" class="dropdown-item">Newest</a>
-                                                <a href="#" class="dropdown-item">Popular</a>
-                                                <a href="#" class="dropdown-item">Most sale</a>
+                                                <a href="/products?action=list-price-asc" class="dropdown-item">Ascending
+                                                    Price</a>
+                                                <a href="/products?action=list-price-desc" class="dropdown-item">Descending
+                                                    Price</a>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="product-price-range">
-                                        <div class="dropdown">
-                                            <div class="dropdown-toggle" data-toggle="dropdown">Product price range
-                                            </div>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="#" class="dropdown-item">$0 to $50</a>
-                                                <a href="#" class="dropdown-item">$51 to $100</a>
-                                                <a href="#" class="dropdown-item">$101 to $150</a>
-                                                <a href="#" class="dropdown-item">$151 to $200</a>
-                                                <a href="#" class="dropdown-item">$201 to $250</a>
-                                                <a href="#" class="dropdown-item">$251 to $300</a>
-                                                <a href="#" class="dropdown-item">$301 to $350</a>
-                                                <a href="#" class="dropdown-item">$351 to $400</a>
-                                                <a href="#" class="dropdown-item">$401 to $450</a>
-                                                <a href="#" class="dropdown-item">$451 to $500</a>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <c:forEach var="i" begin="0" end="${productList.size()-1}">
-                        <div class="col-md-4">
-                            <div class="product-item">
-                                <div class="product-title">
-                                    <a href="#">${productList.get(i).name}</a>
-                                    <div class="ratting">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
+                    <c:if test="${productList.size() != 0}">
+                        <c:forEach var="i" begin="0" end="${productList.size()-1}">
+                            <div class="col-md-4">
+                                <div class="product-item">
+                                    <div class="product-title">
+                                        <a href="#">${productList.get(i).name}</a>
+                                        <div class="ratting">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="product-image">
-                                    <a href="product_detail.jsp">
-                                        <img src="${productList.get(i).image}" alt="Product Image">
-                                    </a>
-                                    <div class="product-action">
-                                        <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                        <a href="#"><i class="fa fa-heart"></i></a>
-                                        <a href="#"><i class="fa fa-search"></i></a>
+                                    <div class="product-image">
+                                        <a href="product_detail.jsp">
+                                            <img src="${productList.get(i).image}" alt="Product Image">
+                                        </a>
+                                        <div class="product-action">
+                                            <a href="/carts?action=add-product&id=${productList.get(i).getId()}&quantity=1"><i
+                                                    class="fa fa-cart-plus"></i></a>
+
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="product-price">
-                                    <h3 style="color: white">${productDetailList.get(i).getPrice()}</h3>
-                                    <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                    <div class="product-price">
+                                        <h3 style="color: white">${productDetailList.get(i).getPrice()}</h3>
+                                        <br>
+                                        <c:if test="${sessionScope.currentUser.role == 1}">
+                                            <center>
+                                                <a onclick="return confirm('Are you sure?')"
+                                                   href="/products?action=delete&id=${productList.get(i).getId()}"
+                                                   class="btn cart"> Delete </a>
+                                                <a href="/products?action=edit&id=${productList.get(i).getId()}"
+                                                   class="btn cart"> Edit </a>
+                                            </center>
+
+                                        </c:if>
+                                            <%--                                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>--%>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </c:forEach>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${productList.size() == 0}">
+                        No result found!
+                    </c:if>
                 </div>
 
-                <!-- Pagination Start -->
-                <div class="col-md-12">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1">Previous</a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+                <%--                <!-- Pagination Start -->--%>
+                <%--                <div class="col-md-12">--%>
+                <%--                    <nav aria-label="Page navigation example">--%>
+                <%--                        <ul class="pagination justify-content-center">--%>
+                <%--                            <li class="page-item disabled">--%>
+                <%--                                <a class="page-link" href="#" tabindex="-1">Previous</a>--%>
+                <%--                            </li>--%>
+                <%--                            <li class="page-item active"><a class="page-link" href="#">1</a></li>--%>
+                <%--                            <li class="page-item"><a class="page-link" href="#">2</a></li>--%>
+                <%--                            <li class="page-item"><a class="page-link" href="#">3</a></li>--%>
+                <%--                            <li class="page-item">--%>
+                <%--                                <a class="page-link" href="#">Next</a>--%>
+                <%--                            </li>--%>
+                <%--                        </ul>--%>
+                <%--                    </nav>--%>
+                <%--                </div>--%>
                 <!-- Pagination Start -->
             </div>
 
@@ -294,118 +282,7 @@
                     <a href="/products?action=list&category=3">Puma</a>
                     <a href="/products?action=list&category=4">Converse</a>
                 </div>
-                <div class="sidebar-widget category">
-                    <h2 class="title">Category</h2>
-                    <nav class="navbar bg-light">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-female"></i>Women's shoes</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-child"></i>Men's shoes</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-mobile-alt"></i>0325836893</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://www.facebook.com/UyLe2003/"><i class="fab fa-facebook-f"></i>MY FACEBOOK</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
 
-                <div class="sidebar-widget widget-slider">
-                    <div class="sidebar-slider normal-slider">
-                        <div class="product-item">
-                            <div class="product-title">
-                                <a href="#">Air Force 1 Shadow Macaroon Candy</a>
-                                <div class="ratting">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-                            <div class="product-image">
-                                <a href="product_detail.jsp">
-                                    <img src="https://lakbay.vn/cdn/images/Nike/Blog%20Nike/Sneaker%20gia%20re/Edit/air-force-1-candy.jpg" alt="Product Image">
-                                </a>
-                                <div class="product-action">
-                                    <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                    <a href="#"><i class="fa fa-heart"></i></a>
-                                    <a href="#"><i class="fa fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-price">
-                                <h3><span>$</span>99</h3>
-                                <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="product-title">
-                                <a href="#">Adidas NMD (Nomad)</a>
-                                <div class="ratting">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-                            <div class="product-image">
-                                <a href="product_detail.jsp">
-                                    <img src="https://cdn.elly.vn/uploads/2021/06/05215849/top-nhung-doi-giay-adidas-nam-ma-ban-khong-nen-bo-lo-nam-2021.6-768x576.jpg" alt="Product Image">
-                                </a>
-                                <div class="product-action">
-                                    <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                    <a href="#"><i class="fa fa-heart"></i></a>
-                                    <a href="#"><i class="fa fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-price">
-                                <h3><span>$</span>99</h3>
-                                <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="product-title">
-                                <a href="#">Puma</a>
-                                <div class="ratting">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-                            <div class="product-image">
-                                <a href="product_detail.jsp">
-                                    <img src="https://cdn.under.vn/wp-content/uploads/2021/05/7_optimized-1.png" alt="Product Image">
-                                </a>
-                                <div class="product-action">
-                                    <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                    <a href="#"><i class="fa fa-heart"></i></a>
-                                    <a href="#"><i class="fa fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-price">
-                                <h3><span>$</span>99</h3>
-                                <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="sidebar-widget brands">
-                    <h2 class="title">remaining stock</h2>
-                    <ul>
-                        <li><a href="/products?action=list&category=1">NIKE</a><span>(200)</span></li>
-                        <li><a href="/products?action=list&category=2">ADIDDAS</a><span>(140)</span></li>
-                        <li><a href="/products?action=list&category=3">PUMA</a><span>(786)</span></li>
-                        <li><a href="/products?action=list&category=4">CONVERSE</a><span>(198)</span></li>
-                    </ul>
-                </div>
             </div>
             <!-- Side Bar End -->
         </div>
@@ -470,14 +347,7 @@
             </div>
 
             <div class="col-lg-3 col-md-6">
-                <div class="footer-widget">
-                    <h2>Purchase Info</h2>
-                    <ul>
-                        <li><a href="#">Pyament Policy</a></li>
-                        <li><a href="#">Shipping Policy</a></li>
-                        <li><a href="#">Return Policy</a></li>
-                    </ul>
-                </div>
+
             </div>
         </div>
 

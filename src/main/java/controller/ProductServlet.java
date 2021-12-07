@@ -37,10 +37,18 @@ public class ProductServlet extends HttpServlet {
         int role = getRole(request, response);
         switch (role) {
             case 0:
-                handleGuest(request, response);
+                try {
+                    handleGuest(request, response);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 break;
             case 1:
-                handleAdmin(request, response);
+                try {
+                    handleAdmin(request, response);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 break;
             case 2:
                 try {
@@ -90,6 +98,9 @@ public class ProductServlet extends HttpServlet {
                     e.printStackTrace();
                 }
                 break;
+            default:
+                showList(request,response);
+                break;
         }
     }
 
@@ -110,7 +121,7 @@ public class ProductServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void handleAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void handleAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         String action = request.getParameter("action");
         if (action == null) {
             action = "";
@@ -158,10 +169,13 @@ public class ProductServlet extends HttpServlet {
                     e.printStackTrace();
                 }
                 break;
+            default:
+                showList(request,response);
+                break;
         }
     }
 
-    private void handleGuest(HttpServletRequest request, HttpServletResponse response) {
+    private void handleGuest(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, IOException {
         String action = request.getParameter("action");
         if (action == null) {
             action = "";
@@ -195,6 +209,9 @@ public class ProductServlet extends HttpServlet {
                     e.printStackTrace();
                 }
                 break;
+            default:
+                showList(request,response);
+                break;
         }
 
     }
@@ -223,7 +240,7 @@ public class ProductServlet extends HttpServlet {
         List<ProductDetailUpdated> productDetailList = productDetailService.findByProductList(productList);
         request.setAttribute("productDetailList", productDetailList);
         request.setAttribute("listName", "Product List");
-        RequestDispatcher dispatcher = request.getRequestDispatcher("product/ad-list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -254,7 +271,7 @@ public class ProductServlet extends HttpServlet {
         request.setAttribute("listName", "Products related to " + info);
         RequestDispatcher dispatcher;
         if (getRole(request, response) == 1) {
-            dispatcher = request.getRequestDispatcher("product/ad-list.jsp");
+            dispatcher = request.getRequestDispatcher("product/list.jsp");
         } else {
             dispatcher = request.getRequestDispatcher("product/list.jsp");
         }

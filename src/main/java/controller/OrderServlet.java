@@ -55,8 +55,8 @@ public class OrderServlet extends HttpServlet {
 
     private void showOrderAd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         List<Order> orderList = orderService.findAll();
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/order/ad-users-orders.jsp");
-        request.setAttribute("orderList", orderList);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/order/my-orders.jsp");
+        request.setAttribute("myOrders", orderList);
         requestDispatcher.forward(request, response);
     }
 

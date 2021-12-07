@@ -39,10 +39,11 @@ public class OrderService implements IOrderService {
             ResultSet rs = callableStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
+                String time = (rs.getDate("time")).toString();
                 String address = rs.getString("address");
                 String phoneNo = rs.getString("phoneNo");
                 int status = rs.getInt("status");
-                orders.add(new Order(id, userId, address, phoneNo, status));
+                orders.add(new Order(id, userId,time, address, phoneNo, status));
             }
 
         } catch (SQLException e) {
@@ -96,13 +97,12 @@ public class OrderService implements IOrderService {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 int userId = rs.getInt("userId");
-                String time = rs.getString("time");
+                String time = (rs.getDate("time")).toString();
                 String address = rs.getString("address");
                 String phoneNo = rs.getString("phoneNo");
                 int status = rs.getInt("status");
                 orders.add(new Order(id, userId, time, address, phoneNo, status));
             }
-
         } catch (SQLException e) {
             printSQLException(e);
         }

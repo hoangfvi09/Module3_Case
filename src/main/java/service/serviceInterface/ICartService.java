@@ -27,4 +27,6 @@ public interface ICartService extends IService<Cart> {
     double calTotal(int userId);
 
     int alreadyInCart(int productId, List<Cart> cartList);
+
+    int getQuantity(int proId,int usId);
 }

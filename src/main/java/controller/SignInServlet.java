@@ -14,7 +14,7 @@ public class SignInServlet extends HttpServlet {
     UserService userService = new UserService();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/signin/sign-in.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/signin/register.jsp");
         requestDispatcher.forward(request,response);
     }
 
@@ -29,7 +29,7 @@ public class SignInServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/signin/sign-in-success.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/signin/register-success.jsp");
         request.setAttribute("name",name);
         requestDispatcher.forward(request,response);
     }
