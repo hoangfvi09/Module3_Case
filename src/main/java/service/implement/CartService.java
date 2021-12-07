@@ -33,9 +33,21 @@ public class CartService implements ICartService {
     }
 
 
+
     @Override
-    public boolean addProduct(Product product, int quantity) {
+    public boolean addProduct(int proId,int usId, int quantity) {
+        try (Connection connection = getConnection();
+             CallableStatement callableStatement = connection.prepareCall("insert into carts (productId,userId,quantity) values (?,?,?);");) {
+            callableStatement.setInt(1, proId);
+            callableStatement.setInt(2, usId);
+            callableStatement.setInt(3, quantity);
+            int result = callableStatement.executeUpdate();
+            return result >= 1;
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
         return false;
+
     }
 
     @Override
@@ -170,7 +182,7 @@ public class CartService implements ICartService {
              CallableStatement callableStatement = connection.prepareCall("insert into carts (productId, userId, quantity) values (?,?,?);");) {
             callableStatement.setInt(1, cart.getProductId());
             callableStatement.setInt(2, cart.getUserId());
-            callableStatement.setInt(2, cart.getQuantity());
+            callableStatement.setInt(3, cart.getQuantity());
             int result = callableStatement.executeUpdate();
         } catch (SQLException e) {
             printSQLException(e);

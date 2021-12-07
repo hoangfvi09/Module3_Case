@@ -33,74 +33,163 @@ public class ProductServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        int role = getRole(request,response);
+        switch (role){
+            case 0:
+                handleGuest(request,response);
+                break;
+            case 1:
+                handleAdmin(request,response);
+                break;
+            case 2:
+                handleUser(request,response);
+                break;
+        }
+
+    }
+
+    private void handleUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action == null) {
             action = "";
         }
-//        HttpSession session = request.getSession(false);
-//        User currentUser;
-//        currentUser = (User) session.getAttribute("currentUser");
-        int role = 0;
-//        if (currentUser != null) {
-//            role = currentUser.getRole();
-//        }
-//        if (role != 1) {
-            switch (action) {
-                case "create":
-                    showCreateForm(request, response);
-                    break;
-                case "delete":
-                    try {
-                        deleteProduct(request, response);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case "edit":
-                    editForm(request, response);
-                    break;
-//                case "list":
-//                    try {
-//                        showListAdmin(request, response);
-//                    } catch (SQLException e) {
-//                        e.printStackTrace();
-//                    }
-//                    break;
+        switch (action) {
+            case "list":
+                try {
+                    showList(request, response);
+                } catch (SQLException | ServletException | IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "list-price-asc":
+                try {
+                    showListPriceAsc(request, response);
+                } catch (SQLException | ServletException | IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "list-price-desc":
+                try {
+                    showListPriceDesc(request, response);
+                } catch (SQLException | ServletException | IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "find":
+                try {
+                    showResult(request, response);
+                } catch (SQLException | ServletException | IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+        }
+    }
 
-            }
-//        } else {
-            switch (action) {
-                case "list":
-                    try {
-                        showList(request, response);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case "list-price-asc":
-                    try {
-                        showListPriceAsc(request, response);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case "list-price-desc":
-                    try {
-                        showListPriceDesc(request, response);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case "find":
-                    try {
-                        showResult(request, response);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-            }
-//        }
+    private void handleAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
 
+        switch (action) {
+            case "create":
+                showCreateForm(request, response);
+                break;
+            case "delete":
+                try {
+                    deleteProduct(request, response);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "edit":
+                editForm(request, response);
+                break;
+
+            case "list":
+                try {
+                    showListAdmin(request, response);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "list-price-asc":
+                try {
+                    showListPriceAsc(request, response);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "list-price-desc":
+                try {
+                    showListPriceDesc(request, response);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "find":
+                try {
+                    showResult(request, response);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                break;
+        }
+    }
+
+    private void handleGuest(HttpServletRequest request, HttpServletResponse response) {
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+        switch (action) {
+            case "list":
+                try {
+                    showList(request, response);
+                } catch (SQLException | ServletException | IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "list-price-asc":
+                try {
+                    showListPriceAsc(request, response);
+                } catch (SQLException | ServletException | IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "list-price-desc":
+                try {
+                    showListPriceDesc(request, response);
+                } catch (SQLException | ServletException | IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "find":
+                try {
+                    showResult(request, response);
+                } catch (SQLException | ServletException | IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+        }
+
+    }
+
+    private int getRole(HttpServletRequest request, HttpServletResponse response){
+        HttpSession session = request.getSession(false);
+        int role;
+        if (session != null){
+            User currentUser = (User) session.getAttribute("currentUser");
+            if (currentUser == null){
+                role = 0;
+            }else {
+                role = currentUser.getRole();
+            }
+        }else{
+            role =0;
+        }
+        return role;
     }
 
     private void showListAdmin(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
@@ -111,7 +200,7 @@ public class ProductServlet extends HttpServlet {
         List<ProductDetailUpdated> productDetailList = productDetailService.findByProductList(productList);
         request.setAttribute("productDetailList", productDetailList);
         request.setAttribute("listName", "Product List");
-        RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("product/ad-list.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -183,25 +272,28 @@ public class ProductServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action == null) {
-            action = "";
-        }
-        switch (action) {
-            case "create":
-                try {
-                    saveProduct(request, response);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case "edit":
-                try {
-                    editProduct(request, response);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                break;
+        int role = getRole(request,response);
+        if (role == 1) {
+            String action = request.getParameter("action");
+            if (action == null) {
+                action = "";
+            }
+            switch (action) {
+                case "create":
+                    try {
+                        saveProduct(request, response);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "edit":
+                    try {
+                        editProduct(request, response);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
         }
     }
 
@@ -214,6 +306,11 @@ public class ProductServlet extends HttpServlet {
         int sold = Integer.parseInt(request.getParameter("sold"));
         Product product = new Product(name, categoryId, description, image, sold);
         productService.update(id, product);
+
+        int inStock =Integer.parseInt(request.getParameter("inStock"));
+        double price = Double.parseDouble(request.getParameter("price"));
+        int status = Integer.parseInt(request.getParameter("status"));
+        productDetailService.update(id,new ProductDetailUpdated(inStock,price,status));
         response.sendRedirect("/products?action=list");
     }
 

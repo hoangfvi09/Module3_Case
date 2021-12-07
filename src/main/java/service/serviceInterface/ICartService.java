@@ -6,7 +6,7 @@ import model.Product;
 import java.util.List;
 
 public interface ICartService extends IService<Cart> {
-    boolean addProduct(Product product, int quantity);
+    boolean addProduct(int proId,int usId, int quantity);
 
     boolean deleteProduct(int id, int usId);
 

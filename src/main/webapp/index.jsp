@@ -14,22 +14,18 @@
 </head>
 <body>
 <c:if test="${sessionScope.currentUser== null}">
-    welcome guest
+    Welcome guest
+    <a href="/login">Login</a>
+    <a href="/sign-in">Sign in</a>
 </c:if>
 <c:if test="${sessionScope.currentUser!= null}">
     welcome ${sessionScope.currentUser.name}
     <a href="/logout"
        onclick="return confirm('Are you sure to log out?')">Log out</a>
 </c:if>
-
+<br>
 <a href="/carts" >My cart</a>
-
-
-
 <br>
 <a href="/products?action=list">product list</a>
-<a href="/users">show form</a>
-<a href="/login">show login</a>
-
 </body>
 </html>

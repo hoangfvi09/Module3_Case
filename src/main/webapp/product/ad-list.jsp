@@ -20,6 +20,7 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
+            <th>Status</th>
             <th>Description</th>
             <th>image</th>
             <th>rate</th>
@@ -31,6 +32,7 @@
             <tr>
                 <td>${productList.get(i).getId()}</td>
                 <td>${productList.get(i).getName()}</td>
+                <td>${productDetailList.get(i).getStatus()}</td>
                 <td>${productList.get(i).getDescription()}</td>
                 <td>${productList.get(i).getImage()}</td>
                 <td></td>

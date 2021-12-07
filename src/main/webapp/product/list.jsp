@@ -13,7 +13,7 @@
     <title>Title</title>
 </head>
 <body>
-<a href="/products?action=create">Create product</a><br><br>
+<%--<a href="/products?action=create">Create product</a><br><br>--%>
 <div align="center">
     <table border="1" cellpadding="5">
         <caption><h2>${listName}</h2></caption>
@@ -37,16 +37,17 @@
                 <td>${productList.get(i).getSold()}</td>
                 <td>${productDetailList.get(i).getPrice()}</td>
                 <td>${categoryList.get(i).getName()}</td>
-                <td> <a onclick="return confirm('Are you sure?')"
-                        href="/products?action=delete&id=${productList.get(i).getId()}">delete</a>
-                </td>
-                <td>
-                    <a href="/products?action=edit&id=${productList.get(i).getId()}">Edit</a>,
-                </td>
+<%--                <td> <a onclick="return confirm('Are you sure?')"--%>
+<%--                        href="/products?action=delete&id=${productList.get(i).getId()}">delete</a>--%>
+<%--                </td>--%>
+<%--                <td>--%>
+<%--                    <a href="/products?action=edit&id=${productList.get(i).getId()}">Edit</a>,--%>
+<%--                </td>--%>
                 <td><a href="/carts?action=add-product&id=${productList.get(i).getId()}&quantity=1">Add to cart</a></td>
             </tr>
         </c:forEach>
     </table>
+
 </div>
 </body>
 </html>
