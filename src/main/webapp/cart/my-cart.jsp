@@ -33,9 +33,6 @@
                 <td>${productList.get(i).name}</td>
                 <td>${myCart.get(i).quantity}</td>
                 <td>x ${priceList.get(i)}</td>
-                    <%--                <td>${product.description}</td>--%>
-                    <%--                <td>${product.image}</td>--%>
-                    <%--                <td>${product.sold}</td>--%>
                 <td>
                     <a href="/carts?action=increase&id=${productList.get(i).id}">+1</a>
                     <a href="/carts?action=decrease&id=${productList.get(i).id}">-1</a>

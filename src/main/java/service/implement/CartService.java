@@ -4,6 +4,7 @@ import model.Cart;
 import model.Product;
 import service.serviceInterface.ICartService;
 
+import javax.servlet.http.HttpSession;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,9 +41,9 @@ public class CartService implements ICartService {
     @Override
     public boolean deleteProduct(int id, int usId) {
         try (Connection connection = getConnection();
-             CallableStatement callableStatement = connection.prepareCall( SQL_DELETE_PRODUCT_FROM_CART);) {
-            callableStatement.setInt(1,id);
-            callableStatement.setInt(2,usId);
+             CallableStatement callableStatement = connection.prepareCall(SQL_DELETE_PRODUCT_FROM_CART);) {
+            callableStatement.setInt(1, id);
+            callableStatement.setInt(2, usId);
             int result = callableStatement.executeUpdate();
             return result >= 1;
         } catch (SQLException e) {
@@ -52,10 +53,33 @@ public class CartService implements ICartService {
     }
 
     @Override
+    public boolean deleteProduct(int id, List<Cart> cartList) {
+        for (int i = 0; i < cartList.size(); i++
+        ) {
+            if (cartList.get(i).getProductId() == id) {
+                cartList.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteAllProduct(List<Cart> cartList) {
+        for (int i = 0; i < cartList.size(); i++
+        ) {
+            cartList.remove(i);
+
+        }
+
+        return true;
+    }
+
+    @Override
     public boolean deleteAllProducts(int usId) {
         try (Connection connection = getConnection();
              CallableStatement callableStatement = connection.prepareCall(SQL_EMPTY_CART);) {
-            callableStatement.setInt(1,usId);
+            callableStatement.setInt(1, usId);
             int result = callableStatement.executeUpdate();
             return result >= 1;
         } catch (SQLException e) {
@@ -67,9 +91,9 @@ public class CartService implements ICartService {
     @Override
     public boolean increaseQuantity(int proId, int usId) {
         try (Connection connection = getConnection();
-             CallableStatement callableStatement = connection.prepareCall( SQL_INCREASE_QUANTITY);) {
-            callableStatement.setInt(1,proId);
-            callableStatement.setInt(2,usId);
+             CallableStatement callableStatement = connection.prepareCall(SQL_INCREASE_QUANTITY);) {
+            callableStatement.setInt(1, proId);
+            callableStatement.setInt(2, usId);
             int result = callableStatement.executeUpdate();
             return result >= 1;
         } catch (SQLException e) {
@@ -81,13 +105,41 @@ public class CartService implements ICartService {
     @Override
     public boolean decreaseQuantity(int proId, int usId) {
         try (Connection connection = getConnection();
-             CallableStatement callableStatement = connection.prepareCall( SQL_DECREASE_QUANTITY);) {
-            callableStatement.setInt(1,proId);
-            callableStatement.setInt(2,usId);
+             CallableStatement callableStatement = connection.prepareCall(SQL_DECREASE_QUANTITY);) {
+            callableStatement.setInt(1, proId);
+            callableStatement.setInt(2, usId);
             int result = callableStatement.executeUpdate();
             return result >= 1;
         } catch (SQLException e) {
             printSQLException(e);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean decreaseQuantity(int proId, List<Cart> cartList) {
+        for (Cart cart : cartList
+        ) {
+            if (cart.getProductId() == proId) {
+                int quantity = cart.getQuantity();
+                quantity--;
+                cart.setQuantity(quantity);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean increaseQuantity(int proId, List<Cart> cartList) {
+        for (Cart cart : cartList
+        ) {
+            if (cart.getProductId() == proId) {
+                int quantity = cart.getQuantity();
+                quantity++;
+                cart.setQuantity(quantity);
+                return true;
+            }
         }
         return false;
     }
@@ -123,11 +175,11 @@ public class CartService implements ICartService {
     }
 
 
-    public List <Cart> findByUserId(int id) throws SQLException {
-        List <Cart> myCart= new ArrayList<>();
+    public List<Cart> findByUserId(int id) throws SQLException {
+        List<Cart> myCart = new ArrayList<>();
         try (Connection connection = getConnection();
              CallableStatement callableStatement = connection.prepareCall(SQL_GET_PRODUCTS_FROM_CART);) {
-            callableStatement.setInt(1,id);
+            callableStatement.setInt(1, id);
             ResultSet rs = callableStatement.executeQuery();
             while (rs.next()) {
                 int userId = rs.getInt("userId");

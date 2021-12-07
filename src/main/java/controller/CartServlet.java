@@ -56,69 +56,110 @@ public class CartServlet extends HttpServlet {
 
     }
 
-    private void emptyCart(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private List<Cart> saveGuestCart(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession(true);
+        List<Cart> currentCart = (List<Cart>) session.getAttribute("currentCart");
+        if (currentCart == null) {
+            currentCart = new ArrayList<>();
+            session.setAttribute("currentCart", currentCart);
+        }
+        return currentCart;
+    }
+
+    private boolean isLoggedIn(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(false);
-        User currentUser = (User) session.getAttribute("currentUser");
-        cartService.deleteAllProducts(currentUser.getId());
+        if (session != null) {
+            User currentUser = (User) session.getAttribute("currentUser");
+            if (currentUser != null) {
+                return true;
+            } else {
+                return false;
+            }
+
+        }
+        return false;
+    }
+
+    private void emptyCart(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (isLoggedIn(request, response)) {
+            HttpSession session = request.getSession(false);
+            User currentUser = (User) session.getAttribute("currentUser");
+            cartService.deleteAllProducts(currentUser.getId());
+
+        } else {
+            //chua dang nhap
+            List<Cart> currentCart = saveGuestCart(request, response);
+            cartService.deleteAllProduct(currentCart);
+        }
         response.sendRedirect("/carts");
     }
 
     private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        HttpSession session = request.getSession(false);
-        List<Cart> cart = new ArrayList<>();
-        cart = (ArrayList<Cart>) session.getAttribute("cart");
-        if (cart.size() < 1) {
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/cart/empty-cart.jsp");
-            requestDispatcher.forward(request, response);
-        } else {
-            int productId = Integer.parseInt(request.getParameter("id"));
+        int productId = Integer.parseInt(request.getParameter("id"));
+        if (isLoggedIn(request, response)) {
+            HttpSession session = request.getSession(false);
             User currentUser = (User) session.getAttribute("currentUser");
             cartService.deleteProduct(productId, currentUser.getId());
-            response.sendRedirect("/carts");
-        }
 
+        } else {
+            ///khi chua dang nhap thi lgi
+            List<Cart> currentCart = saveGuestCart(request, response);
+            cartService.deleteProduct(productId,currentCart);
+
+        }
+        response.sendRedirect("/carts");
     }
 
     private void decrease(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/cart/my-cart.jsp");
         int id = Integer.parseInt(request.getParameter("id"));
-        HttpSession session = request.getSession(false);
-        List<Cart> cart;
-        cart = (List<Cart>) session.getAttribute("cart");
-        User currentUser = (User) session.getAttribute("currentUser");
-        if (currentUser != null) {
+        if (isLoggedIn(request, response)) {
+
+            HttpSession session = request.getSession(false);
+            User currentUser = (User) session.getAttribute("currentUser");
             cartService.decreaseQuantity(id, currentUser.getId());
+
+        } else {
+            //chua dang nhap
+            List<Cart> currentCart = saveGuestCart(request, response);
+            cartService.decreaseQuantity(id,currentCart);
         }
-//        request.setAttribute("myCart", cart);
-//        requestDispatcher.forward(request, response);
         response.sendRedirect("/carts");
     }
 
     private void increase(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/cart/my-cart.jsp");
         int id = Integer.parseInt(request.getParameter("id"));
-        HttpSession session = request.getSession(false);
-        List<Cart> cart = (List<Cart>) session.getAttribute("cart");
-        User currentUser = (User) session.getAttribute("currentUser");
-        if (currentUser != null) {
-            cartService.increaseQuantity(id, currentUser.getId());
+        if (isLoggedIn(request, response)) {
+
+            HttpSession session = request.getSession(false);
+            User currentUser = (User) session.getAttribute("currentUser");
+            if (currentUser != null) {
+                cartService.increaseQuantity(id, currentUser.getId());
+            }
+
+        } else {
+            //chua dang nhap
+            List<Cart> currentCart = saveGuestCart(request, response);
+            cartService.increaseQuantity(id,currentCart);
         }
         response.sendRedirect("/carts");
-//        request.setAttribute("myCart",cart);
-//        requestDispatcher.forward(request, response);
     }
 
     private void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        HttpSession session = request.getSession(false);
-        User currentUser = (User) session.getAttribute("currentUser");
-        List<Cart> myCart = new ArrayList<>();
-        try {
-            myCart = cartService.findByUserId(currentUser.getId());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         List<Double> priceList = new ArrayList<>();
         List<Product> productList = new ArrayList<>();
+        List<Cart> myCart = new ArrayList<>();
+        if (isLoggedIn(request, response)) {
+            HttpSession session = request.getSession(false);
+            User currentUser = (User) session.getAttribute("currentUser");
+            try {
+                myCart = cartService.findByUserId(currentUser.getId());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            myCart = saveGuestCart(request,response);
+        }
         for (Cart cart : myCart
         ) {
             double price = productDetailService.findPriceByProductId(cart.getProductId());
@@ -127,11 +168,17 @@ public class CartServlet extends HttpServlet {
             productList.add(product);
         }
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/cart/my-cart.jsp");
-        request.setAttribute("myCart", myCart);
-        request.setAttribute("priceList", priceList);
-        request.setAttribute("productList", productList);
-        requestDispatcher.forward(request, response);
+        if(myCart.size()==0){
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/cart/empty-cart.jsp");
+            requestDispatcher.forward(request, response);
+        }else {
+
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/cart/my-cart.jsp");
+            request.setAttribute("myCart", myCart);
+            request.setAttribute("priceList", priceList);
+            request.setAttribute("productList", productList);
+            requestDispatcher.forward(request, response);
+        }
     }
 
 
