@@ -81,7 +81,13 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
                         <div class="dropdown-menu">
-                            <a href="/login" class="dropdown-item">Login</a>
+                            <c:if test="${sessionScope.currentUser != null}">
+                                <a href="/logout" class="dropdown-item">Logout</a>
+                            </c:if>
+                            <c:if test="${sessionScope.currentUser == null}">
+                                <a href="/login" class="dropdown-item">Login</a>
+                            </c:if>
+
                             <a href="/users?action=create" class="dropdown-item">Register</a>
                         </div>
                     </div>
