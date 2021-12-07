@@ -99,7 +99,7 @@ public class UserServlet extends HttpServlet {
         String image = request.getParameter("image");
         User user = new User( id, name, email, password,role, image);
         userService.update(id,user);
-        response.sendRedirect("/users");
+        response.sendRedirect("/home");
     }
 
     private void insertUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {

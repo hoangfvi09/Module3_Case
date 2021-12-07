@@ -15,9 +15,9 @@
 <body>
 <center>
     <h1>User Management</h1>
-    <h2>
-        <a href="/users">List All Users</a>
-    </h2>
+    <c:if test="${sessionScope.currentUser.role == 1}">
+        <h2><a href="/users">List All Users</a></h2>
+    </c:if>
 </center>
 <div align="center">
     <form method="post">

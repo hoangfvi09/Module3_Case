@@ -21,7 +21,8 @@
     <link href="img/favicon.ico" rel="icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap"
+          rel="stylesheet">
 
     <!-- CSS Libraries -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -68,6 +69,14 @@
                     <a href="cart.html" class="nav-item nav-link">Cart</a>
                     <a href="checkout.html" class="nav-item nav-link">Checkout</a>
                     <a href="/myAccount" class="nav-item nav-link">My Account</a>
+                    <c:if test="${sessionScope.currentUser.role == 1}">
+                        <a href="/users" class="nav-item nav-link">Account Management(Admin)</a>
+                    </c:if>
+                    <c:if test="${(sessionScope.currentUser.role != 1)&&(sessionScope.currentUser.role != null) }">
+                        <a href="/users?action=edit&id=${sessionScope.currentUser.id }" class="nav-item nav-link">Edit
+                            MyAccount</a>
+                    </c:if>
+
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
                         <div class="dropdown-menu">
@@ -80,7 +89,8 @@
                 <div class="navbar-nav ml-auto">
                     <div class="nav-item dropdown">
                         <c:if test="${sessionScope.currentUser != null}">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Hello ${sessionScope.currentUser.name}</a>
+                            <a href="#" class="nav-link dropdown-toggle"
+                               data-toggle="dropdown">Hello ${sessionScope.currentUser.name}</a>
                         </c:if>
                         <c:if test="${sessionScope.currentUser == null}">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
@@ -173,21 +183,21 @@
             <div class="col-md-6">
                 <div class="header-slider normal-slider">
                     <div class="header-slider-item">
-                        <img src="img/slider-1.jpg" alt="Slider Image" />
+                        <img src="img/slider-1.jpg" alt="Slider Image"/>
                         <div class="header-slider-caption">
                             <p>Some text goes here that describes the image</p>
                             <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Shop Now</a>
                         </div>
                     </div>
                     <div class="header-slider-item">
-                        <img src="img/slider-2.jpg" alt="Slider Image" />
+                        <img src="img/slider-2.jpg" alt="Slider Image"/>
                         <div class="header-slider-caption">
                             <p>Some text goes here that describes the image</p>
                             <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Shop Now</a>
                         </div>
                     </div>
                     <div class="header-slider-item">
-                        <img src="img/slider-3.jpg" alt="Slider Image" />
+                        <img src="img/slider-3.jpg" alt="Slider Image"/>
                         <div class="header-slider-caption">
                             <p>Some text goes here that describes the image</p>
                             <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Shop Now</a>
@@ -198,13 +208,13 @@
             <div class="col-md-3">
                 <div class="header-img">
                     <div class="img-item">
-                        <img src="img/category-1.jpg" />
+                        <img src="img/category-1.jpg"/>
                         <a class="img-text" href="">
                             <p>Some text goes here that describes the image</p>
                         </a>
                     </div>
                     <div class="img-item">
-                        <img src="img/category-2.jpg" />
+                        <img src="img/category-2.jpg"/>
                         <a class="img-text" href="">
                             <p>Some text goes here that describes the image</p>
                         </a>
@@ -282,7 +292,7 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="category-item ch-400">
-                    <img src="img/category-3.jpg" />
+                    <img src="img/category-3.jpg"/>
                     <a class="category-name" href="">
                         <p>Some text goes here that describes the image</p>
                     </a>
@@ -290,13 +300,13 @@
             </div>
             <div class="col-md-3">
                 <div class="category-item ch-250">
-                    <img src="img/category-4.jpg" />
+                    <img src="img/category-4.jpg"/>
                     <a class="category-name" href="">
                         <p>Some text goes here that describes the image</p>
                     </a>
                 </div>
                 <div class="category-item ch-150">
-                    <img src="img/category-5.jpg" />
+                    <img src="img/category-5.jpg"/>
                     <a class="category-name" href="">
                         <p>Some text goes here that describes the image</p>
                     </a>
@@ -304,13 +314,13 @@
             </div>
             <div class="col-md-3">
                 <div class="category-item ch-150">
-                    <img src="img/category-6.jpg" />
+                    <img src="img/category-6.jpg"/>
                     <a class="category-name" href="">
                         <p>Some text goes here that describes the image</p>
                     </a>
                 </div>
                 <div class="category-item ch-250">
-                    <img src="img/category-7.jpg" />
+                    <img src="img/category-7.jpg"/>
                     <a class="category-name" href="">
                         <p>Some text goes here that describes the image</p>
                     </a>
@@ -318,7 +328,7 @@
             </div>
             <div class="col-md-3">
                 <div class="category-item ch-400">
-                    <img src="img/category-8.jpg" />
+                    <img src="img/category-8.jpg"/>
                     <a class="category-name" href="">
                         <p>Some text goes here that describes the image</p>
                     </a>
@@ -686,7 +696,8 @@
                             <i class="fa fa-star"></i>
                         </div>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae nunc eget leo finibus luctus et vitae lorem
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae nunc eget leo
+                            finibus luctus et vitae lorem
                         </p>
                     </div>
                 </div>
@@ -707,7 +718,8 @@
                             <i class="fa fa-star"></i>
                         </div>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae nunc eget leo finibus luctus et vitae lorem
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae nunc eget leo
+                            finibus luctus et vitae lorem
                         </p>
                     </div>
                 </div>
@@ -728,7 +740,8 @@
                             <i class="fa fa-star"></i>
                         </div>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae nunc eget leo finibus luctus et vitae lorem
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae nunc eget leo
+                            finibus luctus et vitae lorem
                         </p>
                     </div>
                 </div>
@@ -795,15 +808,15 @@
             <div class="col-md-6">
                 <div class="payment-method">
                     <h2>We Accept:</h2>
-                    <img src="img/payment-method.png" alt="Payment Method" />
+                    <img src="img/payment-method.png" alt="Payment Method"/>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="payment-security">
                     <h2>Secured By:</h2>
-                    <img src="img/godaddy.svg" alt="Payment Security" />
-                    <img src="img/norton.svg" alt="Payment Security" />
-                    <img src="img/ssl.svg" alt="Payment Security" />
+                    <img src="img/godaddy.svg" alt="Payment Security"/>
+                    <img src="img/norton.svg" alt="Payment Security"/>
+                    <img src="img/ssl.svg" alt="Payment Security"/>
                 </div>
             </div>
         </div>
