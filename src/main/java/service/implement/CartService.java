@@ -27,6 +27,7 @@ public class CartService implements ICartService {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/product_management?useSSL=false", "root", "123456");
         } catch (SQLException | ClassNotFoundException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return connection;
@@ -47,7 +48,6 @@ public class CartService implements ICartService {
             printSQLException(e);
         }
         return false;
-
     }
 
     @Override

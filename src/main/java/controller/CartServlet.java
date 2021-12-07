@@ -201,7 +201,6 @@ public class CartServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/cart/empty-cart.jsp");
             requestDispatcher.forward(request, response);
         }else {
-
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/cart/my-cart.jsp");
             request.setAttribute("myCart", myCart);
             request.setAttribute("priceList", priceList);

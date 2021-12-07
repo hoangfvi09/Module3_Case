@@ -21,10 +21,12 @@ public class UserService implements IUserService {
     private final String DELETE_USERS_SQL = "delete from users where id = ?;";
     private final String UPDATE_USERS_SQL = "update users set name = ?, email= ?, password = ?, role =?, image = ? where id = ?";
     private final String LOGIN_USER_SQL = "select * from users where email = ? and password = ?";
+    private final String CHECK_ACCOUNT_BY_EMAIL = "select * from users where email = ?";
 
     private final String SELECT_USER_BY_USERNAME_PASS = "select * from user where username like ? and password like ?";
     private final String SELECT_USER_BY_USERNAME = "select id, username, password, email, address, avatar from user where username like ?";
     private final String SQL_GET_ALL_USERS = "{call get_all_users()}";
+
     public UserService() {
     }
 
@@ -91,6 +93,7 @@ public class UserService implements IUserService {
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            printSQLException(e);
         }
     }
 
@@ -101,6 +104,7 @@ public class UserService implements IUserService {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            printSQLException(e);
         }
 
     }
@@ -122,6 +126,7 @@ public class UserService implements IUserService {
                 user = new User(id, name, email, password, role, image);
             }
         } catch (SQLException e) {
+            printSQLException(e);
         }
         return user;
     }
@@ -144,6 +149,7 @@ public class UserService implements IUserService {
                 users.add(new User(id, name, email, password, role, image));
             }
         } catch (SQLException e) {
+            printSQLException(e);
         }
         return users;
     }
@@ -158,6 +164,11 @@ public class UserService implements IUserService {
                 }
             }
         }
+        return null;
+    }
+
+    @Override
+    public User checkAccountExist(String username) throws SQLException {
         return null;
     }
 

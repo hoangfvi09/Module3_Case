@@ -13,7 +13,8 @@ public class ProductService implements IProductService {
     private final String SQL_GET_ALL_PRODUCTS_PRICE_ASC = "{CALL get_all_products_price_asc()}";
     private final String SQL_GET_ALL_PRODUCTS_PRICE_DESC = "{CALL get_all_products_price_desc()}";
     private final String SQL_GET_ALL_PRODUCTS = "{CALL get_all_products()}";
-    private final String SQL_GET_PRODUCT_BY_ID = "select * from products where id =?;";
+    private final String SQL_GET_PRODUCT_BY_ID = "select * from products where id = ?;";
+    private final String SQL_GET_PRODUCT_BY_CID = "select * from products where categoryId = ? ";
 
 
     private static final String INSERT_PRODUCTS_SQL = "INSERT INTO products (name,categoryId,description,image,sold) VALUES (?,?,?,?,?);";
@@ -263,5 +264,26 @@ public class ProductService implements IProductService {
                 }
             }
         }
+    }
+
+    public List<Product> findByCategory(int categoryId) {
+        List<Product> products = new ArrayList<>();
+        try (Connection connection = getConnection();
+             CallableStatement callableStatement = connection.prepareCall(SQL_GET_PRODUCT_BY_CID);) {
+            callableStatement.setInt(1, categoryId);
+            ResultSet rs = callableStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String productName = rs.getString("name");
+                String description = rs.getString("description");
+                String image = rs.getString("image");
+                int sold = rs.getInt("sold");
+                products.add(new Product(id, productName, categoryId, description, image, sold));
+            }
+
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return products;
     }
 }

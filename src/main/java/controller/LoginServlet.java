@@ -53,11 +53,8 @@ public class LoginServlet extends HttpServlet {
             requestDispatcher.forward(request,response);
         } else {
             session.setAttribute("currentUser", user);
-//            session.setAttribute("cart", cartService.findByUserId(user.getId()));
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
             requestDispatcher.forward(request,response);
-
         }
-
     }
 }

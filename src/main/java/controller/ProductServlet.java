@@ -115,7 +115,6 @@ public class ProductServlet extends HttpServlet {
         if (action == null) {
             action = "";
         }
-
         switch (action) {
             case "create":
                 showCreateForm(request, response);
@@ -288,8 +287,17 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void showList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String category = request.getParameter("category");
+
         List<Product> productList = productService.findAll();
-        request.setAttribute("productList", filterDisplayedProducts(productList));
+        if (category == null) {
+            productList = productService.findAll();
+        } else {
+            productList = productService.findByCategory(Integer.parseInt(category));
+        }
+        request.setAttribute("productList", productList);
+//        List<Product> productList = productService.findAll();
+//        request.setAttribute("productList", filterDisplayedProducts(productList));
         List<Category> categoryList = categoryService.findByProductList(productList);
         request.setAttribute("categoryList", categoryList);
         List<ProductDetailUpdated> productDetailList = productDetailService.findByProductList(productList);
