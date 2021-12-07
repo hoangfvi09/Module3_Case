@@ -6,16 +6,26 @@ public class Order {
     private String time;
     private String address;
     private String phoneNo;
+    private int status;
 
     public Order() {
     }
 
-    public Order(int id, int userId, String time, String address, String phoneNo) {
+    public Order(int id, int userId, String time, String address, String phoneNo, int status) {
         this.id = id;
         this.userId = userId;
         this.time = time;
         this.address = address;
         this.phoneNo = phoneNo;
+        this.status = status;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public int getId() {

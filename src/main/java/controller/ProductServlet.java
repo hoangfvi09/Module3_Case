@@ -1,7 +1,14 @@
 package controller;
 
+import model.Category;
 import model.Product;
+import model.ProductDetailUpdated;
+import model.User;
+import service.implement.CategoryService;
+import service.implement.ProductDetailService;
 import service.implement.ProductService;
+import service.serviceInterface.ICategoryService;
+import service.serviceInterface.IProductDetailService;
 import service.serviceInterface.IProductService;
 
 import javax.servlet.RequestDispatcher;
@@ -10,14 +17,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "ProductServlet", value = "/products")
 public class ProductServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private IProductService productService = new ProductService();
+    private final IProductService productService = new ProductService();
+    private final IProductDetailService productDetailService = new ProductDetailService();
+    private final ICategoryService categoryService = new CategoryService();
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -25,50 +37,92 @@ public class ProductServlet extends HttpServlet {
         if (action == null) {
             action = "";
         }
-        switch (action) {
-            case "create":
-                showCreateForm(request, response);
-                break;
-            case "delete":
-                try {
-                    deleteProduct(request,response);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case "edit":
-                editForm(request,response);
-                break;
-            case "list":
-                try {
-                    showList(request, response);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case "list-price-asc":
-                showListPriceAsc(request, response);
-                break;
-            case "list-price-desc":
-                showListPriceDesc(request, response);
-                break;
-            case "find":
-                showResult(request, response);
-                break;
+//        HttpSession session = request.getSession(false);
+//        User currentUser;
+//        currentUser = (User) session.getAttribute("currentUser");
+        int role = 0;
+//        if (currentUser != null) {
+//            role = currentUser.getRole();
+//        }
+//        if (role != 1) {
+            switch (action) {
+                case "create":
+                    showCreateForm(request, response);
+                    break;
+                case "delete":
+                    try {
+                        deleteProduct(request, response);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "edit":
+                    editForm(request, response);
+                    break;
+//                case "list":
+//                    try {
+//                        showListAdmin(request, response);
+//                    } catch (SQLException e) {
+//                        e.printStackTrace();
+//                    }
+//                    break;
 
-
-        }
+            }
+//        } else {
+            switch (action) {
+                case "list":
+                    try {
+                        showList(request, response);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "list-price-asc":
+                    try {
+                        showListPriceAsc(request, response);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "list-price-desc":
+                    try {
+                        showListPriceDesc(request, response);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "find":
+                    try {
+                        showResult(request, response);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+//        }
 
     }
 
+    private void showListAdmin(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        List<Product> productList = productService.findAll();
+        request.setAttribute("productList", productList);
+        List<Category> categoryList = categoryService.findByProductList(productList);
+        request.setAttribute("categoryList", categoryList);
+        List<ProductDetailUpdated> productDetailList = productDetailService.findByProductList(productList);
+        request.setAttribute("productDetailList", productDetailList);
+        request.setAttribute("listName", "Product List");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
+        dispatcher.forward(request, response);
+    }
+
     private void editForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            RequestDispatcher requestDispatcher=request.getRequestDispatcher("product/ad-edit.jsp");
-            requestDispatcher.forward(request,response);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("product/ad-edit.jsp");
+        requestDispatcher.forward(request, response);
     }
 
     private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         int id = Integer.parseInt(request.getParameter("id"));
-        productService.delete(id);
+        productDetailService.updateStatus(id,0);
         response.sendRedirect("/products?action=list");
     }
 
@@ -77,34 +131,51 @@ public class ProductServlet extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 
-    private void showResult(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showResult(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         String info = request.getParameter("info");
-        List<Product> listProduct = productService.find(info);
-        request.setAttribute("productList", listProduct);
+        List<Product> productList = productService.find(info);
+        request.setAttribute("productList", filterDisplayedProducts(productList));
+        List<Category> categoryList = categoryService.findByProductList(productList);
+        request.setAttribute("categoryList", categoryList);
+        List<ProductDetailUpdated> productDetailList = productDetailService.findByProductList(productList);
+        request.setAttribute("productDetailList", productDetailList);
         request.setAttribute("listName", "Products related to " + info);
         RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
         dispatcher.forward(request, response);
     }
 
-    private void showListPriceDesc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Product> listProduct = productService.findAllPriceDesc();
-        request.setAttribute("productList", listProduct);
+    private void showListPriceDesc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        List<Product> productList = productService.findAllPriceDesc();
+        request.setAttribute("productList", filterDisplayedProducts(productList));
+        List<Category> categoryList = categoryService.findByProductList(productList);
+        request.setAttribute("categoryList", categoryList);
+        List<ProductDetailUpdated> productDetailList = productDetailService.findByProductList(productList);
+        request.setAttribute("productDetailList", productDetailList);
         request.setAttribute("listName", "Product List with Descending Price");
         RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
         dispatcher.forward(request, response);
     }
 
-    private void showListPriceAsc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Product> listProduct = productService.findAllPriceAsc();
-        request.setAttribute("productList", listProduct);
+    private void showListPriceAsc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+
+        List<Product> productList = productService.findAllPriceAsc();
+        request.setAttribute("productList", filterDisplayedProducts(productList));
+        List<Category> categoryList = categoryService.findByProductList(productList);
+        request.setAttribute("categoryList", categoryList);
+        List<ProductDetailUpdated> productDetailList = productDetailService.findByProductList(productList);
+        request.setAttribute("productDetailList", productDetailList);
         request.setAttribute("listName", "Product List with Ascending Price");
         RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
         dispatcher.forward(request, response);
     }
 
     private void showList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        List<Product> listProduct = productService.findAll();
-        request.setAttribute("productList", listProduct);
+        List<Product> productList = productService.findAll();
+        request.setAttribute("productList", filterDisplayedProducts(productList));
+        List<Category> categoryList = categoryService.findByProductList(productList);
+        request.setAttribute("categoryList", categoryList);
+        List<ProductDetailUpdated> productDetailList = productDetailService.findByProductList(productList);
+        request.setAttribute("productDetailList", productDetailList);
         request.setAttribute("listName", "Product List");
         RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
         dispatcher.forward(request, response);
@@ -126,7 +197,7 @@ public class ProductServlet extends HttpServlet {
                 break;
             case "edit":
                 try {
-                    editProduct(request,response);
+                    editProduct(request, response);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -136,13 +207,13 @@ public class ProductServlet extends HttpServlet {
 
     private void editProduct(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         int id = Integer.parseInt(request.getParameter("id"));
-        String name=request.getParameter("name");
-        int categoryId= Integer.parseInt(request.getParameter("categoryId"));
-        String description= request.getParameter("description");
-        String image =request.getParameter("image");
+        String name = request.getParameter("name");
+        int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+        String description = request.getParameter("description");
+        String image = request.getParameter("image");
         int sold = Integer.parseInt(request.getParameter("sold"));
-        Product product=new Product(name,categoryId,description,image,sold);
-        productService.update(id,product);
+        Product product = new Product(name, categoryId, description, image, sold);
+        productService.update(id, product);
         response.sendRedirect("/products?action=list");
     }
 
@@ -152,7 +223,27 @@ public class ProductServlet extends HttpServlet {
         String description = request.getParameter("description");
         String image = request.getParameter("image");
         int sold = Integer.parseInt(request.getParameter("sold"));
-        productService.save(new Product(name,categoryId,description,image,sold));
+        productService.save(new Product(name, categoryId, description, image, sold));
+
+        int inStock =Integer.parseInt(request.getParameter("inStock"));
+        double price = Double.parseDouble(request.getParameter("price"));
+        int status = Integer.parseInt(request.getParameter("status"));
+        productDetailService.save(new ProductDetailUpdated(inStock,price,status));
         response.sendRedirect("/products?action=list");
     }
+
+    private List <Product> filterDisplayedProducts(List <Product> products) throws SQLException {
+        List <Product> displayedProducts = new ArrayList<>();
+        for (Product product:products
+             ) {
+            boolean isDisplayed = productDetailService.findById(product.getId()).getStatus() == 1;
+            if(isDisplayed){
+                displayedProducts.add(product);
+            }
+        }
+        return displayedProducts;
+    }
+
+
+
 }

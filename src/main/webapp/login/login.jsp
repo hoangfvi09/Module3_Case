@@ -145,7 +145,7 @@
                     <div class="login-form">
                         <div class="row">
                             <div class="col-md-12">
-                                <p class="text-danger">${mess}</p>
+                                <p class="text-danger">${verifyResult}</p>
                             </div>
                             <div class="col-md-12">
                                 <label>E-mail / Username</label>

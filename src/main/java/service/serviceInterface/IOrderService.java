@@ -6,7 +6,7 @@ import model.User;
 import java.util.List;
 
 public interface IOrderService extends IService<Order> {
-    List<Order> findByUser(User user);
+    List<Order> findByUserId(int id);
 
     List<Order> findByStatus(int status);
 

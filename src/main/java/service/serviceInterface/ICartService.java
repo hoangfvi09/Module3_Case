@@ -6,13 +6,13 @@ import model.Product;
 public interface ICartService extends IService<Cart> {
     boolean addProduct(Product product, int quantity);
 
-    boolean deleteProduct(int id);
+    boolean deleteProduct(int id, int usId);
 
-    boolean deleteAllProducts();
+    boolean deleteAllProducts(int usId);
 
-    boolean increaseQuantity(Product product);
+    boolean increaseQuantity(int proId, int usId);
 
-    boolean decreaseQuantity(Product product);
+    boolean decreaseQuantity(int proId, int usId);
 
     double calTotal(int userId);
 }

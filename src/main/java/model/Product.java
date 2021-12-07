@@ -8,7 +8,6 @@ public class Product {
     private String image;
     private int sold;
 
-
     public Product() {
     }
 
