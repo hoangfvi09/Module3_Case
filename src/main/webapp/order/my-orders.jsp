@@ -108,7 +108,7 @@
                             </c:if>
                             <c:if test="${sessionScope.currentUser == null}">
                                 <a href="/login" class="dropdown-item">Login</a>
-                                <a href="/users?action=create" class="dropdown-item">Register</a>
+                                <a href="register" class="dropdown-item">Register</a>
                             </c:if>
                         </div>
                     </div>
@@ -157,7 +157,6 @@
     <div class="container-fluid">
         <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item"><a href="/products">Products</a></li>
             <li class="breadcrumb-item active">Orders</li>
         </ul>
     </div>
@@ -189,6 +188,7 @@
                                     <th>PhoneNo</th>
                                     <th>Status</th>
                                 </tr>
+                                </tbody>
                                 </thead>
                                 <tbody class="align-middle">
 
@@ -225,8 +225,8 @@
                                             </c:if>
                                         </td>
                                     </tr>
-                                </c:forEach>
 
+                                </c:forEach>
                                 </tbody>
                             </c:if>
 
@@ -253,6 +253,42 @@
 <!-- Cart End -->
 
 
+<!-- Footer Start -->
+<div class="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-widget">
+                    <h2>Get in Touch</h2>
+                    <div class="contact-info">
+                        <p><i class="fa fa-envelope"></i>uyblack1234567890@gmail.com</p>
+                        <p><i class="fa fa-envelope"></i>hoangvixinh@gmail.com</p>
+                        <p><i class="fa fa-envelope"></i>ducviet12vl@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-widget">
+                    <h2>Shop members</h2>
+                    <ul>
+                        <li>Le Dinh Uy</li>
+                        <li>Trinh Lan Huong</li>
+                        <li>Hoang Duc Viet</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer End -->
 <!-- Back to Top -->
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 

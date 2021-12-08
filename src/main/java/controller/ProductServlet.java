@@ -67,6 +67,9 @@ public class ProductServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
+            case "view":
+                viewProduct(request, response);
+                break;
             case "purchased":
                 showPurchased(request, response);
                 break;
@@ -99,7 +102,7 @@ public class ProductServlet extends HttpServlet {
                 }
                 break;
             default:
-                showList(request,response);
+                showList(request, response);
                 break;
         }
     }
@@ -128,10 +131,10 @@ public class ProductServlet extends HttpServlet {
         }
         switch (action) {
             case "view":
-                viewProduct(request,response);
+                viewProduct(request, response);
                 break;
             case "deleted-list":
-                showDeletedProduct(request,response);
+                showDeletedProduct(request, response);
                 break;
             case "create":
                 showCreateForm(request, response);
@@ -176,12 +179,19 @@ public class ProductServlet extends HttpServlet {
                 }
                 break;
             default:
-                showList(request,response);
+                showList(request, response);
                 break;
         }
     }
 
-    private void viewProduct(HttpServletRequest request, HttpServletResponse response) {
+    private void viewProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/product/detail.jsp");
+        int id = Integer.parseInt(request.getParameter("id"));
+        Product product = productService.findById(id);
+        request.setAttribute("product", product);
+        request.setAttribute("productDetail", productDetailService.findById(id));
+        request.setAttribute("category", categoryService.findById(product.getCategoryId()).getName());
+        requestDispatcher.forward(request, response);
 
     }
 
@@ -203,6 +213,9 @@ public class ProductServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
+            case "view":
+                viewProduct(request, response);
+                break;
             case "list":
                 try {
                     showList(request, response);
@@ -232,7 +245,7 @@ public class ProductServlet extends HttpServlet {
                 }
                 break;
             default:
-                showList(request,response);
+                showList(request, response);
                 break;
         }
 
@@ -269,8 +282,8 @@ public class ProductServlet extends HttpServlet {
     private void editForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("product/ad-edit.jsp");
         int id = Integer.parseInt(request.getParameter("id"));
-        request.setAttribute("oldPro",productService.findById(id));
-        request.setAttribute("oldProDetail",productDetailService.findById(id));
+        request.setAttribute("oldPro", productService.findById(id));
+        request.setAttribute("oldProDetail", productDetailService.findById(id));
         requestDispatcher.forward(request, response);
     }
 
@@ -395,9 +408,9 @@ public class ProductServlet extends HttpServlet {
         ProductDetailUpdated productDetail = new ProductDetailUpdated(inStock, price, status);
         productDetailService.update(id, productDetail);
 //        response.sendRedirect("/products?action=list");
-        request.setAttribute("product",product);
-        request.setAttribute("productDetail",productDetail);
-        requestDispatcher.forward(request,response);
+        request.setAttribute("product", product);
+        request.setAttribute("productDetail", productDetail);
+        requestDispatcher.forward(request, response);
     }
 
     private void saveProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
@@ -415,9 +428,9 @@ public class ProductServlet extends HttpServlet {
         int status = Integer.parseInt(request.getParameter("status"));
         ProductDetailUpdated productDetail = new ProductDetailUpdated(inStock, price, status);
         productDetailService.save(productDetail);
-        request.setAttribute("product",product);
-        request.setAttribute("productDetail",productDetail);
-        requestDispatcher.forward(request,response);
+        request.setAttribute("product", product);
+        request.setAttribute("productDetail", productDetail);
+        requestDispatcher.forward(request, response);
     }
 
     private List<Product> filterDisplayedProducts(List<Product> products) throws SQLException {
@@ -431,6 +444,7 @@ public class ProductServlet extends HttpServlet {
         }
         return displayedProducts;
     }
+
     private List<Product> filterDeletedProducts(List<Product> products) throws SQLException {
         List<Product> deletedProducts = new ArrayList<>();
         for (Product product : products

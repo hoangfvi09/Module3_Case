@@ -43,13 +43,16 @@ public class OrderService implements IOrderService {
                 String address = rs.getString("address");
                 String phoneNo = rs.getString("phoneNo");
                 int status = rs.getInt("status");
-                orders.add(new Order(id, userId,time, address, phoneNo, status));
+                orders.add(new Order(id, userId, time, address, phoneNo, status));
             }
 
         } catch (SQLException e) {
             printSQLException(e);
         }
-        return orders;
+        if (orders.size() > 0) {
+            return orders;
+        }
+        return null;
     }
 
     @Override

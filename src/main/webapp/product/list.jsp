@@ -122,7 +122,7 @@
                             </c:if>
                             <c:if test="${sessionScope.currentUser == null}">
                                 <a href="/login" class="dropdown-item">Login</a>
-                                <a href="/users?action=create" class="dropdown-item">Register</a>
+                                <a href="/register" class="dropdown-item">Register</a>
                             </c:if>
                         </div>
                     </div>
@@ -223,8 +223,8 @@
                                         </a>
                                         <div class="product-action">
                                             <c:if test="${sessionScope.currentUser.role != 1}">
-                                            <a href="/carts?action=add-product&id=${productList.get(i).getId()}&quantity=1"><i
-                                                    class="fa fa-cart-plus"></i></a>
+                                                <a href="/carts?action=add-product&id=${productList.get(i).getId()}&quantity=1"><i
+                                                        class="fa fa-cart-plus"></i></a>
                                             </c:if>
                                             <c:if test="${sessionScope.currentUser.role == 1}">
                                                 <a onclick="return confirm('Are you sure?')"
@@ -315,35 +315,24 @@
                 <div class="footer-widget">
                     <h2>Get in Touch</h2>
                     <div class="contact-info">
-                        <p><i class="fa fa-map-marker"></i>My Dinh 2 - Ha Noi</p>
                         <p><i class="fa fa-envelope"></i>uyblack1234567890@gmail.com</p>
-                        <p><i class="fa fa-phone"></i>0325836893</p>
+                        <p><i class="fa fa-envelope"></i>ducviet12vl@gmail.com</p>
+                        <p><i class="fa fa-envelope"></i>hoangvixinh@gmail.com</p>
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-3 col-md-6">
-                <div class="footer-widget">
-                    <h2>Follow Us</h2>
-                    <div class="contact-info">
-                        <div class="social">
-                            <a href="https://www.facebook.com/UyLe2003/"><i class="fab fa-twitter"></i></a>
-                            <a href=""><i class="fab fa-facebook-f"></i></a>
-                            <a href=""><i class="fab fa-linkedin-in"></i></a>
-                            <a href=""><i class="fab fa-instagram"></i></a>
-                            <a href="https://www.youtube.com/c/nike"><i class="fab fa-youtube"></i></a>
-                        </div>
-                    </div>
-                </div>
+
             </div>
 
             <div class="col-lg-3 col-md-6">
                 <div class="footer-widget">
                     <h2>Shop members</h2>
                     <ul>
-                        <li><a href="#">Uy</a></li>
-                        <li><a href="#">Huong</a></li>
-                        <li><a href="#">Viet</a></li>
+                        <li>Le Dinh Uy</li>
+                        <li>Trinh Lan Huong</li>
+                        <li>Hoang Duc Viet</li>
                     </ul>
                 </div>
             </div>
@@ -352,12 +341,51 @@
 
             </div>
         </div>
+    </div>
+</div>
 
         <!-- Footer End -->
 
         <!-- Footer Bottom Start -->
 
+
+<!-- Footer Start -->
+<div class="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-widget">
+                    <h2>Get in Touch</h2>
+                    <div class="contact-info">
+                        <p><i class="fa fa-envelope"></i>uyblack1234567890@gmail.com</p>
+
+                        <p><i class="fa fa-envelope"></i>hoangvixinh@gmail.com</p>
+                        <p><i class="fa fa-envelope"></i>ducviet12vl@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-widget">
+                    <h2>Shop members</h2>
+                    <ul>
+                        <li>Le Dinh Uy</li>
+                        <li>Trinh Lan Huong</li>
+                        <li>Hoang Duc Viet</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+
+            </div>
+        </div>
     </div>
+</div>
+<!-- Footer End -->
     <!-- Footer Bottom End -->
 
     <!-- Back to Top -->
@@ -371,6 +399,6 @@
 
     <!-- Template Javascript -->
     <script src="../../js/main.js"></script>
-</div>
+
 </body>
 </html>

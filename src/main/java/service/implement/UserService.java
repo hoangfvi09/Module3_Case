@@ -172,6 +172,18 @@ public class UserService implements IUserService {
         return null;
     }
 
+    @Override
+    public boolean isExisting(String email) throws SQLException {
+        for (User user:findAll()
+             ) {
+            if (user.getEmail().equals(email)) {
+                return true;
+            }
+
+        }
+        return false;
+    }
+
     private void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
             if (e instanceof SQLException) {

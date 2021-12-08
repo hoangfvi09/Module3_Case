@@ -104,7 +104,7 @@
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
                         <div class="dropdown-menu">
                             <a href="/login" class="dropdown-item">Login</a>
-                            <a href="/users?action=create" class="dropdown-item">Register</a>
+                            <a href="/register" class="dropdown-item">Register</a>
                         </div>
                     </div>
                 </div>
@@ -216,6 +216,42 @@
 <!-- Login End -->
 
 
+<!-- Footer Start -->
+<div class="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-widget">
+                    <h2>Get in Touch</h2>
+                    <div class="contact-info">
+                        <p><i class="fa fa-envelope"></i>uyblack1234567890@gmail.com</p>
+                        <p><i class="fa fa-envelope"></i>hoangvixinh@gmail.com</p>
+                        <p><i class="fa fa-envelope"></i>ducviet12vl@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-widget">
+                    <h2>Shop members</h2>
+                    <ul>
+                        <li>Le Dinh Uy</li>
+                        <li>Trinh Lan Huong</li>
+                        <li>Hoang Duc Viet</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer End -->
 <!-- Back to Top -->
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
