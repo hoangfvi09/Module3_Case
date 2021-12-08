@@ -56,7 +56,7 @@
     <meta content="eCommerce HTML Template Free Download" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="img/logo.png" rel="icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
@@ -101,10 +101,26 @@
                 </div>
                 <div class="navbar-nav ml-auto">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+                        <c:if test="${sessionScope.currentUser != null}">
+                            <img src="${sessionScope.currentUser.image}" alt="avatar" height="50" width="50">
+                        </c:if>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <c:if test="${sessionScope.currentUser != null}">
+                            <a href="#" class="nav-link dropdown-toggle"
+                               data-toggle="dropdown">Hello ${sessionScope.currentUser.name}</a>
+                        </c:if>
+                        <c:if test="${sessionScope.currentUser == null}">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+                        </c:if>
                         <div class="dropdown-menu">
-                            <a href="/login" class="dropdown-item">Login</a>
-                            <a href="/register" class="dropdown-item">Register</a>
+                            <c:if test="${sessionScope.currentUser != null}">
+                                <a href="/logout" class="dropdown-item">Logout</a>
+                            </c:if>
+                            <c:if test="${sessionScope.currentUser == null}">
+                                <a href="/login" class="dropdown-item">Login</a>
+                                <a href="/register" class="dropdown-item">Register</a>
+                            </c:if>
                         </div>
                     </div>
                 </div>

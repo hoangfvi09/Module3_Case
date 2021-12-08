@@ -12,7 +12,7 @@
 <%--</head>--%>
 <%--<body>--%>
 <%--<h1>Sign in</h1>--%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%--</center>--%>
 <%--<div align="center">--%>
 <%--    <form method="post">--%>
@@ -67,7 +67,7 @@
     <meta content="eCommerce HTML Template Free Download" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="img/logo.png" rel="icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap"
@@ -110,10 +110,21 @@
                 </div>
                 <div class="navbar-nav ml-auto">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+                        <c:if test="${sessionScope.currentUser != null}">
+                            <a href="#" class="nav-link dropdown-toggle"
+                               data-toggle="dropdown">Hello ${sessionScope.currentUser.name}</a>
+                        </c:if>
+                        <c:if test="${sessionScope.currentUser == null}">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+                        </c:if>
                         <div class="dropdown-menu">
-                            <a href="/login" class="dropdown-item">Login</a>
-                            <a href="/register" class="dropdown-item">Register</a>
+                            <c:if test="${sessionScope.currentUser != null}">
+                                <a href="/logout" class="dropdown-item">Logout</a>
+                            </c:if>
+                            <c:if test="${sessionScope.currentUser == null}">
+                                <a href="/login" class="dropdown-item">Login</a>
+                                <a href="/register" class="dropdown-item">Register</a>
+                            </c:if>
                         </div>
                     </div>
                 </div>
@@ -172,45 +183,48 @@
         <div class="row">
             <div class="col-lg-3"></div>
             <div class="col-lg-6">
-                <form method="post">
-                    <div class="register-form">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p class="text-danger">${verifyResult1}</p>
-                            </div>
-                            <div class="col-md-12">
-                                <p class="text-danger">${verifyResult2}</p>
-                            </div>
-                            <div class="col-md-12">
-                                <label>Name</label>
-                                <input class="form-control" type="text" name="name" placeholder="Name">
-                            </div>
-                            <%--                            <div class="col-md-6">--%>
-                            <%--                                <label>Last Name"</label>--%>
-                            <%--                                <input class="form-control" type="text" placeholder="Last Name">--%>
-                            <%--                            </div>--%>
-                            <div class="col-md-12">
-                                <label>E-mail</label>
-                                <input class="form-control" type="email" name="email" placeholder="E-mail">
-                            </div>
-                            <%--                            <div class="col-md-6">--%>
-                            <%--                                <label>Mobile No</label>--%>
-                            <%--                                <input class="form-control" type="text" placeholder="Mobile No">--%>
-                            <%--                            </div>--%>
-                            <div class="col-md-12">
-                                <label>Password</label>
-                                <input class="form-control" type="password" name="password" placeholder="Password">
-                            </div>
-                            <div class="col-md-12">
-                                <label>Retype Password</label>
-                                <input class="form-control" type="password" name="repass" placeholder="Password">
-                            </div>
-                            <div class="col-md-12">
-                                <button class="btn">Register</button>
+                <c:if test="${sessionScope.currentUser == null}">
+                    <form method="post">
+                        <div class="register-form">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p class="text-danger">${verifyResult1}</p>
+                                </div>
+                                <div class="col-md-12">
+                                    <p class="text-danger">${verifyResult2}</p>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Name</label>
+                                    <input class="form-control" type="text" name="name" placeholder="Name">
+                                </div>
+                                    <%--                            <div class="col-md-6">--%>
+                                    <%--                                <label>Last Name"</label>--%>
+                                    <%--                                <input class="form-control" type="text" placeholder="Last Name">--%>
+                                    <%--                            </div>--%>
+                                <div class="col-md-12">
+                                    <label>E-mail</label>
+                                    <input class="form-control" type="email" name="email" placeholder="E-mail">
+                                </div>
+                                    <%--                            <div class="col-md-6">--%>
+                                    <%--                                <label>Mobile No</label>--%>
+                                    <%--                                <input class="form-control" type="text" placeholder="Mobile No">--%>
+                                    <%--                            </div>--%>
+                                <div class="col-md-12">
+                                    <label>Password</label>
+                                    <input class="form-control" type="password" name="password" placeholder="Password">
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Retype Password</label>
+                                    <input class="form-control" type="password" name="repass" placeholder="Password">
+                                </div>
+                                <div class="col-md-12">
+                                    <button class="btn">Register</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </c:if>
+                <c:if test="${sessionScope.currentUser != null}">You've already logged in.</c:if>
             </div>
         </div>
     </div>

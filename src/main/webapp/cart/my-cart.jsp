@@ -56,7 +56,7 @@
     <meta content="eCommerce HTML Template Free Download" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="img/logo.png" rel="icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap"
@@ -219,7 +219,7 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td>${priceList.get(i)*myCart.get(i).quantity}</td>
+                                    <td>$${priceList.get(i)*myCart.get(i).quantity}</td>
                                     <td><a onclick="return confirm('Are you sure?')"
                                            href="/carts?action=delete&id=${productList.get(i).id}"><i
                                             class="fa fa-trash"></i></a></td>
@@ -242,15 +242,15 @@
                                 <div class="cart-content">
                                     <c:if test="${myCart != null}">
                                         <h1>Cart Summary</h1>
-                                        <p>Sub Total<span>${total}</span></p>
+                                        <p>Sub Total<span>$${total}</span></p>
                                         <p>Shipping Cost<span>$100</span></p>
-                                        <h2>Grand Total<span>${total+100}</span></h2>
+                                        <h2>Grand Total<span>$${total+100}</span></h2>
                                     </c:if>
                                     <c:if test="${myCart == null}">
                                         <h1>Cart Summary</h1>
-                                        <p>Sub Total<span>0</span></p>
-                                        <p>Shipping Cost<span>0</span></p>
-                                        <h2>Grand Total<span>0</span></h2>
+                                        <p>Sub Total<span>$0</span></p>
+                                        <p>Shipping Cost<span>$0</span></p>
+                                        <h2>Grand Total<span>$0</span></h2>
                                     </c:if>
                                 </div>
                                 <div class="cart-btn">
