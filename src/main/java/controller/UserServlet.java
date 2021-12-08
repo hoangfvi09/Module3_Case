@@ -116,8 +116,8 @@ public class UserServlet extends HttpServlet {
         String message_email = validate.error[3];
         boolean isValidName = validate.checkUserName(validate.NAME_USER_REGEX, name);
         boolean isValidEmail = validate.checkUserEmail(validate.EMAIL_REGEX, email);
-        boolean isValidPass =  validate.checkUserPass(validate.PASSWORD_REGEX, password);
-        boolean isValidRePass =  password.equals(re_password);
+        boolean isValidPass = validate.checkUserPass(validate.PASSWORD_REGEX, password);
+        boolean isValidRePass = password.equals(re_password);
 
         if (!isValidName || !isValidEmail || !isValidPass || !isValidRePass) {
             requestDispatcher = request.getRequestDispatcher("user/create_user.jsp");
@@ -135,25 +135,17 @@ public class UserServlet extends HttpServlet {
                 request.setAttribute("mess_email", message_email);
             }
             requestDispatcher.forward(request, response);
-
         } else {
-
             User a = userService.checkAccountExist(email);
-            if (a == null){
-                if (!password.equals(re_password)){
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("user/create_user.jsp");
-                    request.setAttribute("verifyResult", "Confirm password do not match. Please try again");
-                    requestDispatcher.forward(request,response);
-                }else {
-                    User newUser = new User(name, email, password);
-                    userService.save(newUser);
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/login");
-                    requestDispatcher.forward(request,response);
-                }
+            if (a == null) {
+                User newUser = new User(name, email, password);
+                userService.save(newUser);
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("/login");
+                requestDispatcher.forward(request, response);
             } else {
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("user/create_user.jsp");
                 request.setAttribute("verifyResult", "Account already exists. Please try again");
-                requestDispatcher.forward(request,response);
+                requestDispatcher.forward(request, response);
             }
         }
 

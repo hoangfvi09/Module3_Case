@@ -151,7 +151,7 @@
                             <div class="col-md-12">
                                 <label>Name</label>
                                 <c:if test="${mess_name != null}">
-                                    <h5 style="color:#eedddd">${mess_name}</h5>
+                                    <h5 style="color:#d42f2f">${mess_name}</h5>
                                 </c:if>
                                 <input class="form-control" type="text" name="name" placeholder="Name">
                             </div>
@@ -159,7 +159,7 @@
                             <div class="col-md-12">
                                 <label>E-mail</label>
                                 <c:if test="${mess_email != null}">
-                                    <h5 style="color:#c75151">${mess_email}</h5>
+                                    <h5 style="color:#d42f2f">${mess_email}</h5>
                                 </c:if>
                                 <input class="form-control" type="text" name="email" placeholder="E-mail">
                             </div>
