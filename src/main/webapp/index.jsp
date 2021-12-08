@@ -64,6 +64,23 @@
 </head>
 
 <body>
+<!-- Top bar Start -->
+<div class="top-bar">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <i class="fa fa-envelope"></i>
+                support@email.com
+            </div>
+            <div class="col-sm-6">
+                <i class="fa fa-phone-alt"></i>
+                +012-345-6789
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Top bar End -->
+
 <!-- Nav Bar Start -->
 <div class="nav">
     <div class="container-fluid">
@@ -76,25 +93,26 @@
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav mr-auto">
                     <a href="index.jsp" class="nav-item nav-link active">Home</a>
-                    <a href="/products?action=list" class="nav-item nav-link">Products</a>
-                    <%--                    <a href="product-detail.html" class="nav-item nav-link">Product Detail</a>--%>
-                    <a href="/carts" class="nav-item nav-link">Cart</a>
-                    <c:if test="${sessionScope.currentUser != null}">
-                        <a href="/orders" class="nav-item nav-link">Order</a>
-                    </c:if>
+                    <a href="product-list.html" class="nav-item nav-link">Products</a>
+                    <a href="product-detail.html" class="nav-item nav-link">Product Detail</a>
+                    <a href="cart.html" class="nav-item nav-link">Cart</a>
+                    <a href="checkout.html" class="nav-item nav-link">Checkout</a>
+                    <a href="/myAccount" class="nav-item nav-link">My Account</a>
                     <c:if test="${sessionScope.currentUser.role == 1}">
-                        <a href="/products?action=create" class="nav-item nav-link">Add products</a>
+                        <a href="/users" class="nav-item nav-link">Account Management(Admin)</a>
                     </c:if>
-
-                    <%--                    <a href="checkout.html" class="nav-item nav-link">Checkout</a>--%>
-                    <%--                    <a href="/myAccount" class="nav-item nav-link">My Account</a>--%>
-<%--                    <c:if test="${sessionScope.currentUser.role == 1}">--%>
-<%--                        <a href="/users" class="nav-item nav-link">Account Management(Admin)</a>--%>
-<%--                    </c:if>--%>
-<%--                    <c:if test="${(sessionScope.currentUser.role != 1)&&(sessionScope.currentUser.role != null) }">--%>
-<%--                        <a href="/users?action=edit&id=${sessionScope.currentUser.id }" class="nav-item nav-link">Edit--%>
-<%--                            MyAccount</a>--%>
-<%--                    </c:if>--%>
+                    <c:if test="${(sessionScope.currentUser.role != 1)&&(sessionScope.currentUser.role != null) }">
+                        <a href="/users?action=edit&id=${sessionScope.currentUser.id }" class="nav-item nav-link">Edit
+                            MyAccount</a>
+                    </c:if>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
+                        <div class="dropdown-menu">
+                            <a href="wishlist.html" class="dropdown-item">Wishlist</a>
+                            <a href="login.html" class="dropdown-item">Login & Register</a>
+                            <a href="contact.html" class="dropdown-item">Contact Us</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="navbar-nav ml-auto">
                     <div class="nav-item dropdown">
@@ -133,24 +151,26 @@
         <div class="row align-items-center">
             <div class="col-md-3">
                 <div class="logo">
-                    <a href="index.jsp">
+                    <a href="index.html">
                         <img src="img/logo.png" alt="Logo">
                     </a>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="search">
-                    <form action="/products">
-                        <input type="text" name="info" placeholder="Search">
-                        <input type="hidden" name="action" value="find">
-                        <button><i class="fa fa-search"></i></button>
-                    </form>
+                    <input type="text" placeholder="Search">
+                    <button><i class="fa fa-search"></i></button>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="user">
-                    <a href="/carts" class="btn cart">
+                    <a href="wishlist.html" class="btn wishlist">
+                        <i class="fa fa-heart"></i>
+                        <span>(0)</span>
+                    </a>
+                    <a href="cart.html" class="btn cart">
                         <i class="fa fa-shopping-cart"></i>
+                        <span>(0)</span>
                     </a>
                 </div>
             </div>
@@ -159,11 +179,39 @@
 </div>
 <!-- Bottom Bar End -->
 
-<!--  Slider Start -->
+<!-- Main Slider Start -->
 <div class="header">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
+                <nav class="navbar bg-light">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.jsp"><i class="fa fa-home"></i>Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fa fa-shopping-bag"></i>Best Selling</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fa fa-plus-square"></i>New Arrivals</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fa fa-female"></i>Fashion & Beauty</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fa fa-child"></i>Kids & Babies Clothes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fa fa-tshirt"></i>Men & Women Clothes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fa fa-mobile-alt"></i>Gadgets & Accessories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fa fa-microchip"></i>Electronics & Accessories</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
             <div class="col-md-6">
                 <div class="header-slider normal-slider">
@@ -191,7 +239,19 @@
                 </div>
             </div>
             <div class="col-md-3">
-
+                <div class="header-img">
+                    <div class="img-item">
+                        <img src="img/category-1.jpg"/>
+                        <a class="img-text" href="">
+                            <p>Some text goes here that describes the image</p>
+                        </a>
+                    </div>
+                    <div class="img-item">
+                        <img src="img/category-2.jpg"/>
+                        <a class="img-text" href="">
+                            <p>Some text goes here that describes the image</p>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -200,7 +260,18 @@
 <!-- Main Slider End -->
 
 <!-- Brand Start -->
-
+<div class="brand">
+    <div class="container-fluid">
+        <div class="brand-slider">
+            <div class="brand-item"><img src="img/brand-1.png" alt=""></div>
+            <div class="brand-item"><img src="img/brand-2.png" alt=""></div>
+            <div class="brand-item"><img src="img/brand-3.png" alt=""></div>
+            <div class="brand-item"><img src="img/brand-4.png" alt=""></div>
+            <div class="brand-item"><img src="img/brand-5.png" alt=""></div>
+            <div class="brand-item"><img src="img/brand-6.png" alt=""></div>
+        </div>
+    </div>
+</div>
 <!-- Brand End -->
 
 <!-- Feature Start-->
@@ -254,7 +325,7 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="category-item ch-400">
-                    <img src="https://2sao.vietnamnetjsc.vn/images/2021/06/09/11/54/b4.jpg"/>
+                    <img src="img/category-3.jpg"/>
                     <a class="category-name" href="">
                         <p>Some text goes here that describes the image</p>
                     </a>
@@ -262,13 +333,13 @@
             </div>
             <div class="col-md-3">
                 <div class="category-item ch-250">
-                    <img src="https://i.pinimg.com/originals/1c/ed/06/1ced067bbc7d63808f2018c34f4ad10b.jpg"/>
+                    <img src="img/category-4.jpg"/>
                     <a class="category-name" href="">
                         <p>Some text goes here that describes the image</p>
                     </a>
                 </div>
                 <div class="category-item ch-150">
-                    <img src="https://minsu.com.vn/wp-content/uploads/2021/05/tiep-noi-hot-girl-bap-can-bo-xoai-non-trang-pham-phat-ngon-soc-ve-viec-hoc-hinh-2-e1620804638897.jpg"/>
+                    <img src="img/category-5.jpg"/>
                     <a class="category-name" href="">
                         <p>Some text goes here that describes the image</p>
                     </a>
@@ -276,13 +347,13 @@
             </div>
             <div class="col-md-3">
                 <div class="category-item ch-150">
-                    <img src="https://vcdn1-ione.vnecdn.net/2020/09/04/118322725-386151272388892-9294-6169-4105-1599153481.jpg?w=0&h=0&q=100&dpr=1&fit=crop&s=Tc-zJ65dczSQ3rUwRoNpdQ"/>
+                    <img src="img/category-6.jpg"/>
                     <a class="category-name" href="">
                         <p>Some text goes here that describes the image</p>
                     </a>
                 </div>
                 <div class="category-item ch-250">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNZ6w5d_yrhIto83Q_-Wuc1ELXQMebgcTSQQ&usqp=CAU" alt="">
+                    <img src="img/category-7.jpg"/>
                     <a class="category-name" href="">
                         <p>Some text goes here that describes the image</p>
                     </a>
@@ -290,7 +361,7 @@
             </div>
             <div class="col-md-3">
                 <div class="category-item ch-400">
-                    <img src="https://vcdn1-ione.vnecdn.net/2020/09/04/giay-the-thao-dep-re-4-1246-1599153481.jpg?w=0&h=0&q=100&dpr=1&fit=crop&s=qV3WyaMZGIn7NqDYr-Lc_w"/>
+                    <img src="img/category-8.jpg"/>
                     <a class="category-name" href="">
                         <p>Some text goes here that describes the image</p>
                     </a>
@@ -302,6 +373,19 @@
 <!-- Category End-->
 
 <!-- Call to Action Start -->
+<div class="call-to-action">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h1>call us for any queries</h1>
+            </div>
+            <div class="col-md-6">
+                <a href="tel:0123456789">+012-345-6789</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Call to Action End -->
 
 <!-- Featured Product Start -->
 <div class="featured-product product">
@@ -455,6 +539,176 @@
 </div>
 <!-- Featured Product End -->
 
+<!-- Newsletter Start -->
+<div class="newsletter">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <h1>Subscribe Our Newsletter</h1>
+            </div>
+            <div class="col-md-6">
+                <div class="form">
+                    <input type="email" value="Your email here">
+                    <button>Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Newsletter End -->
+
+<!-- Recent Product Start -->
+<div class="recent-product product">
+    <div class="container-fluid">
+        <div class="section-header">
+            <h1>Recent Product</h1>
+        </div>
+        <div class="row align-items-center product-slider product-slider-4">
+            <div class="col-lg-3">
+                <div class="product-item">
+                    <div class="product-title">
+                        <a href="#">Product Name</a>
+                        <div class="ratting">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="product-image">
+                        <a href="product-detail.html">
+                            <img src="img/product-6.jpg" alt="Product Image">
+                        </a>
+                        <div class="product-action">
+                            <a href="#"><i class="fa fa-cart-plus"></i></a>
+                            <a href="#"><i class="fa fa-heart"></i></a>
+                            <a href="#"><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                    <div class="product-price">
+                        <h3><span>$</span>99</h3>
+                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="product-item">
+                    <div class="product-title">
+                        <a href="#">Product Name</a>
+                        <div class="ratting">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="product-image">
+                        <a href="product-detail.html">
+                            <img src="img/product-7.jpg" alt="Product Image">
+                        </a>
+                        <div class="product-action">
+                            <a href="#"><i class="fa fa-cart-plus"></i></a>
+                            <a href="#"><i class="fa fa-heart"></i></a>
+                            <a href="#"><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                    <div class="product-price">
+                        <h3><span>$</span>99</h3>
+                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="product-item">
+                    <div class="product-title">
+                        <a href="#">Product Name</a>
+                        <div class="ratting">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="product-image">
+                        <a href="product-detail.html">
+                            <img src="img/product-8.jpg" alt="Product Image">
+                        </a>
+                        <div class="product-action">
+                            <a href="#"><i class="fa fa-cart-plus"></i></a>
+                            <a href="#"><i class="fa fa-heart"></i></a>
+                            <a href="#"><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                    <div class="product-price">
+                        <h3><span>$</span>99</h3>
+                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="product-item">
+                    <div class="product-title">
+                        <a href="#">Product Name</a>
+                        <div class="ratting">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="product-image">
+                        <a href="product-detail.html">
+                            <img src="img/product-9.jpg" alt="Product Image">
+                        </a>
+                        <div class="product-action">
+                            <a href="#"><i class="fa fa-cart-plus"></i></a>
+                            <a href="#"><i class="fa fa-heart"></i></a>
+                            <a href="#"><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                    <div class="product-price">
+                        <h3><span>$</span>99</h3>
+                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="product-item">
+                    <div class="product-title">
+                        <a href="#">Product Name</a>
+                        <div class="ratting">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="product-image">
+                        <a href="product-detail.html">
+                            <img src="img/product-10.jpg" alt="Product Image">
+                        </a>
+                        <div class="product-action">
+                            <a href="#"><i class="fa fa-cart-plus"></i></a>
+                            <a href="#"><i class="fa fa-heart"></i></a>
+                            <a href="#"><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                    <div class="product-price">
+                        <h3><span>$</span>99</h3>
+                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Recent Product End -->
+
 <!-- Review Start -->
 <div class="review">
     <div class="container-fluid">
@@ -602,6 +856,22 @@
     </div>
 </div>
 <!-- Footer End -->
+
+<!-- Footer Bottom Start -->
+<div class="footer-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 copyright">
+                <p>Copyright &copy; <a href="https://htmlcodex.com">HTML Codex</a>. All Rights Reserved</p>
+            </div>
+
+            <div class="col-md-6 template-by">
+                <p>Template By <a href="https://htmlcodex.com">HTML Codex</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer Bottom End -->
 
 <!-- Back to Top -->
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>

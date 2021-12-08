@@ -1,6 +1,7 @@
 package controller;
 
 import model.User;
+import model.Validate;
 import service.implement.UserService;
 import service.serviceInterface.IUserService;
 
@@ -18,6 +19,7 @@ import java.util.List;
 public class UserServlet extends HttpServlet {
     IUserService userService = new UserService();
     private RequestDispatcher requestDispatcher = null;
+    private Validate validate = new Validate();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,6 +46,7 @@ public class UserServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+
 
     private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -97,8 +100,8 @@ public class UserServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String image = request.getParameter("image");
-        User user = new User( id, name, email, password,role, image);
-        userService.update(id,user);
+        User user = new User(id, name, email, password, role, image);
+        userService.update(id, user);
         response.sendRedirect("/home");
     }
 
@@ -107,7 +110,35 @@ public class UserServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String re_password = request.getParameter("repass");
-         User a = userService.checkAccountExist(email);
+        String message_name = validate.error[0];
+        String message_pass = validate.error[1];
+        String message_pass_access = validate.error[2];
+        String message_email = validate.error[3];
+        boolean isValidName = validate.checkUserName(validate.NAME_USER_REGEX, name);
+        boolean isValidEmail = validate.checkUserEmail(validate.EMAIL_REGEX, email);
+        boolean isValidPass =  validate.checkUserPass(validate.PASSWORD_REGEX, password);
+        boolean isValidRePass =  password.equals(re_password);
+
+        if (!isValidName || !isValidEmail || !isValidPass || !isValidRePass) {
+            requestDispatcher = request.getRequestDispatcher("user/create_user.jsp");
+
+            if (!isValidName) {
+                request.setAttribute("mess_name", message_name);
+            }
+            if (!isValidPass) {
+                request.setAttribute("mess_pass", message_pass);
+            }
+            if (!isValidRePass) {
+                request.setAttribute("re_pass", message_pass_access);
+            }
+            if (!isValidEmail) {
+                request.setAttribute("mess_email", message_email);
+            }
+            requestDispatcher.forward(request, response);
+
+        } else {
+
+            User a = userService.checkAccountExist(email);
             if (a == null){
                 if (!password.equals(re_password)){
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("user/create_user.jsp");
@@ -117,7 +148,6 @@ public class UserServlet extends HttpServlet {
                     User newUser = new User(name, email, password);
                     userService.save(newUser);
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("/login");
-                    request.setAttribute("verifyResult", "Sign-up Success . You can login");
                     requestDispatcher.forward(request,response);
                 }
             } else {
@@ -125,6 +155,7 @@ public class UserServlet extends HttpServlet {
                 request.setAttribute("verifyResult", "Account already exists. Please try again");
                 requestDispatcher.forward(request,response);
             }
+        }
 
     }
 }
