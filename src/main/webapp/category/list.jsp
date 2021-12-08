@@ -24,13 +24,7 @@
             <tr>
                 <td>${category.id}</td>
                 <td><a href="products?action=find&info=${category.name}">${category.name}</a></td>
-
-                    <%--                <td> <a onclick="return confirm('Are you sure?')"--%>
-                    <%--                        href="/products?action=delete&id=${productList.get(i).getId()}">delete</a>--%>
-                    <%--                </td>--%>
-                    <%--                <td>--%>
-                    <%--                    <a href="/products?action=edit&id=${productList.get(i).getId()}">Edit</a>,--%>
-                    <%--                </td>--%>
+                /products?action=edit&id=${productList.get(i).getId()}">Edit</a>
             </tr>
         </c:forEach>
     </table>
