@@ -187,6 +187,7 @@ public class UserService implements IUserService {
         return null;
     }
 
+
     private void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
             if (e instanceof SQLException) {

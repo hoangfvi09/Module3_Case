@@ -120,8 +120,9 @@ public class CartServlet extends HttpServlet {
 
         } else {
             //chua dang nhap
-            List<Cart> currentCart = findGuestCart(request, response);
-            cartService.deleteAllProduct(currentCart);
+            List<Cart> currentCart = new ArrayList<>();
+            HttpSession session = request.getSession(false);
+            session.setAttribute("currentCart", currentCart);
         }
         response.sendRedirect("/carts");
     }
@@ -189,23 +190,27 @@ public class CartServlet extends HttpServlet {
         } else {
             myCart = findGuestCart(request,response);
         }
+        int total=0;
         for (Cart cart : myCart
         ) {
             double price = productDetailService.findPriceByProductId(cart.getProductId());
             priceList.add(price);
             Product product = productService.findById(cart.getProductId());
             productList.add(product);
+            int quantity= cart.getQuantity();
+            total +=quantity*price;
         }
 
         if(myCart.size()==0){
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/cart/empty-cart.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/cart/my-cart.jsp");
             requestDispatcher.forward(request, response);
         }else {
-
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/cart/my-cart.jsp");
             request.setAttribute("myCart", myCart);
             request.setAttribute("priceList", priceList);
             request.setAttribute("productList", productList);
+            request.setAttribute("total", total);
+
             requestDispatcher.forward(request, response);
         }
     }

@@ -63,6 +63,16 @@ public class ProductDetailService implements IProductDetailService {
 
     @Override
     public void update(int id, ProductDetailUpdated productDetailUpdated) throws SQLException {
+        try (
+                Connection connection = getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement("update productDetails set price = ?, inStock = ?, status = ? where productId = ?;")) {
+            preparedStatement.setInt(2, productDetailUpdated.getInStock());
+            preparedStatement.setDouble(1,productDetailUpdated.getPrice());
+            preparedStatement.setInt(3, productDetailUpdated.getStatus());
+            preparedStatement.setInt(4, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException ignored) {
+        }
 
     }
 

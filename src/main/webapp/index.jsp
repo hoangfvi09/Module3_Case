@@ -63,10 +63,7 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body style="background: #f0f8ff" >
-<!-- Top bar Start -->
-<!-- Top bar End -->
-
+<body>
 <!-- Nav Bar Start -->
 <div class="nav">
     <div class="container-fluid">
@@ -78,27 +75,26 @@
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav mr-auto">
-                    <a href="/home" class="nav-item nav-link active">Home</a>
+                    <a href="index.jsp" class="nav-item nav-link active">Home</a>
                     <a href="/products?action=list" class="nav-item nav-link">Products</a>
-                    <a href="product-detail.html" class="nav-item nav-link">Product Detail</a>
-                    <a href="cart.html" class="nav-item nav-link">Cart</a>
-                    <a href="checkout.html" class="nav-item nav-link">Checkout</a>
-                    <a href="/myAccount" class="nav-item nav-link">My Account</a>
+                    <%--                    <a href="product-detail.html" class="nav-item nav-link">Product Detail</a>--%>
+                    <a href="/carts" class="nav-item nav-link">Cart</a>
+                    <c:if test="${sessionScope.currentUser != null}">
+                        <a href="/orders" class="nav-item nav-link">Order</a>
+                    </c:if>
                     <c:if test="${sessionScope.currentUser.role == 1}">
-                        <a href="/users" class="nav-item nav-link">Account Management(Admin)</a>
+                        <a href="/products?action=create" class="nav-item nav-link">Add products</a>
                     </c:if>
-                    <c:if test="${(sessionScope.currentUser.role != 1)&&(sessionScope.currentUser.role != null) }">
-                        <a href="/users?action=edit&id=${sessionScope.currentUser.id }" class="nav-item nav-link">Edit
-                            MyAccount</a>
-                    </c:if>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
-                        <div class="dropdown-menu">
-                            <a href="wishlist.html" class="dropdown-item">Wishlist</a>
-                            <a href="login.html" class="dropdown-item">Login & Register</a>
-                            <a href="contact.html" class="dropdown-item">Contact Us</a>
-                        </div>
-                    </div>
+
+                    <%--                    <a href="checkout.html" class="nav-item nav-link">Checkout</a>--%>
+                    <%--                    <a href="/myAccount" class="nav-item nav-link">My Account</a>--%>
+<%--                    <c:if test="${sessionScope.currentUser.role == 1}">--%>
+<%--                        <a href="/users" class="nav-item nav-link">Account Management(Admin)</a>--%>
+<%--                    </c:if>--%>
+<%--                    <c:if test="${(sessionScope.currentUser.role != 1)&&(sessionScope.currentUser.role != null) }">--%>
+<%--                        <a href="/users?action=edit&id=${sessionScope.currentUser.id }" class="nav-item nav-link">Edit--%>
+<%--                            MyAccount</a>--%>
+<%--                    </c:if>--%>
                 </div>
                 <div class="navbar-nav ml-auto">
                     <div class="nav-item dropdown">
@@ -144,19 +140,17 @@
             </div>
             <div class="col-md-6">
                 <div class="search">
-                    <input type="text" placeholder="Search">
-                    <button><i class="fa fa-search"></i></button>
+                    <form action="/products">
+                        <input type="text" name="info" placeholder="Search">
+                        <input type="hidden" name="action" value="find">
+                        <button><i class="fa fa-search"></i></button>
+                    </form>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="user">
-                    <a href="wishlist.html" class="btn wishlist">
-                        <i class="fa fa-heart"></i>
-                        <span>(0)</span>
-                    </a>
-                    <a href="cart.html" class="btn cart">
+                    <a href="/carts" class="btn cart">
                         <i class="fa fa-shopping-cart"></i>
-                        <span>(0)</span>
                     </a>
                 </div>
             </div>
@@ -165,58 +159,30 @@
 </div>
 <!-- Bottom Bar End -->
 
-<!-- Main Slider Start -->
+<!--  Slider Start -->
 <div class="header">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
-                <nav class="navbar bg-light">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.jsp"><i class="fa fa-home"></i>Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-shopping-bag"></i>Best Selling</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-plus-square"></i>New Arrivals</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-female"></i>Fashion & Beauty</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-child"></i>Kids & Babies Clothes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-tshirt"></i>Men & Women Clothes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-mobile-alt"></i>Gadgets & Accessories</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-microchip"></i>Electronics & Accessories</a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
             <div class="col-md-6">
-                <div style="height: 450px" class="header-slider normal-slider">
+                <div class="header-slider normal-slider">
                     <div class="header-slider-item">
-                        <img width="100%"height="400px" src="https://f48-zpg.zdn.vn/8858870016585865246/720c19ef326bf935a07a.jpg" alt="Slider Image"/>
+                        <img src="img/slider-1.jpg" alt="Slider Image"/>
                         <div class="header-slider-caption">
                             <p>Some text goes here that describes the image</p>
                             <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Shop Now</a>
                         </div>
                     </div>
                     <div class="header-slider-item">
-                        <img  width="100%" height="400px" src="https://f55-zpg.zdn.vn/7850414313046660269/b6c2f53bdebf15e14cae.jpg" alt="Slider Image"/>
+                        <img src="img/slider-2.jpg" alt="Slider Image"/>
                         <div class="header-slider-caption">
                             <p>Some text goes here that describes the image</p>
                             <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Shop Now</a>
                         </div>
                     </div>
                     <div class="header-slider-item">
-                        <img  width="100%" height="400px" src="https://f36-zpg.zdn.vn/8336791738500185749/3283850aae8e65d03c9f.jpg" alt="Slider Image"/>
+                        <img src="img/slider-3.jpg" alt="Slider Image"/>
                         <div class="header-slider-caption">
                             <p>Some text goes here that describes the image</p>
                             <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Shop Now</a>
@@ -225,19 +191,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="header-img">
-                    <div class="img-item">
-                        <img src="https://photo-cms-kienthuc.zadn.vn/zoom/800/uploaded/nguyenanhson/2020_12_24/1/dang-anh-khoe-giay-gai-xinh-lo-voc-dang-cuc-xin-hinh-2.jpeg"/>
-                        <a class="img-text" href="">
-                            <p>Some text goes here that describes the image</p>
-                        </a>
-                    </div>
-                    <div class="img-item">
-                        <img src="https://gamek.mediacdn.vn/133514250583805952/2020/2/1/photo-1-1580529782917695541729.jpg"/>
-                        <a class="img-text" href="">
-                            <p>Some text goes here that describes the image</p>
-                        </a>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -246,18 +200,7 @@
 <!-- Main Slider End -->
 
 <!-- Brand Start -->
-<div class="brand">
-    <div class="container-fluid">
-        <div class="brand-slider">
-            <div class="brand-item"><img src="img/brand-1.png" alt=""></div>
-            <div class="brand-item"><img src="img/brand-2.png" alt=""></div>
-            <div class="brand-item"><img src="img/brand-3.png" alt=""></div>
-            <div class="brand-item"><img src="img/brand-4.png" alt=""></div>
-            <div class="brand-item"><img src="img/brand-5.png" alt=""></div>
-            <div class="brand-item"><img src="img/brand-6.png" alt=""></div>
-        </div>
-    </div>
-</div>
+
 <!-- Brand End -->
 
 <!-- Feature Start-->
@@ -356,34 +299,21 @@
         </div>
     </div>
 </div>
-<div class="newsletter">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6">
-                <h1>Subscribe Our Newsletter</h1>
-            </div>
-            <div class="col-md-6">
-                <div class="form">
-                    <input type="email" value="Your email here">
-                    <button>Submit</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Newsletter End -->
+<!-- Category End-->
 
-<!-- Recent Product Start -->
-<div class="recent-product product">
+<!-- Call to Action Start -->
+
+<!-- Featured Product Start -->
+<div class="featured-product product">
     <div class="container-fluid">
         <div class="section-header">
-            <h1>Recent Product</h1>
+            <h1>Featured Product</h1>
         </div>
         <div class="row align-items-center product-slider product-slider-4">
             <div class="col-lg-3">
                 <div class="product-item">
                     <div class="product-title">
-                        <a href="#">Nike</a>
+                        <a href="#">Product Name</a>
                         <div class="ratting">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -394,7 +324,7 @@
                     </div>
                     <div class="product-image">
                         <a href="product-detail.html">
-                            <img src="https://bizweb.dktcdn.net/thumb/large/100/413/756/products/e3229940-b0f5-4e69-8491-203ca12a5953.jpg?v=1638527796000" alt="Product Image">
+                            <img src="img/product-1.jpg" alt="Product Image">
                         </a>
                         <div class="product-action">
                             <a href="#"><i class="fa fa-cart-plus"></i></a>
@@ -411,7 +341,7 @@
             <div class="col-lg-3">
                 <div class="product-item">
                     <div class="product-title">
-                        <a href="#">Puma Nova Pop</a>
+                        <a href="#">Product Name</a>
                         <div class="ratting">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -422,7 +352,7 @@
                     </div>
                     <div class="product-image">
                         <a href="product-detail.html">
-                            <img src="https://cdn.shopify.com/s/files/1/0456/5070/6581/products/371723_02-1_360x.jpg?v=1603255337" alt="Product Image">
+                            <img src="img/product-2.jpg" alt="Product Image">
                         </a>
                         <div class="product-action">
                             <a href="#"><i class="fa fa-cart-plus"></i></a>
@@ -439,7 +369,7 @@
             <div class="col-lg-3">
                 <div class="product-item">
                     <div class="product-title">
-                        <a href="#">Puma Muse X-2 Shimmer</a>
+                        <a href="#">Product Name</a>
                         <div class="ratting">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -450,7 +380,7 @@
                     </div>
                     <div class="product-image">
                         <a href="product-detail.html">
-                            <img src="https://cdn.shopify.com/s/files/1/0456/5070/6581/products/372101_02-1_360x.jpg?v=1603255338" alt="Product Image">
+                            <img src="img/product-3.jpg" alt="Product Image">
                         </a>
                         <div class="product-action">
                             <a href="#"><i class="fa fa-cart-plus"></i></a>
@@ -467,7 +397,7 @@
             <div class="col-lg-3">
                 <div class="product-item">
                     <div class="product-title">
-                        <a href="#"> Puma Rs-X³ Millenium White-Gray Violet</a>
+                        <a href="#">Product Name</a>
                         <div class="ratting">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -478,7 +408,7 @@
                     </div>
                     <div class="product-image">
                         <a href="product-detail.html">
-                            <img src="https://cdn.shopify.com/s/files/1/0456/5070/6581/products/373236_02-1_360x.jpg?v=1604303353" alt="Product Image">
+                            <img src="img/product-4.jpg" alt="Product Image">
                         </a>
                         <div class="product-action">
                             <a href="#"><i class="fa fa-cart-plus"></i></a>
@@ -495,7 +425,7 @@
             <div class="col-lg-3">
                 <div class="product-item">
                     <div class="product-title">
-                        <a href="#"> Puma Ascend</a>
+                        <a href="#">Product Name</a>
                         <div class="ratting">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -506,7 +436,7 @@
                     </div>
                     <div class="product-image">
                         <a href="product-detail.html">
-                            <img src="https://cdn.shopify.com/s/files/1/0456/5070/6581/products/371313_03-1_ccb6fbbb-bb98-471a-b41f-15240b80df2f_360x.jpg?v=1615270486" alt="Product Image">
+                            <img src="img/product-5.jpg" alt="Product Image">
                         </a>
                         <div class="product-action">
                             <a href="#"><i class="fa fa-cart-plus"></i></a>
@@ -523,7 +453,7 @@
         </div>
     </div>
 </div>
-<!-- Recent Product End -->
+<!-- Featured Product End -->
 
 <!-- Review Start -->
 <div class="review">
@@ -653,17 +583,36 @@
             </div>
         </div>
 
-        <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
-
-        <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/slick/slick.min.js"></script>
-
-        <!-- Template Javascript -->
-        <script src="js/main.js"></script>
+        <div class="row payment align-items-center">
+            <div class="col-md-6">
+                <div class="payment-method">
+                    <h2>We Accept:</h2>
+                    <img src="img/payment-method.png" alt="Payment Method"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="payment-security">
+                    <h2>Secured By:</h2>
+                    <img src="img/godaddy.svg" alt="Payment Security"/>
+                    <img src="img/norton.svg" alt="Payment Security"/>
+                    <img src="img/ssl.svg" alt="Payment Security"/>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+<!-- Footer End -->
+
+<!-- Back to Top -->
+<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/slick/slick.min.js"></script>
+
+<!-- Template Javascript -->
+<script src="js/main.js"></script>
 </body>
 </html>

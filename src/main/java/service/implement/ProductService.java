@@ -13,7 +13,7 @@ public class ProductService implements IProductService {
     private final String SQL_GET_ALL_PRODUCTS_PRICE_ASC = "{CALL get_all_products_price_asc()}";
     private final String SQL_GET_ALL_PRODUCTS_PRICE_DESC = "{CALL get_all_products_price_desc()}";
     private final String SQL_GET_ALL_PRODUCTS = "{CALL get_all_products()}";
-    private final String SQL_GET_PRODUCT_BY_ID = "{CALL get_product_by_id(?)}";
+    private final String SQL_GET_PRODUCT_BY_ID = "select * from products where id = ?;";
     private final String SQL_GET_PRODUCT_BY_CID = "select * from products where categoryId = ? ";
 
 
@@ -161,6 +161,28 @@ public class ProductService implements IProductService {
         }
         return products;
     }
+    public List<Product> findPurchasedProducts(int usId) throws SQLException {
+        List<Product> products = new ArrayList<>();
+        try (Connection connection = getConnection();
+             CallableStatement callableStatement = connection.prepareCall("{call get_purchases_product(?)}");) {
+           callableStatement.setInt(1,usId);
+            ResultSet rs = callableStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String productName = rs.getString("name");
+                String description = rs.getString("description");
+                int categoryId = rs.getInt("categoryId");
+                String image = rs.getString("image");
+                int sold = rs.getInt("sold");
+                products.add(new Product(id, productName, categoryId, description, image, sold));
+            }
+
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return products;
+    }
+
 
     @Override
     public void save(Product product) throws SQLException {
@@ -225,6 +247,8 @@ public class ProductService implements IProductService {
         }
         return product;
     }
+
+
 
     private void printSQLException(SQLException ex) {
         for (Throwable e : ex) {

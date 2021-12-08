@@ -42,7 +42,7 @@ public class ReviewService implements IReviewService {
                 String content = rs.getString("content");
                 int rate = rs.getInt("rate");
                 String date = rs.getString("date");
-                reviews.add(new Review(userId, productId, content, rate, date));
+                reviews.add(new Review(userId, productId, content, rate));
             }
 
         } catch (SQLException e) {
@@ -63,6 +63,7 @@ public class ReviewService implements IReviewService {
 
     @Override
     public void save(Review review) throws SQLException {
+
 
     }
 

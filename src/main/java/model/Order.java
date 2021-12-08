@@ -8,6 +8,8 @@ public class Order {
     private String phoneNo;
     private int status;
 
+    // status: 1:cho xac nhan, 2:da xac nhan, 2: dang van chuyen, 4:giao thanh cong
+// 0: da huy
     public Order() {
     }
 
@@ -15,6 +17,13 @@ public class Order {
         this.id = id;
         this.userId = userId;
         this.time = time;
+        this.address = address;
+        this.phoneNo = phoneNo;
+        this.status = status;
+    }
+    public Order(int id, int userId,  String address, String phoneNo, int status) {
+        this.id = id;
+        this.userId = userId;
         this.address = address;
         this.phoneNo = phoneNo;
         this.status = status;

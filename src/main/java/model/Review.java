@@ -5,14 +5,13 @@ public class Review {
     private int productId;
     private String content;
     private int rate;
-    private String time;
 
-    public Review(int userId, int productId, String content, int rate, String date) {
+    public Review(int userId, int productId, String content, int rate) {
         this.userId = userId;
         this.productId = productId;
         this.content = content;
         this.rate = rate;
-        this.time = date;
+
     }
 
     public Review() {
@@ -50,8 +49,5 @@ public class Review {
         this.rate = rate;
     }
 
-    public String getTime() {
-        return time;
-    }
 
 }
