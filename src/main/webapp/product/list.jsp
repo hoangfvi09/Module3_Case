@@ -220,24 +220,24 @@
                                             <img src="${productList.get(i).image}" alt="Product Image">
                                         </a>
                                         <div class="product-action">
+                                            <c:if test="${sessionScope.currentUser.role != 1}">
                                             <a href="/carts?action=add-product&id=${productList.get(i).getId()}&quantity=1"><i
                                                     class="fa fa-cart-plus"></i></a>
+                                            </c:if>
+                                            <c:if test="${sessionScope.currentUser.role == 1}">
+                                                <a onclick="return confirm('Are you sure?')"
+                                                   href="/products?action=delete&id=${productList.get(i).getId()}"
+                                                   class="btn" style="width: 60px"> Delete </a>
+                                                <a href="/products?action=edit&id=${productList.get(i).getId()}"
+                                                   class="btn"> Edit </a>
+                                            </c:if>
 
                                         </div>
                                     </div>
                                     <div class="product-price">
                                         <h3 style="color: white">$ ${productDetailList.get(i).getPrice()}</h3>
-                                        <br>
-                                        <c:if test="${sessionScope.currentUser.role == 1}">
-                                            <center>
-                                                <a onclick="return confirm('Are you sure?')"
-                                                   href="/products?action=delete&id=${productList.get(i).getId()}"
-                                                   class="btn"> Delete </a>
-                                                <a href="/products?action=edit&id=${productList.get(i).getId()}"
-                                                   class="btn"> Edit </a>
-                                            </center>
 
-                                        </c:if>
+
                                             <%--                                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>--%>
                                     </div>
                                 </div>
