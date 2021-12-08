@@ -88,13 +88,13 @@
 
                     <%--                    <a href="checkout.html" class="nav-item nav-link">Checkout</a>--%>
                     <%--                    <a href="/myAccount" class="nav-item nav-link">My Account</a>--%>
-<%--                    <c:if test="${sessionScope.currentUser.role == 1}">--%>
-<%--                        <a href="/users" class="nav-item nav-link">Account Management(Admin)</a>--%>
-<%--                    </c:if>--%>
-<%--                    <c:if test="${(sessionScope.currentUser.role != 1)&&(sessionScope.currentUser.role != null) }">--%>
-<%--                        <a href="/users?action=edit&id=${sessionScope.currentUser.id }" class="nav-item nav-link">Edit--%>
-<%--                            MyAccount</a>--%>
-<%--                    </c:if>--%>
+                    <%--                    <c:if test="${sessionScope.currentUser.role == 1}">--%>
+                    <%--                        <a href="/users" class="nav-item nav-link">Account Management(Admin)</a>--%>
+                    <%--                    </c:if>--%>
+                    <%--                    <c:if test="${(sessionScope.currentUser.role != 1)&&(sessionScope.currentUser.role != null) }">--%>
+                    <%--                        <a href="/users?action=edit&id=${sessionScope.currentUser.id }" class="nav-item nav-link">Edit--%>
+                    <%--                            MyAccount</a>--%>
+                    <%--                    </c:if>--%>
                 </div>
                 <div class="navbar-nav ml-auto">
                     <div class="nav-item dropdown">
@@ -163,39 +163,38 @@
 <div class="header">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-3">
-            </div>
+            <div class="col-md-3"></div>
+
             <div class="col-md-6">
                 <div class="header-slider normal-slider">
-                    <div class="header-slider-item">
-                        <img src="img/slider-1.jpg" alt="Slider Image"/>
-                        <div class="header-slider-caption">
-                            <p>Some text goes here that describes the image</p>
-                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Shop Now</a>
-                        </div>
-                    </div>
-                    <div class="header-slider-item">
-                        <img src="img/slider-2.jpg" alt="Slider Image"/>
-                        <div class="header-slider-caption">
-                            <p>Some text goes here that describes the image</p>
-                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Shop Now</a>
-                        </div>
-                    </div>
-                    <div class="header-slider-item">
-                        <img src="img/slider-3.jpg" alt="Slider Image"/>
-                        <div class="header-slider-caption">
-                            <p>Some text goes here that describes the image</p>
-                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Shop Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
+                    <center>
+                        <div class="header-slider-item" style="height: 400px;  overflow: hidden">
+                            <a href="/products"><img src="https://cdn.dribbble.com/users/3237629/screenshots/12922403/artboard_1_copy_3_4x.jpg"
+                                 alt="Slider Image" style="width: 100%"/></a>
 
+                        </div>
+                    </center>
+                    <center>
+                        <div class="header-slider-item" style=" height: 400px; overflow: hidden">
+                            <a href="/products"><img src="https://bizweb.dktcdn.net/thumb/large/100/039/880/products/169534ci107x1-c4273247-9898-4f92-9484-d7675e059dda.jpg?v=1623313685000"
+                                                     alt="Slider Image" style="width: 100%"/></a>
+
+                        </div>
+                    </center>
+                    <center>
+                        <div class="header-slider-item" style="height: 400px; overflow: hidden">
+                            <a href="/products"> <img src="https://cdn.dribbble.com/users/3334486/screenshots/16038982/media/606955cbf8891157d3ca6d40263d3bea.jpg?compress=1&resize=400x300"
+                                                      alt="Slider Image" style="width: 100%"/></a>
+
+                        </div>
+                    </center>
                 </div>
+                <div class="col-md-3"></div>
             </div>
+
         </div>
     </div>
+</div>
 </div>
 <!-- Main Slider End -->
 
@@ -210,45 +209,33 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="category-item ch-400">
-                    <img src="img/category-3.jpg"/>
-                    <a class="category-name" href="">
-                        <p>Some text goes here that describes the image</p>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="category-item ch-250">
-                    <img src="img/category-4.jpg"/>
-                    <a class="category-name" href="">
-                        <p>Some text goes here that describes the image</p>
-                    </a>
-                </div>
-                <div class="category-item ch-150">
-                    <img src="img/category-5.jpg"/>
-                    <a class="category-name" href="">
-                        <p>Some text goes here that describes the image</p>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="category-item ch-150">
-                    <img src="img/category-6.jpg"/>
-                    <a class="category-name" href="">
-                        <p>Some text goes here that describes the image</p>
-                    </a>
-                </div>
-                <div class="category-item ch-250">
-                    <img src="img/category-7.jpg"/>
-                    <a class="category-name" href="">
-                        <p>Some text goes here that describes the image</p>
+                    <img src="https://i.pinimg.com/originals/8f/bf/75/8fbf75fcdc3a1660a341b6c8ae720cf9.jpg"/>
+                    <a class="category-name" href="/products?action=list&category=1">
+                        <p style="font-size: 40px">NIKE</p>
                     </a>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="category-item ch-400">
-                    <img src="img/category-8.jpg"/>
-                    <a class="category-name" href="">
-                        <p>Some text goes here that describes the image</p>
+                    <img src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/enUS/Images/ultraboost_Ingrid_Banner_D_tcm221-626518.jpg"/>
+                    <a class="category-name" href="/products?action=list&category=2">
+                        <p style="font-size: 40px">ADIDAS</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3" >
+                <div class="category-item ch-400">
+                    <img src="https://5.imimg.com/data5/ANDROID/Default/2020/9/AX/DC/SX/113109586/product-jpeg-500x500.jpg"/>
+                    <a class="category-name" href="/products?action=list&category=3">
+                        <p style="font-size: 40px">PUMA</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="category-item ch-400">
+                    <img src="https://www.converse.com/dw/image/v2/BCZC_PRD/on/demandware.static/-/Sites-cnv-master-catalog/default/dw7fce8cfc/images/j_08/572038C_J_08X1.jpg?sw=406"/>
+                    <a class="category-name" href="/products?action=list&category=4">
+                        <p style="font-size: 40px">CONVERSE</p>
                     </a>
                 </div>
             </div>
