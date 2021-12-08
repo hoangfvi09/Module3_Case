@@ -12,5 +12,7 @@ public interface IUserService extends IService<User> {
 
     User checkAccountExist(String username) throws SQLException;
 
+    boolean isExisting(String email) throws SQLException;
+
 
 }

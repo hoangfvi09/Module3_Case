@@ -56,7 +56,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>E Store - eCommerce HTML Template</title>
+    <title>Naiker - Find your fast</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="eCommerce HTML Template Free Download" name="keywords">
     <meta content="eCommerce HTML Template Free Download" name="description">
@@ -92,7 +92,9 @@
                 <div class="navbar-nav mr-auto">
                     <a href="/" class="nav-item nav-link">Home</a>
                     <a href="/products" class="nav-item nav-link active">Products</a>
-                    <a href="carts" class="nav-item nav-link">Cart</a>
+                    <c:if test="${sessionScope.currentUser.role != 1}">
+                        <a href="/carts" class="nav-item nav-link">Cart</a>
+                    </c:if>
                     <c:if test="${sessionScope.currentUser != null}">
                         <a href="/orders" class="nav-item nav-link">Order</a>
                     </c:if>
@@ -120,7 +122,7 @@
                             </c:if>
                             <c:if test="${sessionScope.currentUser == null}">
                                 <a href="/login" class="dropdown-item">Login</a>
-                                <a href="/users?action=create" class="dropdown-item">Register</a>
+                                <a href="/register" class="dropdown-item">Register</a>
                             </c:if>
                         </div>
                     </div>
@@ -213,38 +215,31 @@
                             <div class="col-md-4">
                                 <div class="product-item">
                                     <div class="product-title">
-                                        <a href="#">${productList.get(i).name}</a>
-                                        <div class="ratting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
+                                        <a href="/products?action=view&id=${productList.get(i).getId()}">${productList.get(i).name}</a>
                                     </div>
                                     <div class="product-image">
-                                        <a href="product_detail.jsp">
+                                        <a href="/products?action=view&id=${productList.get(i).getId()}">
                                             <img src="${productList.get(i).image}" alt="Product Image">
                                         </a>
                                         <div class="product-action">
-                                            <a href="/carts?action=add-product&id=${productList.get(i).getId()}&quantity=1"><i
-                                                    class="fa fa-cart-plus"></i></a>
+                                            <c:if test="${sessionScope.currentUser.role != 1}">
+                                                <a href="/carts?action=add-product&id=${productList.get(i).getId()}&quantity=1"><i
+                                                        class="fa fa-cart-plus"></i></a>
+                                            </c:if>
+                                            <c:if test="${sessionScope.currentUser.role == 1}">
+                                                <a onclick="return confirm('Are you sure?')"
+                                                   href="/products?action=delete&id=${productList.get(i).getId()}"
+                                                   class="btn" style="width: 60px"> Delete </a>
+                                                <a href="/products?action=edit&id=${productList.get(i).getId()}"
+                                                   class="btn"> Edit </a>
+                                            </c:if>
 
                                         </div>
                                     </div>
                                     <div class="product-price">
                                         <h3 style="color: white">$ ${productDetailList.get(i).getPrice()}</h3>
-                                        <br>
-                                        <c:if test="${sessionScope.currentUser.role == 1}">
-                                            <center>
-                                                <a onclick="return confirm('Are you sure?')"
-                                                   href="/products?action=delete&id=${productList.get(i).getId()}"
-                                                   class="btn cart"> Delete </a>
-                                                <a href="/products?action=edit&id=${productList.get(i).getId()}"
-                                                   class="btn cart"> Edit </a>
-                                            </center>
 
-                                        </c:if>
+
                                             <%--                                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>--%>
                                     </div>
                                 </div>
@@ -277,16 +272,6 @@
 
             <!-- Side Bar Start -->
             <div class="col-lg-4 sidebar">
-                <div class="sidebar-widget tag">
-                    <h2 class="title">Category</h2>
-                    <a href="/products?action=list">ALL</a>
-                    <a href="/products?action=list&category=1">Nike</a>
-                    <a href="/products?action=list&category=2">Adidas</a>
-                    <a href="/products?action=list&category=3">Puma</a>
-                    <a href="/products?action=list&category=4">Converse</a>
-                </div>
-
-
                 <div class="sidebar-widget brands">
                     <h2 class="title">Category</h2>
                     <ul>
@@ -330,35 +315,24 @@
                 <div class="footer-widget">
                     <h2>Get in Touch</h2>
                     <div class="contact-info">
-                        <p><i class="fa fa-map-marker"></i>My Dinh 2 - Ha Noi</p>
                         <p><i class="fa fa-envelope"></i>uyblack1234567890@gmail.com</p>
-                        <p><i class="fa fa-phone"></i>0325836893</p>
+                        <p><i class="fa fa-envelope"></i>ducviet12vl@gmail.com</p>
+                        <p><i class="fa fa-envelope"></i>hoangvixinh@gmail.com</p>
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-3 col-md-6">
-                <div class="footer-widget">
-                    <h2>Follow Us</h2>
-                    <div class="contact-info">
-                        <div class="social">
-                            <a href="https://www.facebook.com/UyLe2003/"><i class="fab fa-twitter"></i></a>
-                            <a href=""><i class="fab fa-facebook-f"></i></a>
-                            <a href=""><i class="fab fa-linkedin-in"></i></a>
-                            <a href=""><i class="fab fa-instagram"></i></a>
-                            <a href="https://www.youtube.com/c/nike"><i class="fab fa-youtube"></i></a>
-                        </div>
-                    </div>
-                </div>
+
             </div>
 
             <div class="col-lg-3 col-md-6">
                 <div class="footer-widget">
                     <h2>Shop members</h2>
                     <ul>
-                        <li><a href="#">Uy</a></li>
-                        <li><a href="#">Huong</a></li>
-                        <li><a href="#">Viet</a></li>
+                        <li>Le Dinh Uy</li>
+                        <li>Trinh Lan Huong</li>
+                        <li>Hoang Duc Viet</li>
                     </ul>
                 </div>
             </div>
@@ -367,12 +341,51 @@
 
             </div>
         </div>
+    </div>
+</div>
 
         <!-- Footer End -->
 
         <!-- Footer Bottom Start -->
 
+
+<!-- Footer Start -->
+<div class="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-widget">
+                    <h2>Get in Touch</h2>
+                    <div class="contact-info">
+                        <p><i class="fa fa-envelope"></i>uyblack1234567890@gmail.com</p>
+
+                        <p><i class="fa fa-envelope"></i>hoangvixinh@gmail.com</p>
+                        <p><i class="fa fa-envelope"></i>ducviet12vl@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-widget">
+                    <h2>Shop members</h2>
+                    <ul>
+                        <li>Le Dinh Uy</li>
+                        <li>Trinh Lan Huong</li>
+                        <li>Hoang Duc Viet</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+
+            </div>
+        </div>
     </div>
+</div>
+<!-- Footer End -->
     <!-- Footer Bottom End -->
 
     <!-- Back to Top -->
@@ -386,6 +399,6 @@
 
     <!-- Template Javascript -->
     <script src="../../js/main.js"></script>
-</div>
+
 </body>
 </html>

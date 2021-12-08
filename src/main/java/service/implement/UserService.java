@@ -22,7 +22,6 @@ public class UserService implements IUserService {
     private final String UPDATE_USERS_SQL = "update users set name = ?, email= ?, password = ?, role =?, image = ? where id = ?";
     private final String LOGIN_USER_SQL = "select * from users where email = ? and password = ?";
     private final String CHECK_ACCOUNT_BY_EMAIL = "select * from users where email = ?";
-
     private final String SELECT_USER_BY_USERNAME_PASS = "select * from user where username like ? and password like ?";
     private final String SELECT_USER_BY_USERNAME = "select id, username, password, email, address, avatar from user where username like ?";
     private final String SQL_GET_ALL_USERS = "{call get_all_users()}";
@@ -34,7 +33,7 @@ public class UserService implements IUserService {
         Connection connection = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/product_management?useSSL=false", "root", "123456");
+            connection = DriverManager.getConnection(jdbcURL, jdbcUsername,jdbcPassword);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -166,12 +165,13 @@ public class UserService implements IUserService {
         }
         return null;
     }
+
     @Override
-    public User checkAccountExist(String username) {
+    public User checkAccountExist(String email) {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CHECK_ACCOUNT_BY_EMAIL);) {
             System.out.println(preparedStatement);
-            preparedStatement.setString(1, username);
+            preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 return new User(resultSet.getInt(1),
@@ -186,7 +186,15 @@ public class UserService implements IUserService {
         }
         return null;
     }
-
+    @Override
+    public boolean isExisting(String email) throws SQLException {
+        for (User user:findAll()) {
+            if (user.getEmail().equals(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     private void printSQLException(SQLException ex) {
         for (Throwable e : ex) {

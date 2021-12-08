@@ -50,7 +50,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>E Store - eCommerce HTML Template</title>
+    <title>Naiker - Find your fast</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="eCommerce HTML Template Free Download" name="keywords">
     <meta content="eCommerce HTML Template Free Download" name="description">
@@ -87,8 +87,10 @@
                 <div class="navbar-nav mr-auto">
                     <a href="/" class="nav-item nav-link">Home</a>
                     <a href="/products" class="nav-item nav-link">Products</a>
-                    <a href="/carts" class="nav-item nav-link active">Cart</a>
-                    <c:if test="${sessionScope.currentUser != null}">
+                    <c:if test="${sessionScope.currentUser.role != 1}">
+                        <a href="/carts" class="nav-item nav-link">Cart</a>
+                    </c:if>
+                    <c:if test="${sessionScope.currentUser != null}">`
                         <a href="/orders" class="nav-item nav-link">Order</a>
                     </c:if>
                     <c:if test="${sessionScope.currentUser.role == 1}">
@@ -164,7 +166,6 @@
     <div class="container-fluid">
         <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item"><a href="/products">Products</a></li>
             <li class="breadcrumb-item active">Cart</li>
         </ul>
     </div>
@@ -218,7 +219,7 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td>${priceList.get(i)*myCart.get(i).quantity}</td>
+                                    <td>$${priceList.get(i)*myCart.get(i).quantity}</td>
                                     <td><a onclick="return confirm('Are you sure?')"
                                            href="/carts?action=delete&id=${productList.get(i).id}"><i
                                             class="fa fa-trash"></i></a></td>
@@ -241,9 +242,9 @@
                                 <div class="cart-content">
                                     <c:if test="${myCart != null}">
                                         <h1>Cart Summary</h1>
-                                        <p>Sub Total<span>${total}</span></p>
+                                        <p>Sub Total<span>$${total}</span></p>
                                         <p>Shipping Cost<span>$100</span></p>
-                                        <h2>Grand Total<span>${total+100}</span></h2>
+                                        <h2>Grand Total<span>$${total+100}</span></h2>
                                     </c:if>
                                     <c:if test="${myCart == null}">
                                         <h1>Cart Summary</h1>
