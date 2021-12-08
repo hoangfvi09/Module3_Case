@@ -213,17 +213,10 @@
                             <div class="col-md-4">
                                 <div class="product-item">
                                     <div class="product-title">
-                                        <a href="#">${productList.get(i).name}</a>
-                                        <div class="ratting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
+                                        <a href="/products?action=view&id=${productList.get(i).getId()}">${productList.get(i).name}</a>
                                     </div>
                                     <div class="product-image">
-                                        <a href="product_detail.jsp">
+                                        <a href="/products?action=view&id=${productList.get(i).getId()}">
                                             <img src="${productList.get(i).image}" alt="Product Image">
                                         </a>
                                         <div class="product-action">
@@ -239,9 +232,9 @@
                                             <center>
                                                 <a onclick="return confirm('Are you sure?')"
                                                    href="/products?action=delete&id=${productList.get(i).getId()}"
-                                                   class="btn cart"> Delete </a>
+                                                   class="btn"> Delete </a>
                                                 <a href="/products?action=edit&id=${productList.get(i).getId()}"
-                                                   class="btn cart"> Edit </a>
+                                                   class="btn"> Edit </a>
                                             </center>
 
                                         </c:if>
@@ -277,16 +270,6 @@
 
             <!-- Side Bar Start -->
             <div class="col-lg-4 sidebar">
-                <div class="sidebar-widget tag">
-                    <h2 class="title">Category</h2>
-                    <a href="/products?action=list">ALL</a>
-                    <a href="/products?action=list&category=1">Nike</a>
-                    <a href="/products?action=list&category=2">Adidas</a>
-                    <a href="/products?action=list&category=3">Puma</a>
-                    <a href="/products?action=list&category=4">Converse</a>
-                </div>
-
-
                 <div class="sidebar-widget brands">
                     <h2 class="title">Category</h2>
                     <ul>
