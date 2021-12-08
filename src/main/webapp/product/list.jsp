@@ -277,7 +277,7 @@
                     <ul>
                         <li><a href="/products?action=list">ALL</a></li>
                         <li><a href="/products?action=list&category=1">NIKE</a></li>
-                        <li><a href="/products?action=list&category=2">ADIDDAS</a></li>
+                        <li><a href="/products?action=list&category=2">ADIDAS</a></li>
                         <li><a href="/products?action=list&category=3">PUMA</a></li>
                         <li><a href="/products?action=list&category=4">CONVERSE</a></li>
                         <c:if test="${sessionScope.currentUser.role == 1}">
@@ -349,43 +349,6 @@
         <!-- Footer Bottom Start -->
 
 
-<!-- Footer Start -->
-<div class="footer">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-widget">
-                    <h2>Get in Touch</h2>
-                    <div class="contact-info">
-                        <p><i class="fa fa-envelope"></i>uyblack1234567890@gmail.com</p>
-
-                        <p><i class="fa fa-envelope"></i>hoangvixinh@gmail.com</p>
-                        <p><i class="fa fa-envelope"></i>ducviet12vl@gmail.com</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-widget">
-                    <h2>Shop members</h2>
-                    <ul>
-                        <li>Le Dinh Uy</li>
-                        <li>Trinh Lan Huong</li>
-                        <li>Hoang Duc Viet</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Footer End -->
     <!-- Footer Bottom End -->
 
     <!-- Back to Top -->

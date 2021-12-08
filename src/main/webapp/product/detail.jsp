@@ -181,16 +181,19 @@
     </div>
     <div class="row">
         <c:if test="${sessionScope.currentUser.role != 1}">
-            <a href="/carts?action=add-product&id=${productList.get(i).getId()}&quantity=1" class="btn">Add to cart</a>
+            <a href="/carts?action=add-product&id=${product.id}&quantity=1" class="btn">Add to cart</a>
         </c:if>
         <c:if test="${sessionScope.currentUser.role == 1}">
-            <a onclick="return confirm('Are you sure?')"
-               href="/products?action=delete&id=${productList.get(i).getId()}"
-               class="btn" style="width: 80px"> Delete </a>
-            <a href="/products?action=edit&id=${productList.get(i).getId()}"
+            <c:if test="${productDetail.status != 0}">
+                <a onclick="return confirm('Are you sure?')"
+                   href="/products?action=delete&id=${product.id}"
+                   class="btn" style="width: 80px"> Delete </a>
+            </c:if>
+            <a href="/products?action=edit&id=${product.id}"
                class="btn"> Edit </a>
         </c:if>
     </div>
+    <div class="row"></div>
 </div>
 
 <!-- Footer Start -->
