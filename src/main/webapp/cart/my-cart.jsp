@@ -50,7 +50,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>E Store - eCommerce HTML Template</title>
+    <title>Naiker - Find your fast</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="eCommerce HTML Template Free Download" name="keywords">
     <meta content="eCommerce HTML Template Free Download" name="description">
@@ -87,7 +87,9 @@
                 <div class="navbar-nav mr-auto">
                     <a href="/" class="nav-item nav-link">Home</a>
                     <a href="/products" class="nav-item nav-link">Products</a>
-                    <a href="/carts" class="nav-item nav-link active">Cart</a>
+                    <c:if test="${sessionScope.currentUser.role != 1}">
+                        <a href="/carts" class="nav-item nav-link">Cart</a>
+                    </c:if>
                     <c:if test="${sessionScope.currentUser != null}">
                         <a href="/orders" class="nav-item nav-link">Order</a>
                     </c:if>

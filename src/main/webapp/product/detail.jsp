@@ -1,16 +1,13 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: vieth
-  Date: 12/6/2021
-  Time: 10:54 AM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>E Store - eCommerce HTML Template</title>
+    <title>Naiker - Find your fast</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="eCommerce HTML Template Free Download" name="keywords">
     <meta content="eCommerce HTML Template Free Download" name="description">
@@ -19,7 +16,8 @@
     <link href="img/favicon.ico" rel="icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap"
+          rel="stylesheet">
 
     <!-- CSS Libraries -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -48,6 +46,12 @@
                     <a href="/products" class="nav-item nav-link">Products</a>
                     <c:if test="${sessionScope.currentUser.role != 1}">
                         <a href="/carts" class="nav-item nav-link">Cart</a>
+                    </c:if>
+                    <c:if test="${sessionScope.currentUser != null}">
+                        <a href="/orders" class="nav-item nav-link">Order</a>
+                    </c:if>
+                    <c:if test="${sessionScope.currentUser.role == 1}">
+                        <a href="/products?action=create" class="nav-item nav-link">Add products</a>
                     </c:if>
                     <div class="nav-item dropdown">
 
@@ -106,47 +110,71 @@
         <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="/home">Home</a></li>
             <li class="breadcrumb-item"><a href="/products">Products</a></li>
-            <li class="breadcrumb-item active">Login</li>
+            <li class="breadcrumb-item active">Add products</li>
         </ul>
     </div>
 </div>
 <!-- Breadcrumb End -->
 
 <!-- Login Start -->
-<div class="login">
-    <div class="container-fluid">
-        <div class="row">
-                <div class="col-lg-12">
-                    <form method="post">
-                    <div class="login-form">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p class="text-danger">${verifyResult}</p>
-                            </div>
-                            <div class="col-md-12">
-                                <label>E-mail / Username</label>
-                                <input class="form-control" type="email" name="email" placeholder="E-mail / Username">
-                            </div>
-                            <div class="col-md-12">
-                                <label>Password</label>
-                                <input class="form-control" type="password" name="password" placeholder="Password">
-                            </div>
-                            <div class="col-md-12">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="login-form">
+                <div class="row">
 
-                            </div>
-                            <div class="col-md-12">
-                                <button class="btn">Login</button>
-                            </div>
-                        </div>
+                    <div class="col-md-12">
+                        <label><h4>Name: ${product.name}</h4></label><br>
+
                     </div>
-                    </form>
-                </div>
+                    <div class="col-md-12">
+                        <label>Id: ${product.id}</label>
 
+                    </div>
+                    <div class="col-md-12">
+                        <label>Category Id: ${product.categoryId}</label>
+
+                    </div>
+                    <div class="col-md-12">
+                        <label>Description: ${product.description}</label>
+
+                    </div>
+                    <div class="col-md-12">
+                        <label>Sold quantity: ${product.sold}</label>
+
+                    </div>
+                    <div class="col-md-12">
+                        <label>In Stock Quantity: ${productDetail.inStock}</label>
+
+                    </div>
+                    <div class="col-md-12">
+                        <label>Price: ${productDetail.price}</label>
+
+                    </div>
+                    <div class="col-md-12">
+                        <label>Status: ${productDetail.status}</label>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <img src="${product.image}" style="width: 70%">
         </div>
     </div>
+    <div class="row">
+        <c:if test="${sessionScope.currentUser.role != 1}">
+            <a href="/carts?action=add-product&id=${productList.get(i).getId()}&quantity=1" class="btn">Add to cart</a>
+        </c:if>
+        <c:if test="${sessionScope.currentUser.role == 1}">
+            <a onclick="return confirm('Are you sure?')"
+               href="/products?action=delete&id=${productList.get(i).getId()}"
+               class="btn" style="width: 60px"> Delete </a>
+            <a href="/products?action=edit&id=${productList.get(i).getId()}"
+               class="btn"> Edit </a>
+        </c:if>
+    </div>
 </div>
-<!-- Login End -->
-
 
 <!-- Back to Top -->
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
@@ -161,3 +189,12 @@
 <script src="js/main.js"></script>
 </body>
 </html>
+
+
+</title>
+</head>
+<body>
+
+</body>
+</html>
+
