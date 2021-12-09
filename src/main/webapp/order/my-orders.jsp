@@ -218,9 +218,9 @@
 
                                         </td>
                                         <td>
-                                            <c:if test="${(myOrders.get(i).status != 0)&&(myOrders.get(i).status != 3)}">
+                                            <c:if test="${(myOrders.get(i).status == 1)}">
                                                 <a onclick="return confirm('Are you sure to cancel this order?')"
-                                                   href="/orders?action=cancel&id=${myOrders.get(i).id}">
+                                                   href="/orders?action=cancel&id=${myOrders.get(i).id}" style="color: red">
                                                     Cancel</a>
                                             </c:if>
                                         </td>
